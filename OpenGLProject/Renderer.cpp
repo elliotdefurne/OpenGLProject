@@ -15,7 +15,12 @@ Renderer::Renderer()
 
 Renderer::~Renderer() {}
 
-void Renderer::update() {
+/**
+ * Met à jour le timing des frames.
+ * Applique une limite de FPS si activée,
+ * et affiche les FPS chaque seconde.
+ */
+void Renderer::handleFrameTiming() {
     double frameTime = 1.0 / m_targetFPS;
     double currentTime = glfwGetTime();
     m_deltaTime = static_cast<float>(currentTime - m_lastTime);

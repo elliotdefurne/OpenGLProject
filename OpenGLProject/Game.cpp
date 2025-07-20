@@ -47,7 +47,7 @@ void Game::Run() {
 	while (!m_window->getShouldClose()) {
 		// UPDATE
 
-		m_renderer->update();
+		m_renderer->handleFrameTiming();
 		m_window->update();
 
 		ProcessInput();

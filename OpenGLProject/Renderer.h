@@ -6,7 +6,7 @@ public:
     ~Renderer();
 
     // À appeler une fois par frame
-    void update();
+    void handleFrameTiming();
 
     // Lance le rendu (clear, etc)
     void clear();

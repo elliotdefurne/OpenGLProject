@@ -9,7 +9,7 @@ class Game
 	public:
 	Game();
 	~Game();
-	void Initialize();
+	
 	void Run();
 
 	private:
@@ -19,5 +19,6 @@ class Game
 	Rectangle* m_rectangle;
 	bool m_isRunning = true;
 	void ProcessInput();
+	void Initialize();
 };
 
