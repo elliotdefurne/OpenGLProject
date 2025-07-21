@@ -53,27 +53,5 @@ void Game::Run() {
 		ProcessInput();
 
 		m_renderer->clear();
-
-		// DRAW
-		glColor3f(1.0f, 1.0f, 1.0f);
-		m_rectangle->draw();
-	}
-}
-
-void Game::ProcessInput() {
-	// Process input events
-	if (m_inputManager->isKeyPressed(GLFW_KEY_ESCAPE)) {
-		delete this; // Exit the game
-	}
-	else {
-		// Déplacement
-		if (m_inputManager->isKeyPressed(GLFW_KEY_W))
-			m_rectangle->move(0, Constants::PLAYER_SPEED * m_renderer->getDeltaTime());
-		if (m_inputManager->isKeyPressed(GLFW_KEY_S))
-			m_rectangle->move(0, -Constants::PLAYER_SPEED * m_renderer->getDeltaTime());
-		if (m_inputManager->isKeyPressed(GLFW_KEY_A))
-			m_rectangle->move(-Constants::PLAYER_SPEED * m_renderer->getDeltaTime(), 0);
-		if (m_inputManager->isKeyPressed(GLFW_KEY_D))
-			m_rectangle->move(Constants::PLAYER_SPEED * m_renderer->getDeltaTime(), 0);
 	}
 }
