@@ -1,8 +1,6 @@
-#include "Game.h"
-#include "constants.h"
-#include <glad/glad.h>
-#include <GLFW/glfw3.h>
-#include <iostream>
+#include "config.h"
+
+
 
 Game::Game() : m_window(nullptr), m_renderer(nullptr) {
 	// Initialize GLFW
@@ -20,20 +18,12 @@ Game::~Game() {
 	if (m_renderer) {
 		delete m_renderer;
 	}
-	if (m_inputManager) {
-		delete m_inputManager;
-	}
-	if (m_rectangle) {
-		delete m_rectangle;
-	}
 	glfwTerminate();
 }
 
 void Game::Initialize() {
 	m_window = new Window(Constants::WINDOW_WIDTH, Constants::WINDOW_HEIGHT, Constants::WINDOW_TITLE);
 	m_renderer = new Renderer();
-	m_inputManager = new InputManager(m_window->getGLFWwindow());
-	m_rectangle = new Rectangle(100.0f, 100.0f, 50.0f, 50.0f);
 
 	// Setup orthographic projection (2D pixels)
 	glMatrixMode(GL_PROJECTION);
@@ -48,9 +38,21 @@ void Game::Run() {
 		// UPDATE
 
 		m_renderer->handleFrameTiming();
-		m_window->update();
+		m_window->update(); 
 
-		ProcessInput();
+		// RENDER
+
+		std::vector<Vertex> verts = {
+			Vertex(-0.5f, -0.5f, 0.0f),
+			Vertex(0.5f, -0.5f, 0.0f),
+			Vertex(0.0f, 0.5f, 0.0f)
+		};
+
+		std::vector<unsigned int> indices = { 0, 1, 2 };
+
+		Mesh mesh;
+		mesh.load(verts, indices);
+		mesh.draw();
 
 		m_renderer->clear();
 	}

@@ -1,8 +1,6 @@
 #pragma once
 #include "Window.h"
 #include "Renderer.h"
-#include "InputManager.h"
-#include "Rectangle.h"
 class Game
 {
 
@@ -15,10 +13,7 @@ class Game
 	private:
 	Window* m_window;
 	Renderer* m_renderer;
-	InputManager* m_inputManager;
-	Rectangle* m_rectangle;
 	bool m_isRunning = true;
-	void ProcessInput();
 	void Initialize();
 };
 
