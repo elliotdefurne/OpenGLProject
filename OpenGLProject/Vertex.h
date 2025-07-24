@@ -11,3 +11,4 @@ public:
 private:
 	float m_x, m_y, m_z; // Coordinates of the vertex
 };
+

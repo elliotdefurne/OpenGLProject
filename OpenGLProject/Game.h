@@ -2,6 +2,7 @@
 #include "Window.h"
 #include "Renderer.h"
 
+#include "Rectangle.h"
 class Game
 {
 
