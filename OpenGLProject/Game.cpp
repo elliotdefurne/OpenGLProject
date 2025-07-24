@@ -59,24 +59,35 @@ void Game::Render() {
 	// Render the game scene here
 
 	std::vector<Vertex> verts = {
-			Vertex(-0.5f, -0.5f, 0.0f), // Inf gauche 0
-			Vertex(0.5f, -0.5f, 0.0f), // Inf droit 1
-			Vertex(-0.5f, 0.5f, 0.0f), // Sup gauche 2
-			Vertex(0.5f, 0.5f, 0.0f)  // Sup droit 3
-			/*
-			2 3
-			0 1
-			*/
+			Vertex(-0.75f, -0.75f, 0.0f),
+			Vertex(0, -0.75f, 0.0f),
+			Vertex(-0.75f, 0.0f, 0.0f),
 	};
 
-	std::vector<unsigned int> indices = { 0, 1, 3, 3, 0, 2};
+	std::vector<unsigned int> indices = { 0, 1, 2};
 
-	Shader shader("./res/shaders/basic.vert", "./res/shaders/basic.frag", true);
+	Shader rouge("./res/shaders/basic.vert", "./res/shaders/rouge.frag", true);
+	Shader vert("./res/shaders/basic.vert", "./res/shaders/vert.frag", true);
 
-	shader.use();
+	rouge.use();
 
-	// Draw the mesh
 	Mesh mesh;
 	mesh.load(verts, indices);
 	mesh.draw();
+
+	std::vector<Vertex> verts2 = {
+			Vertex(0.75f, 0.75f, 0.0f),
+			Vertex(0.0f, 0.75f, 0.0f),
+			Vertex(0.75f, 0.0f, 0.0f),
+	};
+
+	std::vector<unsigned int> indices2 = { 0, 1, 2 };
+	// Draw the mesh
+	
+	vert.use();
+
+	
+	Mesh mesh2;
+	mesh2.load(verts2, indices2);
+	mesh2.draw();
 }

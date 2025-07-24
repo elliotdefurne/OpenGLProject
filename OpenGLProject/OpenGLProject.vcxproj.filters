@@ -79,7 +79,10 @@
     <None Include="res\shaders\basic.vert">
       <Filter>Fichiers de ressources\shaders</Filter>
     </None>
-    <None Include="res\shaders\basic.frag">
+    <None Include="res\shaders\rouge.frag">
+      <Filter>Fichiers de ressources\shaders</Filter>
+    </None>
+    <None Include="res\shaders\vert.frag">
       <Filter>Fichiers de ressources\shaders</Filter>
     </None>
   </ItemGroup>
