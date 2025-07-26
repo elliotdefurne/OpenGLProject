@@ -52,7 +52,6 @@ void Game::Run() {
 
 void Game::Update() {
 	// Update game logic here
-	
 }
 
 void Game::Render() {
@@ -60,34 +59,23 @@ void Game::Render() {
 
 	std::vector<Vertex> verts = {
 			Vertex(-0.75f, -0.75f, 0.0f),
-			Vertex(0, -0.75f, 0.0f),
-			Vertex(-0.75f, 0.0f, 0.0f),
+			Vertex(0, 0.75f, 0.0f),
+			Vertex(0.75f, -0.75f, 0.0f),
 	};
 
 	std::vector<unsigned int> indices = { 0, 1, 2};
 
-	Shader rouge("./res/shaders/basic.vert", "./res/shaders/rouge.frag", true);
-	Shader vert("./res/shaders/basic.vert", "./res/shaders/vert.frag", true);
+	Shader basic("./res/shaders/basic.vert", "./res/shaders/basic.frag", true);
 
-	rouge.use();
+	float timeValue = glfwGetTime();
+	float greenValue = (sin(timeValue) / 2.0f) + 0.5f;
+	int vertexColorLocation = glGetUniformLocation(basic.getID(), "ourColor");
+	glUseProgram(basic.getID());
+	glUniform4f(vertexColorLocation, 0.0f, greenValue, 0.0f, 1.0f);
+
+	basic.use();
 
 	Mesh mesh;
 	mesh.load(verts, indices);
 	mesh.draw();
-
-	std::vector<Vertex> verts2 = {
-			Vertex(0.75f, 0.75f, 0.0f),
-			Vertex(0.0f, 0.75f, 0.0f),
-			Vertex(0.75f, 0.0f, 0.0f),
-	};
-
-	std::vector<unsigned int> indices2 = { 0, 1, 2 };
-	// Draw the mesh
-	
-	vert.use();
-
-	
-	Mesh mesh2;
-	mesh2.load(verts2, indices2);
-	mesh2.draw();
 }

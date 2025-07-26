@@ -49,9 +49,36 @@ bool Window::init() {
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
-    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_COMPAT_PROFILE);
+    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE); // de préférence
+    // Note : pour compatibilité maximum tu peux garder COMPAT_PROFILE si tu en as besoin
 
-    m_window = glfwCreateWindow(m_width, m_height, m_title, nullptr, nullptr);
+    GLFWmonitor* monitor = nullptr;
+    const GLFWvidmode* mode = nullptr;
+
+    if (Constants::IS_WINDOW_FULLSCREEN) {
+        monitor = glfwGetPrimaryMonitor();
+        mode = glfwGetVideoMode(monitor);
+        if (!mode) {
+            std::cerr << "Failed to get video mode for fullscreen\n";
+            return false;
+        }
+
+        // Important : fixer la résolution, le taux de rafraîchissement, etc.
+        glfwWindowHint(GLFW_RED_BITS, mode->redBits);
+        glfwWindowHint(GLFW_GREEN_BITS, mode->greenBits);
+        glfwWindowHint(GLFW_BLUE_BITS, mode->blueBits);
+        glfwWindowHint(GLFW_REFRESH_RATE, mode->refreshRate);
+
+        m_width = mode->width;
+        m_height = mode->height;
+    }
+
+    m_window = glfwCreateWindow(
+        m_width, m_height, m_title,
+        monitor, // ? si monitor ? nullptr, tu es en plein écran exclusif
+        nullptr
+    );
+
     if (!m_window) {
         std::cerr << "Failed to create GLFW window\n";
         glfwTerminate();

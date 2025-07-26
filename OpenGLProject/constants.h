@@ -5,6 +5,7 @@ namespace Constants {
     constexpr int WINDOW_WIDTH = 800;
     constexpr int WINDOW_HEIGHT = 600;
     constexpr const char* WINDOW_TITLE = "Mon jeu OpenGL";
+    constexpr bool IS_WINDOW_FULLSCREEN = false;
 
     // Renderer
     constexpr int DEFAULT_FPS_CAPPING = 60;
