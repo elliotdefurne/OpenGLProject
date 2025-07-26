@@ -17,20 +17,28 @@ void Mesh::load(const std::vector<Vertex>& vertices, const std::vector<unsigned 
 
     glBindVertexArray(m_vao);
 
-    // Upload des sommets
+    // Upload vertex
     glBindBuffer(GL_ARRAY_BUFFER, m_vbo);
     glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(Vertex), vertices.data(), GL_STATIC_DRAW);
 
-    // Upload des indices
+    // Upload indices
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_ebo);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(unsigned int), indices.data(), GL_STATIC_DRAW);
 
     // Layout de Vertex : position (x, y, z)
+    // Position (location = 0)
     glEnableVertexAttribArray(0);
     glVertexAttribPointer(
         0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)0
     );
 
+    // Layout de Vertex : color (r, g, b)
+    // Color (location = 1)
+    glEnableVertexAttribArray(1);
+    glVertexAttribPointer(
+        1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)(3 * sizeof(float))
+    );
+    
     glBindVertexArray(0);
 }
 

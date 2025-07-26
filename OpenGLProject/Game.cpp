@@ -58,9 +58,9 @@ void Game::Render() {
 	// Render the game scene here
 
 	std::vector<Vertex> verts = {
-			Vertex(-0.75f, -0.75f, 0.0f),
-			Vertex(0, 0.75f, 0.0f),
-			Vertex(0.75f, -0.75f, 0.0f),
+			Vertex(0.0f, 0.5f, 0.0f, 1.0f, 0.0f, 0.0f), // Rouge
+			Vertex(0.5f, -0.5f, 0.0f, 0.0f, 1.0f, 0.0f), // Vert
+			Vertex(-0.5f, -0.5f, 0.0f, 0.0f, 0.0f, 1.0f), // Bleu
 	};
 
 	std::vector<unsigned int> indices = { 0, 1, 2};
