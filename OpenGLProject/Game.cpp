@@ -61,17 +61,12 @@ void Game::Render() {
 			Vertex(0.0f, 0.5f, 0.0f, 1.0f, 0.0f, 0.0f), // Rouge
 			Vertex(0.5f, -0.5f, 0.0f, 0.0f, 1.0f, 0.0f), // Vert
 			Vertex(-0.5f, -0.5f, 0.0f, 0.0f, 0.0f, 1.0f), // Bleu
+			Vertex(-0.5f, 0.5f, 0.0f, 1.0f, 1.0f, 1.0f), // Bleu
 	};
 
-	std::vector<unsigned int> indices = { 0, 1, 2};
+	std::vector<unsigned int> indices = { 0, 1, 2, 3, 2, 1};
 
 	Shader basic("./res/shaders/basic.vert", "./res/shaders/basic.frag", true);
-
-	float timeValue = glfwGetTime();
-	float greenValue = (sin(timeValue) / 2.0f) + 0.5f;
-	int vertexColorLocation = glGetUniformLocation(basic.getID(), "ourColor");
-	glUseProgram(basic.getID());
-	glUniform4f(vertexColorLocation, 0.0f, greenValue, 0.0f, 1.0f);
 
 	basic.use();
 
