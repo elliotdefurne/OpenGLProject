@@ -8,7 +8,8 @@ Mesh::~Mesh() {
     destroy(); // Libération auto à la destruction
 }
 
-void Mesh::load(const std::vector<Vertex>& vertices, const std::vector<unsigned int>& indices) {
+void Mesh::load(const std::vector<Vertex>& vertices, const std::vector<unsigned int>& indices, Texture* texture) {
+	m_texture = texture;
     m_indexCount = static_cast<GLsizei>(indices.size());
 
     glGenVertexArrays(1, &m_vao);
@@ -28,9 +29,7 @@ void Mesh::load(const std::vector<Vertex>& vertices, const std::vector<unsigned 
     // Layout de Vertex : position (x, y, z)
     // Position (location = 0)
     glEnableVertexAttribArray(0);
-    glVertexAttribPointer(
-        0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)0
-    );
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)0);
 
     // Layout de Vertex : color (r, g, b)
     // Color (location = 1)
@@ -38,15 +37,22 @@ void Mesh::load(const std::vector<Vertex>& vertices, const std::vector<unsigned 
     glVertexAttribPointer(
         1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)(3 * sizeof(float))
     );
+
+	// Layout de Vertex : texture (u, v)
+	// Texture (location = 2)
+    glEnableVertexAttribArray(2);
+    glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(6 * sizeof(float)));
+    
     
     glBindVertexArray(0);
 }
 
 
 void Mesh::draw() const {
+    glBindTexture(GL_TEXTURE_2D, m_texture->getID());
     glBindVertexArray(m_vao);
     glDrawElements(GL_TRIANGLES, m_indexCount, GL_UNSIGNED_INT, nullptr);
-    glBindVertexArray(0);
+    glBindVertexArray(0);    
 }
 
 void Mesh::destroy() {

@@ -16,6 +16,9 @@
     <Filter Include="Fichiers de ressources\shaders">
       <UniqueIdentifier>{06246eb9-f98d-41e2-a4b4-bcb04624eb44}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Fichiers de ressources\textures">
+      <UniqueIdentifier>{23fa01f9-80e5-449d-93f0-d483ff0b318b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -36,13 +39,16 @@
     <ClCompile Include="Vertex.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
-    <ClCompile Include="Triangle.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
     <ClCompile Include="Mesh.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
     <ClCompile Include="Shader.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="Texture.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="stb_image_impl.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
   </ItemGroup>
@@ -65,13 +71,13 @@
     <ClInclude Include="Vertex.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-    <ClInclude Include="Triangle.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
     <ClInclude Include="Mesh.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
     <ClInclude Include="Shader.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="Texture.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
   </ItemGroup>
@@ -82,5 +88,16 @@
     <None Include="res\shaders\basic.frag">
       <Filter>Fichiers de ressources\shaders</Filter>
     </None>
+    <None Include="res\textures\rocks.webp">
+      <Filter>Fichiers de ressources\textures</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="res\textures\rocks.png">
+      <Filter>Fichiers de ressources\textures</Filter>
+    </Image>
+    <Image Include="res\textures\verstappen.jpg">
+      <Filter>Fichiers de ressources\textures</Filter>
+    </Image>
   </ItemGroup>
 </Project>

@@ -47,6 +47,13 @@ std::string Shader::loadFromFile(const std::string& path) {
     return buffer.str();
 }
 
+void Shader::setTexture(const std::string& name, GLuint textureID, GLuint unit) const {
+    glActiveTexture(GL_TEXTURE0 + unit);
+    glBindTexture(GL_TEXTURE_2D, textureID);
+    glUniform1i(glGetUniformLocation(m_id, name.c_str()), unit);
+}
+
+
 GLuint Shader::compile(GLenum type, const std::string& source) {
     GLuint shader = glCreateShader(type);
     const char* src = source.c_str();

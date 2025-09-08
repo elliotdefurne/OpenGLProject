@@ -1,16 +1,15 @@
 #include "Game.h"
 
 /*
-TODO:
+* TODO:
+Ajouter la classe Texture dans le diagramme de classes
 
-https://learnopengl.com/Getting-started/Hello-Triangle
-https://www.youtube.com/watch?v=o_J-0p9uoSg
 */
 
-
 int main() {
-	// Initialize the game engine
-    Game game = Game();
+    Game game;
+
     game.Run();
+
     return 0;
 }

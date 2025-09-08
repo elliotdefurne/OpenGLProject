@@ -8,6 +8,7 @@ public:
     ~Shader();
 
     void use() const;
+    void setTexture(const std::string& name, GLuint textureID, GLuint unit = 0) const;
     GLuint getID() const;
 
 private:

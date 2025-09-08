@@ -6,9 +6,10 @@
 #include <iostream>
 #include <vector>
 
-#include "Game.h"
 #include "Mesh.h"
 #include "Vertex.h"
 #include "Shader.h"
+#include "Window.h"
+#include "Renderer.h"
 
 #include "constants.h"
