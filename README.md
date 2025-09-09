@@ -18,6 +18,7 @@ Avant de faire tourner ce code sur votre machine, il vous faut (normalement tout
 - C++17;
 - GLFW;
 - GLAD;
+- stb pour le chargement des images;
 - GLM pour tah les maths.
 
 ##  Installation
