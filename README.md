@@ -28,4 +28,5 @@ Avant de faire tourner ce code sur votre machine, il vous faut (normalement tout
 
 ## Gestion de projet
 
-![Lien drive](https://drive.google.com/drive/folders/1EuFGfcEAO1PhT9rMjm1H0TGoHKP0UnL6?usp=drive_link)
+Lien du drive avec toutes les infos tah les fous:
+https://drive.google.com/drive/folders/1EuFGfcEAO1PhT9rMjm1H0TGoHKP0UnL6?usp=drive_link
