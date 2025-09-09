@@ -1,6 +1,6 @@
 # Projet OpenGL en C++
 
-Ce dépôt contient un projet minimal (mais puissant, parce que C++ et parce que OpenGL) de rendu graphique via OpenGL.
+Ce dépôt contient un projet minimal (mais puissant, parce que C++ et parce que OpenGL) de rendu graphique via OpenGL.<br>
 Basé sur https://learnopengl.com/.
 ![Absolute cinema](absolutecinema.png)
 
@@ -28,5 +28,5 @@ Avant de faire tourner ce code sur votre machine, il vous faut (normalement tout
 
 ## Gestion de projet
 
-Lien du drive avec toutes les infos tah les fous:
+Lien du drive avec toutes les infos tah les fous:<br>
 https://drive.google.com/drive/folders/1EuFGfcEAO1PhT9rMjm1H0TGoHKP0UnL6?usp=drive_link
