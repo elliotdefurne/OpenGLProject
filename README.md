@@ -1,7 +1,7 @@
 # Projet OpenGL en C++
 
 Ce dépôt contient un projet minimal (mais puissant, parce que C++ et parce que OpenGL) de rendu graphique via OpenGL.
-
+Basé sur https://learnopengl.com/.
 ![Absolute cinema](absolutecinema.png)
 
 
@@ -17,7 +17,7 @@ Avant de faire tourner ce code sur votre machine, il vous faut (normalement tout
 
 - C++17;
 - GLFW;
-- GLAD pour choper les fonctions d’OpenGL;
+- GLAD;
 - GLM pour tah les maths.
 
 ##  Installation
