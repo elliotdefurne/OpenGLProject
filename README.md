@@ -7,9 +7,8 @@ Ce dépôt contient un projet minimal (mais puissant, parce que C++ et parce que
 
 ##  Structure du dépôt
 
-- `depencies/` : tout le code source en C++. Organisez comme vous voudrez, mais ça marche.
+- `dependencies/` : tout le code source en C++. Organisez comme vous voudrez, mais ça marche.
 - `res/` : Ressources (Shaders, textures, map, sons etc...)
-- `CMakeLists.txt` ou autre : pour compiler, parce qu’on compile encore au XXIe siècle.
 - `README.md` : ce que vous êtes en train de lire. Bien, non ? 
 
 ##  Prérequis
@@ -29,3 +28,4 @@ Avant de faire tourner ce code sur votre machine, il vous faut (normalement tout
 
 ## Gestion de projet
 
+![Lien drive](https://drive.google.com/drive/folders/1EuFGfcEAO1PhT9rMjm1H0TGoHKP0UnL6?usp=drive_link)
