@@ -7,9 +7,9 @@ Basé sur https://learnopengl.com/.
 
 ##  Structure du dépôt
 
-- `dependencies/` : tout le code source en C++. Organisez comme vous voudrez, mais ça marche.
-- `res/` : Ressources (Shaders, textures, map, sons etc...)
-- `README.md` : ce que vous êtes en train de lire. Bien, non ? 
+- `dependencies/` : Toutes les librairies;
+- `res/` : Ressources (Shaders, textures, map, sons etc...);
+- `README.md` : ce que vous êtes en train de lire. Bien, non ?
 
 ##  Prérequis
 
