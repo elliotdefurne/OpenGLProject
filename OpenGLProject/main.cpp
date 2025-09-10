@@ -2,7 +2,6 @@
 
 /*
 * TODO:
-Ajouter la classe Texture dans le diagramme de classes
 
 */
 

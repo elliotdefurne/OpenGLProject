@@ -11,6 +11,9 @@ public:
 		m_trans = glm::rotate(m_trans, glm::radians(rotationDegrees), rotationAxes);
 		m_trans = glm::scale(m_trans, scale);
 	};
+
+	~Transformation() = default;
+
 	inline glm::mat4 getMatrix() const { return m_trans; };
 private:
 	glm::mat4 m_trans;

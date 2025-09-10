@@ -144,7 +144,6 @@
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="Transformation.h" />
     <ClCompile Include="Texture.cpp" />
-    <ClCompile Include="Vertex.cpp" />
     <ClCompile Include="Window.cpp" />
   </ItemGroup>
   <ItemGroup>

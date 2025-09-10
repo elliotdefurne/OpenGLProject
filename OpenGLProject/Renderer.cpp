@@ -6,6 +6,12 @@
 #include <thread>
 #include <chrono>
 
+/**
+ * @brief Constructeur par défaut du Renderer.
+ *
+ * Initialise les variables de timing, compteur de FPS et configuration
+ * de limitation des FPS avec les valeurs par défaut définies dans Constants.
+ */
 Renderer::Renderer()
     : m_lastTime(glfwGetTime()), m_deltaTime(0.0f),
     m_frameCount(0), m_fpsTimer(0.0),
@@ -13,12 +19,19 @@ Renderer::Renderer()
 {
 }
 
+/**
+ * @brief Destructeur du Renderer.
+ *
+ * Ne libère rien de particulier, mais reste présent pour cohérence.
+ */
 Renderer::~Renderer() {}
 
 /**
- * Met à jour le timing des frames.
- * Applique une limite de FPS si activée,
- * et affiche les FPS chaque seconde.
+ * @brief Met à jour le timing des frames et calcule le deltaTime.
+ *
+ * - Calcule le temps écoulé depuis la dernière frame.
+ * - Applique une limite de FPS si activée.
+ * - Affiche les FPS dans la console chaque seconde.
  */
 void Renderer::handleFrameTiming() {
     double frameTime = 1.0 / m_targetFPS;
@@ -26,10 +39,9 @@ void Renderer::handleFrameTiming() {
     m_deltaTime = static_cast<float>(currentTime - m_lastTime);
 
     if (m_capFPS) {
-        // Spin wait jusqu'à ce que le temps de frame soit atteint
+        // Attente active jusqu'à atteindre le temps de frame voulu
         while ((glfwGetTime() - m_lastTime) < frameTime) {
-            // Pas de sleep, attente active
-            // Optionnel : tu peux mettre un petit pause CPU ici si tu veux économiser CPU
+            // Possibilité d’ajouter une pause CPU ici :
             // std::this_thread::yield();
         }
 
@@ -49,22 +61,39 @@ void Renderer::handleFrameTiming() {
     }
 }
 
-
-
-
+/**
+ * @brief Nettoie le framebuffer avec une couleur par défaut.
+ *
+ * Définit une couleur de fond (bleu sombre) et efface le buffer de couleur.
+ */
 void Renderer::clear() {
     glClearColor(0.0f, 0.1f, 0.2f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT);
 }
 
+/**
+ * @brief Retourne le temps écoulé depuis la dernière frame.
+ *
+ * @return float deltaTime en secondes.
+ */
 float Renderer::getDeltaTime() const {
     return m_deltaTime;
 }
 
+/**
+ * @brief Active ou désactive la limitation de FPS.
+ *
+ * @param enabled true pour activer le capping, false pour le désactiver.
+ */
 void Renderer::setCapFPS(bool enabled) {
     m_capFPS = enabled;
 }
 
+/**
+ * @brief Définit la valeur cible de FPS pour la limitation.
+ *
+ * @param fps Nombre d’images par seconde souhaitées. Ignoré si <= 0.
+ */
 void Renderer::setTargetFPS(int fps) {
     if (fps > 0) {
         m_targetFPS = fps;
