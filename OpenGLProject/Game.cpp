@@ -70,6 +70,10 @@ void Game::Render() {
 	Texture* texture = new Texture("./res/textures/verstappen.jpg", 0);
 	textures.emplace_back(texture); // Appel le constructeur de Texture avec le chemin et le booléen
 
+	float sinTime = sin((float)glfwGetTime())/2+0.5;
+
+	Transformation* transformation = new Transformation(glm::vec3(0.0, 0.0, 1.0), 16*fmod(glfwGetTime(), 360.0), glm::vec3(sinTime+0.5f, sinTime+0.5f, sinTime+0.5f));
+
 	std::vector<Vertex> verts = {
 			Vertex(0.5f,0.5f,0.0f,1.0f,0.0f,0.0f,1.0f,1.0f),
 			Vertex(0.5f,-0.5f,0.0f,0.0f,1.0f,0.0f,1.0f,0.0f),
@@ -82,7 +86,8 @@ void Game::Render() {
 	Shader basic("./res/shaders/basic.vert", "./res/shaders/basic.frag", true);
 
 	basic.use();
-	basic.setTexture("texture0", texture->getID());
+	basic.setTexture("ourTexture", texture->getID());
+	basic.setTransformation("transformation", transformation);
 
 	Mesh mesh;
 	mesh.load(verts, indices, textures.back());

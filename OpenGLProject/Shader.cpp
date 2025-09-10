@@ -53,6 +53,10 @@ void Shader::setTexture(const std::string& name, GLuint textureID, GLuint unit) 
     glUniform1i(glGetUniformLocation(m_id, name.c_str()), unit);
 }
 
+void Shader::setTransformation(const std::string& name, Transformation* trans) const {
+    unsigned int transformLoc = glGetUniformLocation(m_id, name.c_str());
+    glUniformMatrix4fv(transformLoc, 1, GL_FALSE, glm::value_ptr(trans->getMatrix()));
+}
 
 GLuint Shader::compile(GLenum type, const std::string& source) {
     GLuint shader = glCreateShader(type);
