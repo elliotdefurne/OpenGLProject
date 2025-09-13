@@ -9,9 +9,13 @@ namespace Constants {
 
     // Renderer
     constexpr int DEFAULT_FPS_CAPPING = 60;
-    constexpr bool DEFAULT_IS_FPS_CAPPING = true;
+    constexpr bool DEFAULT_IS_FPS_CAPPING = false;
 
     // Player
 
 	constexpr float PLAYER_SPEED = 200.0f; // pixels per second
+
+    // Texture
+
+	constexpr const char* TEXTURES_FOLDER_PATH = "./res/textures/";
 }

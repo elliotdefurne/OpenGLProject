@@ -15,6 +15,7 @@ class Game
 	private:
 		Window* m_window;
 		Renderer* m_renderer;
+		TextureManager* m_textureManager;
 		bool m_isRunning = true;
 		void Initialize();
 };

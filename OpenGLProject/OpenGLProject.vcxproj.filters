@@ -77,6 +77,9 @@
     <ClInclude Include="Texture.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
+    <ClInclude Include="TextureManager.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="res\shaders\basic.vert">
@@ -84,9 +87,6 @@
     </None>
     <None Include="res\shaders\basic.frag">
       <Filter>Fichiers de ressources\shaders</Filter>
-    </None>
-    <None Include="res\textures\rocks.webp">
-      <Filter>Fichiers de ressources\textures</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

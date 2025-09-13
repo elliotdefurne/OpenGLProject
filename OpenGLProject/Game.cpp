@@ -23,6 +23,7 @@ Game::~Game() {
 void Game::Initialize() {
 	m_window = new Window(Constants::WINDOW_WIDTH, Constants::WINDOW_HEIGHT, Constants::WINDOW_TITLE);
 	m_renderer = new Renderer();
+	m_textureManager = new TextureManager();
 
 	// Setup orthographic projection (2D pixels)
 	glMatrixMode(GL_PROJECTION);
@@ -67,7 +68,7 @@ void Game::Render() {
 	// Render the game scene here
 
 	std::vector<Texture*> textures;
-	Texture* texture = new Texture("./res/textures/verstappen.jpg", 0);
+	Texture* texture = m_textureManager->getTexture(0);//new Texture("./res/textures/verstappen.jpg", 0);
 	textures.emplace_back(texture); // Appel le constructeur de Texture avec le chemin et le booléen
 
 	float sinTime = sin((float)glfwGetTime())/2+0.5;
@@ -93,5 +94,5 @@ void Game::Render() {
 	mesh.load(verts, indices, textures.back());
 	mesh.draw();
 
-	delete texture;
+	delete transformation;
 }

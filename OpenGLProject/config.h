@@ -12,5 +12,6 @@
 #include "Window.h"
 #include "Renderer.h"
 #include "Transformation.h"
+#include "TextureManager.h"
 
 #include "constants.h"
