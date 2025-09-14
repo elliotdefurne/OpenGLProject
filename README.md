@@ -24,7 +24,7 @@ Avant de faire tourner ce code sur votre machine, il vous faut (normalement tout
 ##  Installation
 
 1. Visual Studio 2022
-2. Lancer le projet "OpenGLProject.vcxproj"
+2. Lancer le projet "OpenGLProject.sln"
 3. Have fun
 
 ## Gestion de projet
