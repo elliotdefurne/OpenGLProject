@@ -15,7 +15,7 @@ Basé sur https://learnopengl.com/.
 
 Avant de faire tourner ce code sur votre machine, il vous faut (normalement tout est dans les dépendencies):
 
-- C++17;
+- C++23;
 - GLFW;
 - GLAD;
 - STB pour le chargement des images;
