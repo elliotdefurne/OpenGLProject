@@ -107,8 +107,7 @@ bool Window::init() {
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
-    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE); // de préférence
-    // Note : pour compatibilité maximum tu peux garder COMPAT_PROFILE si tu en as besoin
+    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
     GLFWmonitor* monitor = nullptr;
     const GLFWvidmode* mode = nullptr;
@@ -136,7 +135,7 @@ bool Window::init() {
         monitor, // ? si monitor ? nullptr, tu es en plein écran exclusif
         nullptr
     );
-
+    
     if (!m_window) {
         std::cerr << "Failed to create GLFW window\n";
         glfwTerminate();

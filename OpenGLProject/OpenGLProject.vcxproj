@@ -140,6 +140,7 @@
     <ClCompile Include="glad.c" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Mesh.cpp" />
+    <ClCompile Include="Player.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="Transformation.h" />
@@ -151,6 +152,7 @@
     <ClInclude Include="constants.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Mesh.h" />
+    <ClInclude Include="Player.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="Texture.h" />
