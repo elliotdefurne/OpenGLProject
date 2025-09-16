@@ -2,7 +2,7 @@
 
 Ce dépôt contient un projet minimal (mais puissant, parce que C++ et parce que OpenGL) de rendu graphique via OpenGL.<br>
 Basé sur https://learnopengl.com/.
-![Absolute cinema](absolutecinema.png)
+![Absolute cinema](./OpenGLProject/res/textures/absolutecinema.png)
 
 
 ##  Structure du dépôt
