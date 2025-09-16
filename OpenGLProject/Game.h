@@ -1,22 +1,23 @@
 #pragma once
-#include "Window.h"
-#include "Renderer.h"
+#include "config.h"
 
 class Game
 {
 
 	public:
-	Game();
-	~Game();
+		Game();
+		~Game();
 	
-	void Run();
-	void Update();
-	void Render();
+		void Run();
+		void Update();
+		void Render();
 
 	private:
-	Window* m_window;
-	Renderer* m_renderer;
-	bool m_isRunning = true;
-	void Initialize();
+		Window* m_window;
+		Renderer* m_renderer;
+		TextureManager* m_textureManager;
+		ShaderManager* m_shaderManager;
+		bool m_isRunning = true;
+		void Initialize();
 };
 
