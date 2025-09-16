@@ -17,7 +17,7 @@ class ShaderManager {
 public:
     ShaderManager() { loadShaders(); };
     ~ShaderManager() {
-        ShaderNode m_root;
+        deleteNode(&m_root);
     };
     Shader* getShader(const std::string& path) {
         std::stringstream ss(path);
@@ -45,7 +45,6 @@ private:
             std::cerr << "Le dossier des shaders n’existe pas: " << shadersFolderPath << std::endl;
             return;
         }
-
         for (const auto& entry : std::filesystem::recursive_directory_iterator(shadersFolderPath)) {
             if (entry.is_directory()) {
                 // Vérifie si basic.vert et basic.frag existent dans ce dossier
@@ -82,6 +81,15 @@ private:
                     }
                 }
             }
+        }
+    }
+    void deleteNode(ShaderNode* node) {
+        for (auto& pair : node->children) {
+            deleteNode(pair.second);
+            delete pair.second;
+        }
+        if (node->shader) {
+            delete node->shader;
         }
     }
 };

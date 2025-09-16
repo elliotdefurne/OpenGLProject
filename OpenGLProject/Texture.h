@@ -17,7 +17,6 @@ class Texture {
 private:
 	void loadTexture();
 	
-	unsigned char* m_localBuffer;
 	const std::string& m_filePath;
 
 	GLuint m_textureID;

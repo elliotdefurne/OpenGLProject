@@ -9,7 +9,7 @@
 class Cube
 {
 public:
-    Cube(glm::vec3 center, int radius, Shader* shader, Texture* texture);
+    Cube(glm::vec3 center, float edge, Shader* shader, Texture* texture);
     ~Cube();
     void update();
 	void draw();
@@ -23,6 +23,6 @@ private:
     std::vector<unsigned int> m_indices;
 	glm::vec3 m_center;
 
-	int m_radius;
+	float m_edge;
 };
 

@@ -46,11 +46,11 @@ public:
      * Cela permet de libérer correctement la mémoire CPU et GPU.
      */
     ~TextureManager() {
-        TextureNode m_root;
+        deleteNode(&m_root);
     };
 
     /**
-     * @brief Retourne un pointeur vers une texture par son index.
+     * @brief Retourne un pointeur vers une texture par son path.
      *
      * @param index Position dans le vecteur (0 = première texture).
      * @return Texture* Pointeur vers la texture demandée.
@@ -82,7 +82,6 @@ public:
         }
         return current->texture;
     }
-
 
 private:
     /// Noeuds qui contient toutes les textures chargées (pointeurs bruts).
@@ -134,6 +133,15 @@ private:
                     }
                 }
             }
+        }
+    }
+    void deleteNode(TextureNode* node) {
+        for (auto& pair : node->children) {
+            deleteNode(pair.second);
+            delete pair.second;
+        }
+        if (node->texture) {
+            delete node->texture;
         }
     }
 };

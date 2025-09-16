@@ -35,6 +35,9 @@ Game::~Game() {
     if (m_textureManager) {
         delete m_textureManager;
     }
+    if (m_shaderManager) {
+        delete m_shaderManager;
+    }
     glfwTerminate();
 }
 
@@ -116,7 +119,8 @@ void Game::Render() {
     cube->draw();
     cube2->draw();
 
-    delete cube, cube2;
+    delete cube;
+    delete cube2;
     texture = nullptr;
     basic = nullptr;
 }
