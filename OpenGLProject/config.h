@@ -13,5 +13,7 @@
 #include "Renderer.h"
 #include "Transformation.h"
 #include "TextureManager.h"
+#include "ShaderManager.h"
+#include "Cube.h"
 
 #include "constants.h"

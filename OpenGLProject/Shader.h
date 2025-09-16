@@ -15,6 +15,7 @@ public:
     void use();
     void setTexture(const std::string& name, GLuint textureID, GLuint unit = 0);
     void setTransformation(const std::string& name, Transformation* trans);
+    void clearUniformLocations();
     GLuint getID() const;
 
     // Setters

@@ -217,3 +217,7 @@ GLint Shader::getUniformLocation(const std::string& name) {
     }
     throw std::invalid_argument("Uniform " + name + " not found.");
 }
+
+void Shader::clearUniformLocations() {
+    m_uniformLocations.clear();
+}

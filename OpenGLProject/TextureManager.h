@@ -8,6 +8,11 @@
 #include "Texture.h"
 #include "constants.h"
 
+struct TextureNode {
+    std::unordered_map<std::string, TextureNode*> children; // sous-dossiers
+    Texture* texture = nullptr; // si c'est une feuille avec une texture
+};
+
 /**
  * @class TextureManager
  * @brief Classe utilitaire pour charger et gérer un ensemble de textures.
@@ -41,9 +46,7 @@ public:
      * Cela permet de libérer correctement la mémoire CPU et GPU.
      */
     ~TextureManager() {
-        for (auto& texture : m_textures) {
-            delete texture;
-        }
+        TextureNode m_root;
     };
 
     /**
@@ -60,18 +63,30 @@ public:
      * glBindTexture(GL_TEXTURE_2D, tex->getID());
      * @endcode
      */
-    Texture* getTexture(const int index) {
-        if (0 <= index && index < m_textures.size()) {
-            return m_textures.at(index);
+    Texture* getTexture(const std::string& path) {
+        std::stringstream ss(path);
+        std::string part;
+        TextureNode* current = &m_root;
+
+        char sep = static_cast<char>(Constants::PREFERED_SEPARATOR_PATH);
+        while (std::getline(ss, part, sep)) {
+            auto it = current->children.find(part);
+            if (it == current->children.end()) {
+                throw std::out_of_range("Path not found: " + path);
+            }
+            current = it->second;
         }
-        else {
-            throw std::out_of_range("Texture index out of range");
+
+        if (!current->texture) {
+            throw std::out_of_range("No texture at path: " + path);
         }
+        return current->texture;
     }
 
+
 private:
-    /// Vecteur qui contient toutes les textures chargées (pointeurs bruts).
-    std::vector<Texture*> m_textures;
+    /// Noeuds qui contient toutes les textures chargées (pointeurs bruts).
+    TextureNode m_root;
 
     /**
      * @brief Charge toutes les textures présentes dans un dossier.
@@ -80,8 +95,8 @@ private:
      *
      * Étapes du chargement :
      * 1. Vérifie que le dossier existe avec `std::filesystem::is_directory()`.
-     * 2. Parcourt tous les fichiers avec `std::filesystem::directory_iterator`.
-     * 3. Pour chaque fichier se terminant par ".png", crée une Texture et l’ajoute au vecteur.
+     * 2. Parcourt tous les fichiers recursivement avec `std::filesystem::recursive_directory_iterator`.
+     * 3. Pour chaque fichier se terminant par ".png", crée une Texture et l’ajoute au unordered_map.
      *
      * Exemple :
      * - Si le dossier contient "herbe.png" et "pierre.png",
@@ -93,12 +108,31 @@ private:
             std::cerr << "Le dossier des textures n’existe pas: " << texturesFolderPath << std::endl;
             return;
         }
-        for (const auto& entry : std::filesystem::directory_iterator(texturesFolderPath)) {
-            const int stringLength = static_cast<int>(entry.path().string().size());
-            if (entry.is_regular_file() && entry.path().string().substr(stringLength - 4) == ".png") {
-                std::string filePath = entry.path().string();
-                int textureID = static_cast<int>(m_textures.size());
-                m_textures.emplace_back(new Texture(filePath, textureID));
+        for (const auto& entry : std::filesystem::recursive_directory_iterator(texturesFolderPath)) {
+            if (entry.is_regular_file() && entry.path().extension() == ".png") {
+                std::string relative = entry.path().lexically_relative(texturesFolderPath).string();
+
+                // Découpe le chemin relatif en morceaux
+                std::stringstream ss(relative);
+                std::string part;
+                TextureNode* current = &m_root;
+
+                char sep = static_cast<char>(std::filesystem::path::preferred_separator);
+                int id = 0;
+                while (std::getline(ss, part, sep)) {
+                    // Si c’est le dernier segment ET que c’est un fichier .png
+                    if (ss.peek() == EOF) {
+                        current->children[part] = new TextureNode();
+                        current->children[part]->texture = new Texture(entry.path().string(), id);
+                        id++;
+                    }
+                    else {
+                        if (current->children.find(part) == current->children.end()) {
+                            current->children[part] = new TextureNode();
+                        }
+                        current = current->children[part];
+                    }
+                }
             }
         }
     }

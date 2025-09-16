@@ -18,4 +18,12 @@ namespace Constants {
     // Texture
 
 	constexpr const char* TEXTURES_FOLDER_PATH = "./res/textures/";
+
+    // Shader
+
+    constexpr const char* SHADERS_FOLDER_PATH = "./res/shaders/";
+    
+    // Files
+    
+    constexpr const char PREFERED_SEPARATOR_PATH = '/';
 }
