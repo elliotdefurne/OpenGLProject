@@ -55,6 +55,7 @@ void Game::Initialize() {
     m_renderer = new Renderer();
     m_textureManager = new TextureManager();
 	m_shaderManager = new ShaderManager();
+	m_camera = new Camera(glm::vec3(3.0f, 3.0f, 3.0f), glm::vec3(0.0f, 0.0f, 0.0f));
 
     // Active le test de profondeur : permet de savoir quels objets sont devant
     glEnable(GL_DEPTH_TEST);

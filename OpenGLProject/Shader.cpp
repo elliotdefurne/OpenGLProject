@@ -25,12 +25,12 @@ Shader::Shader(const std::string& vertexSource, const std::string& fragmentSourc
     m_view = glm::mat4(1.0f);
     m_projection = glm::mat4(1.0f);
 
-    // Caméra par défaut : positionnée en diagonale pour une vue 3D claire
-    glm::vec3 cameraPos = glm::vec3(3.0f, 3.0f, 3.0f);      // Position de la caméra
-    glm::vec3 cameraTarget = glm::vec3(0.0f, 0.0f, 0.0f);   // Point regardé
-    glm::vec3 cameraUp = glm::vec3(0.0f, 1.0f, 0.0f);       // Direction "haut" de la caméra
-
-    m_view = glm::lookAt(cameraPos, cameraTarget, cameraUp);
+    if (m_camera) {
+        m_view = m_camera->GetViewMatrix();
+    }
+    else {
+		printf("Warning: m_camera pointer is null\n");
+    }
 
     // Projection en perspective : effet "3D" avec un champ de vision de 60°
     m_projection = glm::perspective(

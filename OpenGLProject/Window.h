@@ -3,6 +3,9 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
+#include "Shader.h"
+#include "Camera.h"
+
 class Window {
 public:
     Window(int width, int height, const char* title);
@@ -20,7 +23,8 @@ private:
     int m_height;
     const char* m_title;
     GLFWwindow* m_window;
-
+	Shader* m_shader;
+	Camera* m_camera;
     void pollEvents() const;
     void swapBuffers() const;
     bool init();

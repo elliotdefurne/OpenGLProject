@@ -15,5 +15,6 @@
 #include "TextureManager.h"
 #include "ShaderManager.h"
 #include "Cube.h"
+#include "Camera.h"
 
 #include "constants.h"

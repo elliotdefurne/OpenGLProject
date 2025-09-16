@@ -3,6 +3,7 @@
 #include <iostream>
 #include <cstdlib>
 
+
 /**
  * @brief Constructeur de la classe Window.
  *
@@ -151,4 +152,17 @@ bool Window::init() {
 
     glViewport(0, 0, m_width, m_height);
     return true;
+}
+
+void processInput(GLFWwindow* window, Camera* m_camera)
+{
+    const float cameraSpeed = 0.05f; // ajuster si besoin
+    if (glfwGetKey(window, GLFW_KEY_Z) == GLFW_PRESS)
+        m_camera->ProcessKeyboard(0); // FORWARD
+    if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
+        m_camera->ProcessKeyboard(1); // BACKWARD
+    if (glfwGetKey(window, GLFW_KEY_Q) == GLFW_PRESS)
+        m_camera->ProcessKeyboard(2); // LEFT
+    if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
+        m_camera->ProcessKeyboard(3); // RIGHT
 }
