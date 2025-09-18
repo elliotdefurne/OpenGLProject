@@ -55,7 +55,6 @@ void Game::Initialize() {
     m_renderer = new Renderer();
     m_textureManager = new TextureManager();
 	m_shaderManager = new ShaderManager();
-	m_camera = new Camera(glm::vec3(3.0f, 3.0f, 3.0f), glm::vec3(0.0f, 0.0f, 0.0f));
 
     // Active le test de profondeur : permet de savoir quels objets sont devant
     glEnable(GL_DEPTH_TEST);
@@ -113,7 +112,7 @@ void Game::Render() {
 	Shader* basic = m_shaderManager->getShader("cube");
 
 	Cube* cube = new Cube(glm::vec3(0,0,0),1, basic, texture);
-    Cube* cube2 = new Cube(glm::vec3(0, 1, 0), 1, basic, texture);
+    Cube* cube2 = new Cube(glm::vec3(0,1,0), 1, basic, texture);
 
     cube->update();
     cube2->update();
@@ -122,6 +121,7 @@ void Game::Render() {
 
     delete cube;
     delete cube2;
+
     texture = nullptr;
     basic = nullptr;
 }
