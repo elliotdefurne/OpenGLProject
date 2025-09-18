@@ -1,0 +1,56 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36" version="28.0.6">
+  <diagram name="Page-1" id="X22H1fyRm7d7cOocbhD_">
+    <mxGraphModel grid="1" page="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="1">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="VTAGBW7oktCiE1o1bfaW-8" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;labelBackgroundColor=none;strokeColor=#182E3E;fontColor=default;" edge="1" parent="1" source="VTAGBW7oktCiE1o1bfaW-2" target="VTAGBW7oktCiE1o1bfaW-6">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="VTAGBW7oktCiE1o1bfaW-2" value="Installer OpenGL sur Visual C++" style="rounded=0;whiteSpace=wrap;html=1;labelBackgroundColor=none;fillColor=#56517E;strokeColor=#EEEEEE;fontColor=#FFFFFF;" vertex="1" parent="1">
+          <mxGeometry x="40" y="200" width="160" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="VTAGBW7oktCiE1o1bfaW-3" value="Dessiner un rectangle" style="rounded=0;whiteSpace=wrap;html=1;labelBackgroundColor=none;fillColor=#56517E;strokeColor=#EEEEEE;fontColor=#FFFFFF;" vertex="1" parent="1">
+          <mxGeometry x="640" y="200" width="160" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="VTAGBW7oktCiE1o1bfaW-9" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;labelBackgroundColor=none;strokeColor=#182E3E;fontColor=default;" edge="1" parent="1" source="VTAGBW7oktCiE1o1bfaW-6" target="VTAGBW7oktCiE1o1bfaW-11">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="426" y="240" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="VTAGBW7oktCiE1o1bfaW-14" value="Détails" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#182E3E;horizontal=0;" edge="1" parent="1" source="VTAGBW7oktCiE1o1bfaW-6" target="VTAGBW7oktCiE1o1bfaW-12">
+          <mxGeometry x="-0.0045" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="VTAGBW7oktCiE1o1bfaW-6" value="&lt;div&gt;&lt;span style=&quot;background-color: transparent; line-height: 100%;&quot;&gt;&lt;font style=&quot;font-size: 11px;&quot;&gt;Création de la fenetre&lt;/font&gt;&lt;/span&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=center;labelBackgroundColor=none;fillColor=#56517E;strokeColor=#EEEEEE;fontColor=#FFFFFF;" vertex="1" parent="1">
+          <mxGeometry x="280" y="225" width="100" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="VTAGBW7oktCiE1o1bfaW-10" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;labelBackgroundColor=none;strokeColor=#182E3E;fontColor=default;" edge="1" parent="1" source="VTAGBW7oktCiE1o1bfaW-11" target="VTAGBW7oktCiE1o1bfaW-3">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="621" y="240" as="sourcePoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="VTAGBW7oktCiE1o1bfaW-11" value="&lt;span style=&quot;font-size: 11px;&quot;&gt;Boucle de jeu&lt;/span&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=center;labelBackgroundColor=none;fillColor=#56517E;strokeColor=#EEEEEE;fontColor=#FFFFFF;" vertex="1" parent="1">
+          <mxGeometry x="440" y="225" width="100" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="VTAGBW7oktCiE1o1bfaW-12" value="&lt;ul&gt;&lt;li&gt;Création de la fenêtre&lt;/li&gt;&lt;li&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(237, 237, 237));&quot;&gt;Création d&#39;un fichier de constants&lt;/span&gt;&lt;/li&gt;&lt;/ul&gt;" style="text;html=1;whiteSpace=wrap;overflow=hidden;rounded=0;labelBackgroundColor=none;fontColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="125" y="360" width="410" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="VTAGBW7oktCiE1o1bfaW-13" value="&lt;ul&gt;&lt;li&gt;Création d&#39;un renderer&lt;/li&gt;&lt;li&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(18, 18, 18));&quot;&gt;Boucle avec delta&lt;/span&gt;&lt;/li&gt;&lt;/ul&gt;" style="text;html=1;whiteSpace=wrap;overflow=hidden;rounded=0;labelBackgroundColor=none;fontColor=light-dark(#000000, #121212);align=left;" vertex="1" parent="1">
+          <mxGeometry x="355" y="50" width="270" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="TEw1goyt549AWfLuOX3B-2" value="Détails" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#182E3E;horizontal=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;" edge="1" parent="1" source="VTAGBW7oktCiE1o1bfaW-11" target="VTAGBW7oktCiE1o1bfaW-13">
+          <mxGeometry x="-0.0045" relative="1" as="geometry">
+            <mxPoint x="470" y="310" as="sourcePoint" />
+            <mxPoint x="470" y="425" as="targetPoint" />
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="f1N4txHxhNjSWh-nuGlE-3" value="&lt;h1 style=&quot;margin-top: 0px;&quot;&gt;ROADMAP #0.0.0&lt;/h1&gt;&lt;p&gt;Préparation de l&#39;espace de travail, création de la fenêtre et boucle de jeu. Affichage du premier rectangle.&amp;nbsp;&lt;/p&gt;" style="text;html=1;whiteSpace=wrap;overflow=hidden;rounded=0;" vertex="1" parent="1">
+          <mxGeometry width="250" height="120" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
