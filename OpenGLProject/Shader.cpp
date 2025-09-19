@@ -212,10 +212,13 @@ GLint Shader::getUniformLocation(const std::string& name) {
     auto it = m_uniformLocations.find(name);
     if (it == m_uniformLocations.end()) {
         GLint location = glGetUniformLocation(m_id, name.c_str());
+        if (location == -1) {
+            throw std::invalid_argument("Uniform " + name + " not found.");
+        }
         m_uniformLocations[name] = location;
         return location;
     }
-    throw std::invalid_argument("Uniform " + name + " not found.");
+    return it->second;  // Retourner la valeur trouvée dans le cache
 }
 
 void Shader::clearUniformLocations() {

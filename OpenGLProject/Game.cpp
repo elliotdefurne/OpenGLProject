@@ -108,11 +108,11 @@ void Game::Update() {
  * @brief Gère le rendu 3D de la scène.
  */
 void Game::Render() {
-    Texture* texture = m_textureManager->getTexture("test/absolutecinema.png");
+    Texture* texture = m_textureManager->getTexture("test/rocks.png");
 	Shader* basic = m_shaderManager->getShader("cube");
 
 	Cube* cube = new Cube(glm::vec3(0,0,0),1, basic, texture);
-    Cube* cube2 = new Cube(glm::vec3(0,1,0), 1, basic, texture);
+    Cube* cube2 = new Cube(glm::vec3(0, 1, 0), 1, basic, texture);
 
     cube->update();
     cube2->update();
@@ -121,7 +121,6 @@ void Game::Render() {
 
     delete cube;
     delete cube2;
-
     texture = nullptr;
     basic = nullptr;
 }

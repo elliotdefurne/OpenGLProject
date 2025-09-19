@@ -9,8 +9,6 @@ class Game
 		~Game();
 	
 		void Run();
-		void Update();
-		void Render();
 
 	private:
 		Window* m_window;
@@ -19,5 +17,7 @@ class Game
 		ShaderManager* m_shaderManager;
 		bool m_isRunning = true;
 		void Initialize();
+		void Update();
+		void Render();
 };
 

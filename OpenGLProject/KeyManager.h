@@ -5,23 +5,34 @@
 #include <iostream>
 #include <filesystem>
 #include <unordered_map>
+#include <memory>
 
 #include "Key.h"
 #include "Forward.h"
 
-
 class KeyManager {
-    public:
-        KeyManager() { loadKeys(); };
-        ~KeyManager() {
-        
-        };
-        void loadKeys() {
-            
+public:
+    KeyManager() { loadKeys(); }
+
+    ~KeyManager() {
+        for (auto& pair : m_keys) {
+            delete pair.second;
         }
-        Key* getKey(const std::string& name) {
-			return keys.at(name);
+    }
+
+    void loadKeys() {
+        m_keys["Forward"] = new Forward();
+        // Ajoutez d'autres touches ici
+    }
+
+    Key* getKey(const std::string& name) {
+        auto it = m_keys.find(name);
+        if (it != m_keys.end()) {
+            return it->second;
         }
-    private:
-        std::unordered_map<std::string& , Key> keys;
+        throw std::out_of_range("Key not found: " + name);
+    }
+
+private:
+    std::unordered_map<std::string, Key*> m_keys;
 };
