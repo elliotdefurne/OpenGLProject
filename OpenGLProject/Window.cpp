@@ -14,7 +14,7 @@
  * @param height Hauteur de la fenêtre.
  * @param title Titre de la fenêtre.
  */
-Window::Window(int width, int height, const char* title) : m_width(width), m_height(height), m_title(title), m_window(nullptr) {
+Window::Window(int width, int height, const char* title, Camera* camera) : m_width(width), m_height(height), m_title(title), m_window(nullptr), m_camera(camera) {
     if (!init()) {
         std::cerr << "Failed to initialize Window\n";
         std::exit(EXIT_FAILURE);

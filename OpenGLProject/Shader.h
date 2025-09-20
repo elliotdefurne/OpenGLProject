@@ -10,7 +10,7 @@
 
 class Shader {
 public:
-    Shader(const std::string& vertexSource, const std::string& fragmentSource, bool isFile = false);
+    Shader(const std::string& vertexSource, const std::string& fragmentSource, Camera* camera, bool isFile = false);
     ~Shader();
 
     void use();

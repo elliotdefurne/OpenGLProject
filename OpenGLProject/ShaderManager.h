@@ -6,16 +6,17 @@
 #include <filesystem>
 
 #include "Shader.h"
+#include "Camera.h"
 #include "constants.h"
 
 struct ShaderNode {
-    std::unordered_map<std::string, ShaderNode*> children; // sous-dossiers
-    Shader* shader = nullptr; // si c'est une feuille avec une texture
+    std::unordered_map<std::string, ShaderNode*> children;
+    Shader* m_shader = nullptr;
 };
 
 class ShaderManager {
 public:
-    ShaderManager() { loadShaders(); };
+    ShaderManager(Camera* camera) : m_camera(camera) { loadShaders(); };
     ~ShaderManager() {
         deleteNode(&m_root);
     };
@@ -33,13 +34,14 @@ public:
             current = it->second;
         }
 
-        if (!current->shader) {
+        if (!current->m_shader) {
             throw std::out_of_range("No texture at path: " + path);
         }
-        return current->shader;
+        return current->m_shader;
     }
 private:
     ShaderNode m_root;
+    Camera* m_camera;
     void loadShaders(std::string shadersFolderPath = Constants::SHADERS_FOLDER_PATH) {
         if (!std::filesystem::is_directory(shadersFolderPath)) {
             std::cerr << "Le dossier des shaders n’existe pas: " << shadersFolderPath << std::endl;
@@ -65,9 +67,10 @@ private:
                             if (current->children.find(part) == current->children.end()) {
                                 current->children[part] = new ShaderNode();
                             }
-                            current->children[part]->shader = new Shader(
+                            current->children[part]->m_shader = new Shader(
                                 vertPath.string(),
                                 fragPath.string(),
+                                m_camera,
                                 true
                             );
                         }
@@ -88,8 +91,8 @@ private:
             deleteNode(pair.second);
             delete pair.second;
         }
-        if (node->shader) {
-            delete node->shader;
+        if (node->m_shader) {
+            delete node->m_shader;
         }
-    }
+    };
 };

@@ -20,10 +20,11 @@
  * - L'envoi de variables (uniforms) au GPU (matrices, textures...).
  * - L'utilisation du programme shader dans la pipeline OpenGL.
  */
-Shader::Shader(const std::string& vertexSource, const std::string& fragmentSource, bool isFile) {
+Shader::Shader(const std::string& vertexSource, const std::string& fragmentSource, Camera* camera, bool isFile) {
     m_model = glm::mat4(1.0f);
     m_view = glm::mat4(1.0f);
     m_projection = glm::mat4(1.0f);
+    m_camera = camera;
 
     if (m_camera) {
         m_view = m_camera->GetViewMatrix();

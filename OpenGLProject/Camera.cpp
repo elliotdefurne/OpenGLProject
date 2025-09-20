@@ -1,6 +1,6 @@
 #include "Camera.h"
 
-Camera::Camera(glm::vec3 position, glm::vec3 target)
+Camera::Camera(glm::vec3 position = glm::vec3(3.0f, 3.0f, 3.0f), glm::vec3 target = glm::vec3(0.0f, 0.0f, 0.0f))
     : Position(position),
     m_cameraPos(position),
     m_cameraTarget(target),
@@ -8,7 +8,7 @@ Camera::Camera(glm::vec3 position, glm::vec3 target)
     m_renderer(nullptr)
 {
     // Autres initialisations si besoin
-}
+};
 
 void Camera::ProcessKeyboard(int direction) {
     float velocity = 2.5f * m_renderer->getDeltaTime();
@@ -20,8 +20,8 @@ void Camera::ProcessKeyboard(int direction) {
         Position -= m_Right * velocity;
     if (direction == 3) // RIGHT
         Position += m_Right * velocity;
-}
+};
 
 glm::mat4 Camera::GetViewMatrix() {
     return glm::lookAt(m_cameraPos, m_cameraTarget, m_cameraUp);
-}
+};

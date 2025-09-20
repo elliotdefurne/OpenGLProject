@@ -38,6 +38,9 @@ Game::~Game() {
     if (m_shaderManager) {
         delete m_shaderManager;
     }
+    if (m_camera) {
+        delete m_camera;
+	}
     glfwTerminate();
 }
 
@@ -51,11 +54,11 @@ Game::~Game() {
  * 4. Configure OpenGL pour activer la 3D (test de profondeur, face culling...).
  */
 void Game::Initialize() {
-    m_window = new Window(Constants::WINDOW_WIDTH, Constants::WINDOW_HEIGHT, Constants::WINDOW_TITLE);
+    m_window = new Window(Constants::WINDOW_WIDTH, Constants::WINDOW_HEIGHT, Constants::WINDOW_TITLE, m_camera);
     m_renderer = new Renderer();
     m_textureManager = new TextureManager();
-	m_shaderManager = new ShaderManager();
-	m_camera = new Camera(glm::vec3(3.0f, 3.0f, 3.0f), glm::vec3(0.0f, 0.0f, 0.0f));
+    m_camera = new Camera(glm::vec3(3.0f, 3.0f, 3.0f), glm::vec3(0.0f, 0.0f, 0.0f));
+	m_shaderManager = new ShaderManager(this->m_camera);
 
     // Active le test de profondeur : permet de savoir quels objets sont devant
     glEnable(GL_DEPTH_TEST);
@@ -109,7 +112,7 @@ void Game::Update() {
  * @brief Gère le rendu 3D de la scène.
  */
 void Game::Render() {
-    Texture* texture = m_textureManager->getTexture("test/absolutecinema.png");
+    Texture* texture = m_textureManager->getTexture("test/rocks.png");
 	Shader* basic = m_shaderManager->getShader("cube");
 
 	Cube* cube = new Cube(glm::vec3(0,0,0),1, basic, texture);
@@ -125,3 +128,13 @@ void Game::Render() {
     texture = nullptr;
     basic = nullptr;
 }
+
+Camera* Game::getCamera() const {
+    if (m_camera) {
+        return m_camera;
+    }else
+    {
+        std::cout << "Camera non initialisée !" << std::endl;
+    }
+};
+
