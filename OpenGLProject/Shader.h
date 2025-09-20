@@ -2,8 +2,9 @@
 #include <string>
 #include <glad/glad.h>
 #include <unordered_map>
+#include <glm/glm.hpp>
+#include <glm/gtc/type_ptr.hpp>
 
-#include "Camera.h"
 #include "Transformation.h"
 
 
@@ -52,6 +53,4 @@ private:
     GLuint compile(GLenum type, const std::string& source);
     void checkCompileErrors(GLuint shader, std::string type);
     GLint getUniformLocation(const std::string& name);
-
-	Camera* m_camera;
 };

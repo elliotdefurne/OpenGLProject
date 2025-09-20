@@ -1,0 +1,91 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36" version="28.2.0">
+  <diagram name="Page-1" id="X22H1fyRm7d7cOocbhD_">
+    <mxGraphModel grid="0" page="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="1">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="eXIGQxcMQj50jVCJq_CA-1" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;labelBackgroundColor=none;strokeColor=#182E3E;fontColor=default;" edge="1" parent="1" source="eXIGQxcMQj50jVCJq_CA-2" target="eXIGQxcMQj50jVCJq_CA-6">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="eXIGQxcMQj50jVCJq_CA-2" value="Bouger un rectangle&lt;div&gt;dans un plan 2D&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;labelBackgroundColor=none;fillColor=#56517E;strokeColor=#EEEEEE;fontColor=#FFFFFF;" vertex="1" parent="1">
+          <mxGeometry x="40" y="200" width="160" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="eXIGQxcMQj50jVCJq_CA-3" value="Dessiner un cube" style="rounded=0;whiteSpace=wrap;html=1;labelBackgroundColor=none;fillColor=#56517E;strokeColor=#EEEEEE;fontColor=#FFFFFF;" vertex="1" parent="1">
+          <mxGeometry x="910" y="200" width="160" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="eXIGQxcMQj50jVCJq_CA-4" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;labelBackgroundColor=none;strokeColor=#182E3E;fontColor=default;" edge="1" parent="1" source="eXIGQxcMQj50jVCJq_CA-6" target="eXIGQxcMQj50jVCJq_CA-8">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="426" y="240" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="eXIGQxcMQj50jVCJq_CA-5" value="Détails" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#182E3E;horizontal=0;" edge="1" parent="1" source="eXIGQxcMQj50jVCJq_CA-6" target="eXIGQxcMQj50jVCJq_CA-9">
+          <mxGeometry x="-0.0045" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="eXIGQxcMQj50jVCJq_CA-6" value="&lt;div&gt;&lt;span style=&quot;background-color: transparent; line-height: 100%;&quot;&gt;&lt;font style=&quot;font-size: 11px;&quot;&gt;Dessiner un rectangle&lt;/font&gt;&lt;/span&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=center;labelBackgroundColor=none;fillColor=#56517E;strokeColor=#EEEEEE;fontColor=#FFFFFF;" vertex="1" parent="1">
+          <mxGeometry x="280" y="225" width="100" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="eXIGQxcMQj50jVCJq_CA-7" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;labelBackgroundColor=none;strokeColor=#182E3E;fontColor=default;" edge="1" parent="1" source="88JwYsdk7pb474S3zGqt-2" target="eXIGQxcMQj50jVCJq_CA-3">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="621" y="240" as="sourcePoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="eXIGQxcMQj50jVCJq_CA-8" value="&lt;span style=&quot;font-size: 11px;&quot;&gt;Maitriser les shaders&lt;/span&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=center;labelBackgroundColor=none;fillColor=#56517E;strokeColor=#EEEEEE;fontColor=#FFFFFF;" vertex="1" parent="1">
+          <mxGeometry x="440" y="225" width="100" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="88JwYsdk7pb474S3zGqt-1" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=none;endFill=0;" edge="1" parent="1" source="eXIGQxcMQj50jVCJq_CA-9" target="eXIGQxcMQj50jVCJq_CA-6">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="eXIGQxcMQj50jVCJq_CA-9" value="&lt;ul&gt;&lt;li&gt;Comprendre la notion de Vertex (Sommet)&lt;/li&gt;&lt;li&gt;Faire un premier rendu du triangle avec un shader.&lt;/li&gt;&lt;li&gt;Comprendre la notion d&#39;indice pour ordonner le dessin du rectangle&lt;/li&gt;&lt;li&gt;Bien approfondir les notions de VBA, VBO et EBO&lt;/li&gt;&lt;/ul&gt;" style="text;html=1;whiteSpace=wrap;overflow=hidden;rounded=0;labelBackgroundColor=none;fontColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="125" y="360" width="410" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="eXIGQxcMQj50jVCJq_CA-10" value="&lt;ul&gt;&lt;li&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(18, 18, 18));&quot;&gt;Maitriser les bases du GLSL&lt;/span&gt;&lt;/li&gt;&lt;li&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(18, 18, 18));&quot;&gt;Faire changer la couleur de la forme progressivement&lt;/span&gt;&lt;/li&gt;&lt;/ul&gt;" style="text;html=1;whiteSpace=wrap;overflow=hidden;rounded=0;labelBackgroundColor=none;fontColor=light-dark(#000000, #121212);align=left;" vertex="1" parent="1">
+          <mxGeometry x="280" y="50" width="420" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="eXIGQxcMQj50jVCJq_CA-11" value="Détails" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#182E3E;horizontal=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;" edge="1" parent="1" source="eXIGQxcMQj50jVCJq_CA-8" target="eXIGQxcMQj50jVCJq_CA-10">
+          <mxGeometry x="-0.0045" relative="1" as="geometry">
+            <mxPoint x="470" y="310" as="sourcePoint" />
+            <mxPoint x="470" y="425" as="targetPoint" />
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="eXIGQxcMQj50jVCJq_CA-12" value="&lt;h1 style=&quot;margin-top: 0px;&quot;&gt;ROADMAP #0.0.2&lt;/h1&gt;&lt;p&gt;Création d&#39;un cube en 3D&lt;/p&gt;" style="text;html=1;whiteSpace=wrap;overflow=hidden;rounded=0;" vertex="1" parent="1">
+          <mxGeometry width="250" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="88JwYsdk7pb474S3zGqt-4" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;labelBackgroundColor=none;strokeColor=#182E3E;fontColor=default;" edge="1" parent="1" source="eXIGQxcMQj50jVCJq_CA-8" target="88JwYsdk7pb474S3zGqt-2">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="540" y="240" as="sourcePoint" />
+            <mxPoint x="910" y="240" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="88JwYsdk7pb474S3zGqt-2" value="&lt;span style=&quot;font-size: 11px;&quot;&gt;Charger des textures&lt;/span&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=center;labelBackgroundColor=none;fillColor=#56517E;strokeColor=#EEEEEE;fontColor=#FFFFFF;" vertex="1" parent="1">
+          <mxGeometry x="600" y="225" width="100" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="88JwYsdk7pb474S3zGqt-6" value="&lt;ul&gt;&lt;li&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(18, 18, 18));&quot;&gt;Comprendre les différents&amp;nbsp;&lt;/span&gt;Texture Filtering&lt;/li&gt;&lt;li&gt;Générer une texture&lt;/li&gt;&lt;li&gt;Appliquer cette texture&lt;/li&gt;&lt;/ul&gt;" style="text;html=1;whiteSpace=wrap;overflow=hidden;rounded=0;labelBackgroundColor=none;fontColor=light-dark(#000000, #121212);align=left;" vertex="1" parent="1">
+          <mxGeometry x="440" y="460" width="420" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="88JwYsdk7pb474S3zGqt-7" value="Détails" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#182E3E;horizontal=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="88JwYsdk7pb474S3zGqt-2" target="88JwYsdk7pb474S3zGqt-6">
+          <mxGeometry x="-0.0045" relative="1" as="geometry">
+            <mxPoint x="761" y="365" as="sourcePoint" />
+            <mxPoint x="650" y="355" as="targetPoint" />
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="POBIzQlc0iKUj_DKoWZA-1" value="&lt;span style=&quot;font-size: 11px;&quot;&gt;Premières transformations&lt;/span&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=center;labelBackgroundColor=none;fillColor=#56517E;strokeColor=#EEEEEE;fontColor=#FFFFFF;" vertex="1" parent="1">
+          <mxGeometry x="755" y="225" width="100" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="POBIzQlc0iKUj_DKoWZA-2" value="Détails" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#182E3E;horizontal=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="POBIzQlc0iKUj_DKoWZA-1" target="POBIzQlc0iKUj_DKoWZA-3">
+          <mxGeometry x="-0.0045" relative="1" as="geometry">
+            <mxPoint x="742" y="375" as="sourcePoint" />
+            <mxPoint x="805" y="118" as="targetPoint" />
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="POBIzQlc0iKUj_DKoWZA-3" value="&lt;ul&gt;&lt;li&gt;Maitriser les rotations de textures&lt;/li&gt;&lt;li&gt;Maitriser le changement de tailles d&#39;une texture&lt;/li&gt;&lt;li&gt;Créer une classe transformation appliquable à un Mesh&lt;/li&gt;&lt;/ul&gt;" style="text;html=1;whiteSpace=wrap;overflow=hidden;rounded=0;labelBackgroundColor=none;fontColor=light-dark(#000000, #121212);align=left;" vertex="1" parent="1">
+          <mxGeometry x="595" y="50" width="420" height="80" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

@@ -4,6 +4,8 @@
 #include <string>
 #include <iostream>
 #include <filesystem>
+#include <sstream>
+#include <unordered_map>
 
 #include "Texture.h"
 #include "constants.h"
