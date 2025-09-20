@@ -6,7 +6,7 @@
 #include <glm/gtc/type_ptr.hpp>
 
 #include "Transformation.h"
-
+#include "Camera.h"
 
 
 class Shader {
@@ -48,6 +48,7 @@ private:
     GLuint m_id;
     glm::mat4 m_projection, m_model, m_view = glm::mat4(1.0f);
     std::unordered_map<std::string, GLint> m_uniformLocations;
+	Camera* m_camera;
 
     std::string loadFromFile(const std::string& path);
     GLuint compile(GLenum type, const std::string& source);
