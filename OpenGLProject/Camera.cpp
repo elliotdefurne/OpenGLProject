@@ -1,20 +1,35 @@
-#include "Camera.h"
+#include "Camera.h"  
 
-Camera::Camera(glm::vec3 position, glm::vec3 target):
-    m_position(position),
-    m_target(target),
-    m_upVector(glm::vec3(0.0f, 1.0f, 0.0f)),
-    m_renderer(nullptr)
+// Constructeur de la caméra
+// On initialise sa position, sa cible et son vecteur "up"
+Camera::Camera(glm::vec3 position, glm::vec3 target) :
+    m_position(position),                     // Position de départ de la caméra
+    m_target(target),                         // Point regardé
+    m_upVector(glm::vec3(0.0f, 1.0f, 0.0f)),  // Définit l'axe vertical (Y+)
+    m_renderer(nullptr)                       // Pas encore lié à un renderer
 {
-    // Autres initialisations si besoin
+    // Ici tu peux ajouter d’autres initialisations si nécessaire
 }
 
+// Mise à jour de la caméra en fonction d’une entité
 void Camera::update(Entity* entity) {
+    // On place la caméra à la position de l’entité
     m_position = entity->getPosition();
+
+    // Et on définit comme "target" ce que l’entité regarde
+    // (il faut que Entity ait une méthode getTarget() qui renvoie un glm::vec3)
     m_target = entity->getTarget();
 }
 
+// Calcul de la matrice de vue (utilisée par OpenGL pour transformer la scène
+// du repère monde vers le repère caméra)
 glm::mat4 Camera::getViewMatrix() {
-	std::cout << "Camera Position: (" << m_position.x << ", " << m_position.y << ", " << m_position.z << ")\n";
+    // Petit debug dans la console pour voir la position de la caméra
+    std::cout << "Camera Position: ("
+        << m_position.x << ", "
+        << m_position.y << ", "
+        << m_position.z << ")\n";
+
+    // glm::lookAt crée une matrice View en utilisant position, target et upVector
     return glm::lookAt(m_position, m_target, m_upVector);
 }

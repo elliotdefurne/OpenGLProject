@@ -9,43 +9,46 @@
 
 /**
  * @class Shader
- * @brief Classe qui encapsule la gestion des shaders OpenGL (vertex + fragment).
+ * @brief Classe pour gérer les shaders OpenGL (vertex + fragment)
  *
- * Un shader est un petit programme exécuté directement sur la carte graphique.
- * Il existe plusieurs types de shaders, mais les deux principaux sont :
- * - Le **vertex shader** : il s'occupe de transformer les sommets (positions, normales, etc.).
- * - Le **fragment shader** : il détermine la couleur finale des pixels.
- *
- * Cette classe gère :
- * - La compilation et le linkage des shaders.
- * - L'envoi de variables (uniforms) au GPU (matrices, textures...).
- * - L'utilisation du programme shader dans la pipeline OpenGL.
+ * Gère :
+ * - Compilation et linkage des shaders
+ * - Envoi des variables uniformes (matrices, textures)
+ * - Activation du shader pour le rendu
  */
+
+ /**
+  * @brief Constructeur : compile et lie les shaders
+  *
+  * @param vertexSource Chemin ou code source du vertex shader
+  * @param fragmentSource Chemin ou code source du fragment shader
+  * @param camera Pointeur vers la caméra pour récupérer la vue
+  * @param isFile Indique si vertexSource et fragmentSource sont des chemins de fichiers
+  */
 Shader::Shader(const std::string& vertexSource, const std::string& fragmentSource, Camera* camera, bool isFile) {
     m_model = glm::mat4(1.0f);
     m_view = glm::mat4(1.0f);
     m_projection = glm::mat4(1.0f);
     m_camera = camera;
 
-	m_view = m_camera->getViewMatrix();
+    m_view = m_camera->getViewMatrix();
 
-    // Projection en perspective : effet "3D" avec un champ de vision de 60°
+    // Projection en perspective : effet 3D avec champ de vision de 60°
     m_projection = glm::perspective(
         glm::radians(60.0f),
         (float)Constants::WINDOW_WIDTH / (float)Constants::WINDOW_HEIGHT,
-        0.1f,   // Plan de coupe proche
-        100.0f  // Plan de coupe lointain
+        0.1f, 100.0f
     );
 
-    // Chargement du code source : depuis fichier ou directement depuis une string
+    // Chargement du code source
     std::string vertexCode = isFile ? loadFromFile(vertexSource) : vertexSource;
     std::string fragmentCode = isFile ? loadFromFile(fragmentSource) : fragmentSource;
 
-    // Compilation individuelle des shaders
+    // Compilation individuelle
     GLuint vertex = compile(GL_VERTEX_SHADER, vertexCode);
     GLuint fragment = compile(GL_FRAGMENT_SHADER, fragmentCode);
 
-    // Création et linkage du programme shader
+    // Création et linkage du programme
     m_id = glCreateProgram();
     glAttachShader(m_id, vertex);
     glAttachShader(m_id, fragment);
@@ -53,16 +56,13 @@ Shader::Shader(const std::string& vertexSource, const std::string& fragmentSourc
 
     checkCompileErrors(m_id, "PROGRAM");
 
-    // Les shaders bruts ne sont plus nécessaires une fois linkés au programme
+    // Shaders bruts supprimés après linkage
     glDeleteShader(vertex);
     glDeleteShader(fragment);
 }
 
 /**
- * @brief Destructeur qui libère la mémoire GPU associée au programme shader.
- *
- * En C++, le destructeur est appelé automatiquement quand un objet sort de portée.
- * Ici, on supprime le programme côté OpenGL pour éviter des fuites mémoire GPU.
+ * @brief Destructeur : supprime le programme shader côté GPU
  */
 Shader::~Shader() {
     if (m_id) {
@@ -71,13 +71,7 @@ Shader::~Shader() {
 }
 
 /**
- * @brief Active l'utilisation du shader dans la pipeline graphique.
- *
- * Chaque fois qu’on dessine des objets, il faut indiquer à OpenGL
- * quel programme shader utiliser. Cette fonction active celui-ci.
- *
- * Elle envoie aussi automatiquement les matrices model, view et projection
- * au shader, pour gérer la transformation 3D -> 2D.
+ * @brief Active ce shader et envoie les matrices au GPU
  */
 void Shader::use() {
     m_view = m_camera->getViewMatrix();
@@ -90,18 +84,17 @@ void Shader::use() {
 }
 
 /**
- * @brief Retourne l'identifiant OpenGL du programme shader.
- * @return GLuint ID du programme.
+ * @brief Retourne l'identifiant OpenGL du shader
  */
 GLuint Shader::getID() const {
     return m_id;
 }
 
 /**
- * @brief Charge le code source d’un shader depuis un fichier texte.
- * @param path Chemin du fichier.
- * @return Contenu du fichier sous forme de string.
- * @throws std::runtime_error si le fichier ne peut pas être ouvert.
+ * @brief Charge un shader depuis un fichier texte
+ * @param path Chemin du fichier
+ * @return Contenu du fichier
+ * @throws runtime_error si le fichier ne peut pas être ouvert
  */
 std::string Shader::loadFromFile(const std::string& path) {
     std::ifstream file(path);
@@ -115,14 +108,10 @@ std::string Shader::loadFromFile(const std::string& path) {
 }
 
 /**
- * @brief Associe une texture 2D à une variable uniforme du shader.
- *
- * @param name Nom de l'uniform dans le shader (par ex. "diffuseMap").
- * @param textureID Identifiant OpenGL de la texture.
- * @param unit Unité de texture (GL_TEXTURE0, GL_TEXTURE1, etc.).
- *
- * Explication : dans OpenGL, une texture est liée à une "unit" (slot).
- * On dit ensuite au shader que la variable correspond à ce slot.
+ * @brief Associe une texture 2D à un uniform du shader
+ * @param name Nom de l'uniform
+ * @param textureID ID OpenGL de la texture
+ * @param unit Unité de texture (slot)
  */
 void Shader::setTexture(const std::string& name, GLuint textureID, GLuint unit) {
     glActiveTexture(GL_TEXTURE0 + unit);
@@ -131,13 +120,9 @@ void Shader::setTexture(const std::string& name, GLuint textureID, GLuint unit) 
 }
 
 /**
- * @brief Envoie une matrice de transformation personnalisée au shader.
- *
- * @param name Nom de l'uniform dans le shader.
- * @param trans Pointeur vers une Transformation contenant une matrice 4x4.
- *
- * Ici, `Transformation` est une classe externe qui encapsule des opérations
- * comme translation, rotation et mise à l’échelle.
+ * @brief Envoie une transformation au shader
+ * @param name Nom de l'uniform
+ * @param trans Pointeur vers une Transformation contenant une matrice
  */
 void Shader::setTransformation(const std::string& name, Transformation* trans) {
     unsigned int transformLoc = getUniformLocation(name);
@@ -145,17 +130,10 @@ void Shader::setTransformation(const std::string& name, Transformation* trans) {
 }
 
 /**
- * @brief Compile un shader (vertex ou fragment).
- *
- * @param type Type de shader (GL_VERTEX_SHADER ou GL_FRAGMENT_SHADER).
- * @param source Code source du shader GLSL.
- * @return GLuint ID du shader compilé.
- *
- * Étapes :
- * 1. Créer un objet shader avec glCreateShader.
- * 2. Associer le code source avec glShaderSource.
- * 3. Compiler le shader avec glCompileShader.
- * 4. Vérifier les erreurs de compilation.
+ * @brief Compile un shader GLSL
+ * @param type Type (GL_VERTEX_SHADER ou GL_FRAGMENT_SHADER)
+ * @param source Code source GLSL
+ * @return ID du shader compilé
  */
 GLuint Shader::compile(GLenum type, const std::string& source) {
     GLuint shader = glCreateShader(type);
@@ -169,14 +147,10 @@ GLuint Shader::compile(GLenum type, const std::string& source) {
 }
 
 /**
- * @brief Vérifie et affiche les erreurs de compilation ou de linkage.
- *
- * @param object ID du shader ou du programme.
- * @param type Type ("VERTEX", "FRAGMENT", ou "PROGRAM").
- * @throws std::runtime_error si une erreur est détectée.
- *
- * OpenGL ne plante pas tout seul : il faut demander explicitement
- * les logs d'erreur et lever une exception côté C++ si nécessaire.
+ * @brief Vérifie les erreurs de compilation ou de linkage
+ * @param object ID du shader ou du programme
+ * @param type "VERTEX", "FRAGMENT" ou "PROGRAM"
+ * @throws runtime_error si erreur détectée
  */
 void Shader::checkCompileErrors(GLuint object, std::string type) {
     GLint success;
@@ -198,14 +172,10 @@ void Shader::checkCompileErrors(GLuint object, std::string type) {
 }
 
 /**
- * @brief Récupère l’emplacement d’une variable uniforme dans le shader.
- *
- * @param name Nom de l'uniform dans le code GLSL.
- * @return GLint Position de la variable dans le programme.
- * @throws std::invalid_argument si l'uniform n'existe pas.
- *
- * Les "uniforms" sont des variables globales du shader (par ex. matrices, couleurs...).
- * Elles doivent être envoyées depuis le CPU au GPU avant le rendu.
+ * @brief Récupère l'emplacement d'un uniform dans le shader
+ * @param name Nom de l'uniform
+ * @return Position de l'uniform dans le programme
+ * @throws invalid_argument si l'uniform n'existe pas
  */
 GLint Shader::getUniformLocation(const std::string& name) {
     auto it = m_uniformLocations.find(name);
@@ -217,9 +187,12 @@ GLint Shader::getUniformLocation(const std::string& name) {
         m_uniformLocations[name] = location;
         return location;
     }
-    return it->second;  // Retourner la valeur trouvée dans le cache
+    return it->second;  // Retourne la valeur mise en cache
 }
 
+/**
+ * @brief Vide le cache des uniforms
+ */
 void Shader::clearUniformLocations() {
     m_uniformLocations.clear();
 }

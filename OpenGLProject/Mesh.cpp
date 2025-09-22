@@ -2,80 +2,78 @@
 
 /**
  * @class Mesh
- * @brief Represente un maillage 3D (ensemble de sommets et d'indices) pret a etre dessine avec OpenGL.
+ * @brief Représente un maillage 3D prêt à être dessiné avec OpenGL.
  *
- * Un maillage (mesh) contient :
- * - Des sommets (positions, couleurs, coordonnees de texture)
- * - Une liste d'indices (qui definissent quels sommets forment des triangles)
- * - Une texture associee
+ * Un maillage contient :
+ * - Des sommets (positions, couleurs, coordonnées de texture)
+ * - Une liste d'indices (qui définissent quels sommets forment des triangles)
+ * - Une texture associée
  *
  * Cette classe encapsule les objets GPU suivants :
- * - VAO (Vertex Array Object) : memorise la configuration des attributs de sommets
- * - VBO (Vertex Buffer Object) : contient les donnees de tous les sommets
- * - EBO (Element Buffer Object) : contient les indices pour reutiliser les sommets sans duplication
+ * - VAO (Vertex Array Object) : mémorise la configuration des attributs de sommets
+ * - VBO (Vertex Buffer Object) : contient les données de tous les sommets
+ * - EBO (Element Buffer Object) : contient les indices pour réutiliser les mêmes sommets
  */
 
  /**
-  * @brief Constructeur par defaut de Mesh.
+  * @brief Constructeur par défaut de Mesh
   *
-  * Initialise le pointeur de texture a nullptr.
-  * Les identifiants VAO/VBO/EBO seront generes plus tard dans load().
+  * Initialise le pointeur de texture à nullptr.
+  * Les identifiants VAO/VBO/EBO seront générés plus tard dans load().
   */
 Mesh::Mesh() : m_texture(nullptr) {
-    // Rien a faire ici : les IDs seront initialises dans load()
+    // Rien à faire ici : les IDs seront initialisés dans load()
 }
 
 /**
- * @brief Destructeur de Mesh.
+ * @brief Destructeur de Mesh
  *
- * Appelle destroy() pour s'assurer que toutes les ressources GPU
- * (VAO, VBO, EBO) sont correctement liberees lors de la destruction de l'objet.
+ * Appelle destroy() pour libérer correctement toutes les ressources GPU
+ * (VAO, VBO, EBO) lors de la destruction de l'objet.
  *
- * Important : en C++, les destructeurs sont appeles automatiquement
- * quand un objet sort de sa portee (stack) ou est supprime (heap).
+ * Important : en C++, les destructeurs sont appelés automatiquement
+ * quand un objet sort de sa portée (stack) ou est supprimé (heap).
  */
 Mesh::~Mesh() {
-    destroy();
+    destroy(); // Libération des ressources GPU
 }
 
 /**
- * @brief Charge les donnees du maillage dans la memoire GPU.
+ * @brief Charge les données du maillage dans la mémoire GPU
  *
- * Etapes principales :
- * 1. Stocke la texture passee en parametre.
- * 2. Cree les buffers GPU (VAO, VBO, EBO) avec glGen*().
- * 3. Copie les donnees CPU (vertices et indices) vers la VRAM avec glBufferData().
- * 4. Definit le "layout" des sommets, c'est-a-dire comment OpenGL lit les donnees :
- *    - Attribut 0 -> Position (3 floats : x, y, z)
- *    - Attribut 1 -> Couleur (3 floats : r, g, b)
- *    - Attribut 2 -> Coordonnees de texture (2 floats : s, t)
+ * Étapes principales :
+ * 1. Stocke la texture passée en paramètre
+ * 2. Crée les buffers GPU (VAO, VBO, EBO)
+ * 3. Copie les données CPU (vertices et indices) vers la VRAM
+ * 4. Définit le "layout" des sommets pour OpenGL :
+ *    - Attribut 0 -> Position (x, y, z)
+ *    - Attribut 1 -> Couleur (r, g, b)
+ *    - Attribut 2 -> Coordonnées de texture (s, t)
  *
- * @param vertices Vecteur de sommets (std::vector<Vertex>), contient les positions/couleurs/UV.
- * @param indices Vecteur d'indices (std::vector<unsigned int>), determine quels sommets forment des triangles.
- * @param texture Pointeur vers la Texture associee (Texture*).
- *
- * Exemple : pour dessiner un cube, on passe 24 sommets (6 faces * 4 sommets) + 36 indices (6 faces * 2 triangles * 3 indices).
+ * @param vertices Vecteur de sommets (positions, couleurs, UV)
+ * @param indices Vecteur d'indices pour former les triangles
+ * @param texture Pointeur vers la texture associée
  */
 void Mesh::load(const std::vector<Vertex>& vertices, const std::vector<unsigned int>& indices, Texture* texture) {
-    m_texture = texture;
-    m_indexCount = static_cast<GLsizei>(indices.size());
+    m_texture = texture; // Stocke la texture
+    m_indexCount = static_cast<GLsizei>(indices.size()); // Nombre d'indices
 
-    // Creation des objets OpenGL
-    glGenVertexArrays(1, &m_vao);
-    glGenBuffers(1, &m_vbo);
-    glGenBuffers(1, &m_ebo);
+    // Création des objets OpenGL
+    glGenVertexArrays(1, &m_vao); // VAO
+    glGenBuffers(1, &m_vbo);      // VBO
+    glGenBuffers(1, &m_ebo);      // EBO
 
-    glBindVertexArray(m_vao);
+    glBindVertexArray(m_vao); // Bind du VAO
 
-    // Chargement des sommets dans la memoire GPU
+    // Chargement des sommets dans le VBO
     glBindBuffer(GL_ARRAY_BUFFER, m_vbo);
     glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(Vertex), vertices.data(), GL_STATIC_DRAW);
 
-    // Chargement des indices dans la memoire GPU
+    // Chargement des indices dans le EBO
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_ebo);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(unsigned int), indices.data(), GL_STATIC_DRAW);
 
-    // Definition du layout memoire pour chaque attribut du Vertex
+    // Définition du layout mémoire pour chaque attribut
     // Position (x, y, z)
     glEnableVertexAttribArray(0);
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)0);
@@ -84,47 +82,46 @@ void Mesh::load(const std::vector<Vertex>& vertices, const std::vector<unsigned 
     glEnableVertexAttribArray(1);
     glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)(3 * sizeof(float)));
 
-    // Coordonnees de texture (s, t)
+    // Coordonnées de texture (s, t)
     glEnableVertexAttribArray(2);
     glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)(6 * sizeof(float)));
 
-    glBindVertexArray(0); // Debind pour eviter des erreurs plus tard
+    glBindVertexArray(0); // Débind pour éviter les erreurs plus tard
 }
 
 /**
- * @brief Dessine le maillage a l'ecran.
+ * @brief Dessine le maillage à l'écran
  *
  * Processus :
- * - Active la texture associee (glBindTexture).
- * - Active le VAO (qui contient le VBO + EBO + layout deja configures).
- * - Appelle glDrawElements pour dessiner les triangles.
+ * - Active la texture associée
+ * - Active le VAO (qui contient VBO + EBO + layout)
+ * - Appelle glDrawElements pour dessiner les triangles
  *
- * Ici, on utilise glDrawElements (et pas glDrawArrays) car on a un EBO (indices).
+ * Utilise glDrawElements car le maillage possède un EBO (indices)
  */
 void Mesh::draw() const {
-    glBindTexture(GL_TEXTURE_2D, m_texture->getID());
-    glBindVertexArray(m_vao);
-    glDrawElements(GL_TRIANGLES, m_indexCount, GL_UNSIGNED_INT, nullptr);
-    glBindVertexArray(0);
+    glBindTexture(GL_TEXTURE_2D, m_texture->getID()); // Active la texture
+    glBindVertexArray(m_vao);                        // Bind du VAO
+    glDrawElements(GL_TRIANGLES, m_indexCount, GL_UNSIGNED_INT, nullptr); // Dessin
+    glBindVertexArray(0);                             // Débind
 }
 
 /**
- * @brief Libere manuellement les ressources GPU utilisees par ce Mesh.
+ * @brief Libère manuellement les ressources GPU utilisées par le Mesh
  *
- * - Supprime le VBO (vertex buffer)
- * - Supprime l'EBO (element buffer)
- * - Supprime le VAO (vertex array)
+ * - Supprime le VBO
+ * - Supprime l'EBO
+ * - Supprime le VAO
  *
- * Apres suppression, les identifiants sont remis a 0 pour eviter tout usage accidentel.
+ * Après suppression, les identifiants sont remis à 0 pour éviter tout usage accidentel
  *
- * Important : OpenGL ne libere pas automatiquement la memoire GPU !
- * Il faut toujours supprimer manuellement les buffers qu'on a crees.
+ * Important : OpenGL ne libère pas automatiquement la mémoire GPU
  */
 void Mesh::destroy() {
     if (m_ebo) glDeleteBuffers(1, &m_ebo);
     if (m_vbo) glDeleteBuffers(1, &m_vbo);
     if (m_vao) glDeleteVertexArrays(1, &m_vao);
 
-    m_vao = m_vbo = m_ebo = 0;
+    m_vao = m_vbo = m_ebo = 0; // Réinitialisation des IDs
     m_indexCount = 0;
 }
