@@ -13,7 +13,6 @@
 #include "Renderer.h"
 #include "Transformation.h"
 #include "TextureManager.h"
-#include "Camera.h"
 #include "ShaderManager.h"
 #include "KeyManager.h"
 #include "Cube.h"
