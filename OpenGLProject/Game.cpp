@@ -53,8 +53,12 @@ Game::~Game() {
 void Game::Initialize() {
     m_window = new Window(Constants::WINDOW_WIDTH, Constants::WINDOW_HEIGHT, Constants::WINDOW_TITLE);
     m_renderer = new Renderer();
+    m_camera = new Camera();
     m_textureManager = new TextureManager();
-	m_shaderManager = new ShaderManager();
+	m_shaderManager = new ShaderManager(m_camera);
+	m_keyManager = new KeyManager();
+    m_player = new Player(m_renderer);
+
 
     // Active le test de profondeur : permet de savoir quels objets sont devant
     glEnable(GL_DEPTH_TEST);
@@ -83,11 +87,11 @@ void Game::Run() {
         m_renderer->handleFrameTiming();
 
         // Logique du jeu
-        Update();
+        update();
 
         // Rendu graphique
         m_renderer->clear();
-        Render();
+        render();
 
         // Mise à jour de la fenêtre (swap buffers + gestion events)
         m_window->update();
@@ -100,14 +104,16 @@ void Game::Run() {
  * Ici, tu mettras les déplacements des personnages, gestion d’entrées clavier,
  * collisions, IA, scripts... Pour l’instant, elle est vide.
  */
-void Game::Update() {
+void Game::update() {
+	m_keyManager->update();
+    m_camera->update(m_player);
     // Update game logic here
 }
 
 /**
  * @brief Gère le rendu 3D de la scène.
  */
-void Game::Render() {
+void Game::render() {
     Texture* texture = m_textureManager->getTexture("test/rocks.png");
 	Shader* basic = m_shaderManager->getShader("cube");
 

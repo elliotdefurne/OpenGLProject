@@ -13,7 +13,7 @@ namespace Constants {
 
     // Player
 
-	constexpr float PLAYER_SPEED = 200.0f; // pixels per second
+	constexpr float PLAYER_SPEED = 2.5f; // pixels per second
 
     // Texture
 

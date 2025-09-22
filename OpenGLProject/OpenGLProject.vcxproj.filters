@@ -63,13 +63,13 @@
     <ClCompile Include="Cube.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
-    <ClCompile Include="Player.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="ShaderManager.cpp">
+    <ClCompile Include="Entity.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
     <ClCompile Include="Transformation.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
   </ItemGroup>
@@ -107,7 +107,7 @@
     <ClInclude Include="Cube.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-    <ClInclude Include="Player.h">
+    <ClInclude Include="Entity.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
     <ClInclude Include="ShaderManager.h">
@@ -124,6 +124,30 @@
     </ClInclude>
     <ClInclude Include="Forward.h">
       <Filter>Fichiers d%27en-tête\Keys</Filter>
+    </ClInclude>
+    <ClInclude Include="configKeys.h">
+      <Filter>Fichiers d%27en-tête\Keys</Filter>
+    </ClInclude>
+    <ClInclude Include="Backward.h">
+      <Filter>Fichiers d%27en-tête\Keys</Filter>
+    </ClInclude>
+    <ClInclude Include="Left.h">
+      <Filter>Fichiers d%27en-tête\Keys</Filter>
+    </ClInclude>
+    <ClInclude Include="Right.h">
+      <Filter>Fichiers d%27en-tête\Keys</Filter>
+    </ClInclude>
+    <ClInclude Include="Crouch.h">
+      <Filter>Fichiers d%27en-tête\Keys</Filter>
+    </ClInclude>
+    <ClInclude Include="Sprint.h">
+      <Filter>Fichiers d%27en-tête\Keys</Filter>
+    </ClInclude>
+    <ClInclude Include="Jump.h">
+      <Filter>Fichiers d%27en-tête\Keys</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

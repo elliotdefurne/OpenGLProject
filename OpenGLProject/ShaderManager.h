@@ -17,7 +17,7 @@ struct ShaderNode {
 
 class ShaderManager {
 public:
-    ShaderManager() { loadShaders(); };
+    ShaderManager(Camera* camera) : m_camera(camera) { loadShaders(); };
     ~ShaderManager() {
         deleteNode(&m_root);
     };
@@ -42,6 +42,8 @@ public:
     }
 private:
     ShaderNode m_root;
+    Camera* m_camera;
+
     void loadShaders(std::string shadersFolderPath = Constants::SHADERS_FOLDER_PATH) {
         if (!std::filesystem::is_directory(shadersFolderPath)) {
             std::cerr << "Le dossier des shaders n’existe pas: " << shadersFolderPath << std::endl;
@@ -70,6 +72,7 @@ private:
                             current->children[part]->shader = new Shader(
                                 vertPath.string(),
                                 fragPath.string(),
+                                m_camera,
                                 true
                             );
                         }

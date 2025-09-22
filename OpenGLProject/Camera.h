@@ -5,23 +5,19 @@
 #include <glm/ext/matrix_transform.hpp>
 
 #include "Renderer.h"
+#include "Entity.h"
 
 class Camera
 {
 public:
-	Camera(glm::vec3 position, glm::vec3 target);
-	glm::mat4 GetViewMatrix();
-	void ProcessKeyboard(int direction);
-	//void ProcessMouseMovement(float xoffset, float yoffset, GLboolean constrainPitch = true);
-	glm::vec3 Position;
-	float m_Front = 2.0f;
-	float m_Right = 1.0f;
-	// Caméra par défaut : positionnée en diagonale pour une vue 3D claire
-	glm::vec3 m_cameraPos = glm::vec3(3.0f, 3.0f, 3.0f);      // Position de la caméra
-	glm::vec3 m_cameraTarget = glm::vec3(0.0f, 0.0f, 0.0f);   // Point regardé
-	glm::vec3 m_cameraUp = glm::vec3(0.0f, 1.0f, 0.0f);       // Direction "haut" de la caméra
+	Camera(glm::vec3 position = glm::vec3(3.0f, 3.0f, 3.0f), glm::vec3 target = glm::vec3(0.0f, 0.0f, 0.0f));
+	glm::mat4 getViewMatrix();
+	void update(Entity* entity);
 private:
 	Renderer* m_renderer;
+	glm::vec3 m_position = glm::vec3(3.0f, 3.0f, 3.0f);			// Position de la caméra
+	glm::vec3 m_target = glm::vec3(0.0f, 0.0f, 0.0f);			// Point regardé
+	glm::vec3 m_upVector = glm::vec3(0.0f, 1.0f, 0.0f);			// Direction "haut" de la caméra
 };
 
 

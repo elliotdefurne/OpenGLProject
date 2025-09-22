@@ -142,10 +142,10 @@
     <ClCompile Include="glad.c" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Mesh.cpp" />
+    <ClCompile Include="Entity.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="Shader.cpp" />
-    <ClCompile Include="ShaderManager.cpp" />
     <ClCompile Include="Transformation.cpp" />
     <ClCompile Include="Transformation.h" />
     <ClCompile Include="Texture.cpp" />
@@ -153,19 +153,27 @@
     <ClCompile Include="Window.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Backward.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="config.h" />
+    <ClInclude Include="configKeys.h" />
     <ClInclude Include="constants.h" />
+    <ClInclude Include="Crouch.h" />
     <ClInclude Include="Cube.h" />
     <ClInclude Include="Forward.h" />
     <ClInclude Include="Game.h" />
+    <ClInclude Include="Jump.h" />
     <ClInclude Include="Key.h" />
     <ClInclude Include="KeyManager.h" />
+    <ClInclude Include="Left.h" />
     <ClInclude Include="Mesh.h" />
+    <ClInclude Include="Entity.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Renderer.h" />
+    <ClInclude Include="Right.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="ShaderManager.h" />
+    <ClInclude Include="Sprint.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="TextureManager.h" />
     <ClInclude Include="Vertex.h" />

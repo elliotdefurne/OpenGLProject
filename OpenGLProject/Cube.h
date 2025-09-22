@@ -13,6 +13,10 @@ public:
     ~Cube();
     void update();
 	void draw();
+
+	// Getters
+
+	inline Texture* getTexture() const { return m_mesh->getTexture(); }
 private:
     Mesh* m_mesh;
     Texture* m_texture;

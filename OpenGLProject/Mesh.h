@@ -12,7 +12,8 @@ public:
 
     void load(const std::vector<Vertex>& vertices, const std::vector<unsigned int>& indices, Texture* texture);
     void draw() const;
-    void destroy();
+
+    inline Texture* getTexture() const { return m_texture; };
 
 private:
     GLuint m_vao = 0;
@@ -20,4 +21,6 @@ private:
     GLuint m_ebo = 0;
     GLsizei m_indexCount = 0;
 	Texture* m_texture;
+
+    void destroy();
 };

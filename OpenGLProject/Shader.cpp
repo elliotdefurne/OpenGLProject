@@ -5,6 +5,7 @@
 
 #include "Shader.h"
 #include "Constants.h"
+#include "Camera.h"
 
 /**
  * @class Shader
@@ -20,17 +21,13 @@
  * - L'envoi de variables (uniforms) au GPU (matrices, textures...).
  * - L'utilisation du programme shader dans la pipeline OpenGL.
  */
-Shader::Shader(const std::string& vertexSource, const std::string& fragmentSource, bool isFile) {
+Shader::Shader(const std::string& vertexSource, const std::string& fragmentSource, Camera* camera, bool isFile) {
     m_model = glm::mat4(1.0f);
     m_view = glm::mat4(1.0f);
     m_projection = glm::mat4(1.0f);
+    m_camera = camera;
 
-    // Caméra par défaut : positionnée en diagonale pour une vue 3D claire
-    glm::vec3 cameraPos = glm::vec3(3.0f, 3.0f, 3.0f);      // Position de la caméra
-    glm::vec3 cameraTarget = glm::vec3(0.0f, 0.0f, 0.0f);   // Point regardé
-    glm::vec3 cameraUp = glm::vec3(0.0f, 1.0f, 0.0f);       // Direction "haut" de la caméra
-
-    m_view = glm::lookAt(cameraPos, cameraTarget, cameraUp);
+	m_view = m_camera->getViewMatrix();
 
     // Projection en perspective : effet "3D" avec un champ de vision de 60°
     m_projection = glm::perspective(

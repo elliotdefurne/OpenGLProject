@@ -1,17 +1,30 @@
 #pragma once
 #include "Key.h"
+#include "configKeys.h"
 #include <GLFW/glfw3.h>
 
 class Forward : public Key {
 public:
-    Forward() : Key("Forward", GLFW_KEY_Z) {}  // Appel du constructeur parent
+    Forward(Player* player) : Key(player, "Forward", ConfigKeys::KEY_FORWARD) {}  // Appel du constructeur parent
     virtual ~Forward() {}
 
-    void onPress() const override {
-        std::cout << "Forward pressed" << std::endl;
+    void onPress() override {
+        if (!m_isPressed) {
+            std::cout << "Forward onPressed" << std::endl;
+		    m_isPressed = true;
+        }
     }
 
-    void onRelease() const override {
-        std::cout << "Forward released" << std::endl;
+    void onRelease() override {
+        if (m_isPressed) {
+            std::cout << "Forward onReleased" << std::endl;
+            m_isPressed = false;
+        }
+    }
+
+    void ifPressed() override {
+        if (m_isPressed) {
+            std::cout << "Forward ifPressed" << std::endl;
+        }
     }
 };

@@ -6,12 +6,13 @@
 #include <glm/gtc/type_ptr.hpp>
 
 #include "Transformation.h"
+#include "Camera.h"
 
 
 
 class Shader {
 public:
-    Shader(const std::string& vertexSource, const std::string& fragmentSource, bool isFile = false);
+    Shader(const std::string& vertexSource, const std::string& fragmentSource, Camera* camera, bool isFile);
     ~Shader();
 
     void use();
@@ -46,6 +47,7 @@ public:
     const glm::mat4& getProjection() const { return m_projection; }
 private:
     GLuint m_id;
+    Camera* m_camera;
     glm::mat4 m_projection, m_model, m_view = glm::mat4(1.0f);
     std::unordered_map<std::string, GLint> m_uniformLocations;
 
