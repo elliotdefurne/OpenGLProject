@@ -2,6 +2,8 @@
 #include <string>
 #include <iostream>
 
+#include "Player.h"
+
 class Key {
 	public:
 		Key(Player* player, const std::string& name, int key) : m_name(name), m_key(key), m_player(player), m_isPressed(false) {}

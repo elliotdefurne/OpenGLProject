@@ -56,8 +56,9 @@ void Game::Initialize() {
     m_camera = new Camera();
     m_textureManager = new TextureManager();
 	m_shaderManager = new ShaderManager(m_camera);
-	m_keyManager = new KeyManager();
     m_player = new Player(m_renderer);
+	m_keyManager = new KeyManager(m_player);
+
 
 
     // Active le test de profondeur : permet de savoir quels objets sont devant

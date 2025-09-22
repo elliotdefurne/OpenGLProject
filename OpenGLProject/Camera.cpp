@@ -15,5 +15,6 @@ void Camera::update(Entity* entity) {
 }
 
 glm::mat4 Camera::getViewMatrix() {
+	std::cout << "Camera Position: (" << m_position.x << ", " << m_position.y << ", " << m_position.z << ")\n";
     return glm::lookAt(m_position, m_target, m_upVector);
 }

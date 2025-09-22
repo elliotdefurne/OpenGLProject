@@ -80,6 +80,8 @@ Shader::~Shader() {
  * au shader, pour gérer la transformation 3D -> 2D.
  */
 void Shader::use() {
+    m_view = m_camera->getViewMatrix();
+
     glUseProgram(m_id);
 
     setMat4("model", m_model);

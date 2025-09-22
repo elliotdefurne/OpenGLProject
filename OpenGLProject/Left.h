@@ -25,6 +25,7 @@ public:
     void ifPressed() override {
         if (m_isPressed) {
             std::cout << "Left ifPressed" << std::endl;
+            m_player->proccessDirectionKey(direction::LEFT);
         }
     }
 };

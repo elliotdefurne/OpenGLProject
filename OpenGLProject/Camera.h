@@ -3,6 +3,7 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 #include <glm/ext/matrix_transform.hpp>
+#include <iostream>
 
 #include "Renderer.h"
 #include "Entity.h"
