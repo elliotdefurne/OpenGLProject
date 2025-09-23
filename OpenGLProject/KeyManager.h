@@ -15,6 +15,7 @@
 #include "Crouch.h"
 #include "Jump.h"
 #include "Sprint.h"
+#include "Escape.h"
 
 
 class KeyManager {
@@ -62,5 +63,6 @@ private:
         m_keys["Crouch"] = new Crouch(m_player);
         m_keys["Jump"] = new Jump(m_player);
 		m_keys["Sprint"] = new Sprint(m_player);
+		m_keys["Escape"] = new Escape(m_player);
     }
 };

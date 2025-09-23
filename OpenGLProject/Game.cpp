@@ -73,7 +73,6 @@ void Game::Initialize() {
 void Game::Run() {
     while (!m_window->getShouldClose()) {
         m_renderer->handleFrameTiming(); // Gérer le framerate
-
         update();  // Mettre à jour la logique
         m_renderer->clear(); // Effacer l'écran
         render(); // Dessiner la scène
@@ -88,7 +87,7 @@ void Game::Run() {
  * Gestion des entrées clavier et mise à jour de la caméra
  */
 void Game::update() {
-    m_keyManager->update();      // Gestion des entrées clavier
+	m_keyManager->update();      // Gestion des entrées clavier/souris
     m_camera->update(m_player);  // Caméra suit le joueur
 }
 

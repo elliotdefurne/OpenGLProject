@@ -22,7 +22,7 @@
     <Filter Include="Fichiers de ressources\shaders\cube">
       <UniqueIdentifier>{03a278c3-1e69-4af9-ac28-2f9b76ae465c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Fichiers d%27en-tête\Keys">
+    <Filter Include="Fichiers d%27en-tête\Inputs">
       <UniqueIdentifier>{b06e89a0-143a-4e30-8003-0d1ce3d7bcf7}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -117,37 +117,43 @@
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
     <ClInclude Include="Key.h">
-      <Filter>Fichiers d%27en-tête\Keys</Filter>
+      <Filter>Fichiers d%27en-tête\Inputs</Filter>
     </ClInclude>
     <ClInclude Include="KeyManager.h">
-      <Filter>Fichiers d%27en-tête\Keys</Filter>
+      <Filter>Fichiers d%27en-tête\Inputs</Filter>
     </ClInclude>
     <ClInclude Include="Forward.h">
-      <Filter>Fichiers d%27en-tête\Keys</Filter>
+      <Filter>Fichiers d%27en-tête\Inputs</Filter>
     </ClInclude>
     <ClInclude Include="configKeys.h">
-      <Filter>Fichiers d%27en-tête\Keys</Filter>
+      <Filter>Fichiers d%27en-tête\Inputs</Filter>
     </ClInclude>
     <ClInclude Include="Backward.h">
-      <Filter>Fichiers d%27en-tête\Keys</Filter>
+      <Filter>Fichiers d%27en-tête\Inputs</Filter>
     </ClInclude>
     <ClInclude Include="Left.h">
-      <Filter>Fichiers d%27en-tête\Keys</Filter>
+      <Filter>Fichiers d%27en-tête\Inputs</Filter>
     </ClInclude>
     <ClInclude Include="Right.h">
-      <Filter>Fichiers d%27en-tête\Keys</Filter>
+      <Filter>Fichiers d%27en-tête\Inputs</Filter>
     </ClInclude>
     <ClInclude Include="Crouch.h">
-      <Filter>Fichiers d%27en-tête\Keys</Filter>
+      <Filter>Fichiers d%27en-tête\Inputs</Filter>
     </ClInclude>
     <ClInclude Include="Sprint.h">
-      <Filter>Fichiers d%27en-tête\Keys</Filter>
+      <Filter>Fichiers d%27en-tête\Inputs</Filter>
     </ClInclude>
     <ClInclude Include="Jump.h">
-      <Filter>Fichiers d%27en-tête\Keys</Filter>
+      <Filter>Fichiers d%27en-tête\Inputs</Filter>
     </ClInclude>
     <ClInclude Include="Player.h">
       <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="Mouse.h">
+      <Filter>Fichiers d%27en-tête\Inputs</Filter>
+    </ClInclude>
+    <ClInclude Include="Escape.h">
+      <Filter>Fichiers d%27en-tête\Inputs</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
