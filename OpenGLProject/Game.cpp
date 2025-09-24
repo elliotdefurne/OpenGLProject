@@ -15,17 +15,21 @@ Game::Game() : m_window(nullptr), m_renderer(nullptr) {
     if (!glfwInit()) {
         throw std::runtime_error("Failed to initialize GLFW");
     }
-    Initialize(); // Appelle la méthode privée pour initialiser les composants
+    initialize(); // Appelle la méthode privée pour initialiser les composants
 }
 
 /**
  * @brief Destructeur du jeu : libère la mémoire et termine GLFW
  */
 Game::~Game() {
-    if (m_window) delete m_window;             // Libération de la fenêtre
-    if (m_renderer) delete m_renderer;         // Libération du moteur de rendu
-    if (m_textureManager) delete m_textureManager; // Libération des textures
+    if (m_keyManager) delete m_keyManager;              // Libération de KeyManager
+    if (m_player) delete m_player;              // Libération de KeyManager
     if (m_shaderManager) delete m_shaderManager;   // Libération des shaders
+    if (m_textureManager) delete m_textureManager; // Libération des textures
+    if (m_camera) delete m_camera;              // Libération de la caméra
+    if (m_renderer) delete m_renderer;         // Libération du moteur de rendu
+    if (m_window) delete m_window;             // Libération de la fenêtre
+    
     glfwTerminate();                            // Terminer GLFW proprement
 }
 
@@ -40,14 +44,14 @@ Game::~Game() {
  * - joueur et gestionnaire de touches
  * Configure OpenGL pour activer la 3D (depth test, face culling)
  */
-void Game::Initialize() {
+void Game::initialize() {
     m_window = new Window(Constants::WINDOW_WIDTH, Constants::WINDOW_HEIGHT, Constants::WINDOW_TITLE);
     m_renderer = new Renderer();
     m_camera = new Camera();
     m_textureManager = new TextureManager();
     m_shaderManager = new ShaderManager(m_camera);
     m_player = new Player(m_renderer);
-    m_keyManager = new KeyManager(m_player);
+    m_keyManager = new KeyManager(this, m_player);
 
     // Activer le test de profondeur
     glEnable(GL_DEPTH_TEST);
@@ -70,7 +74,7 @@ void Game::Initialize() {
  * - dessiner la scène
  * - mettre à jour la fenêtre
  */
-void Game::Run() {
+void Game::run() {
     while (!m_window->getShouldClose()) {
         m_renderer->handleFrameTiming(); // Gérer le framerate
         update();  // Mettre à jour la logique
@@ -117,4 +121,8 @@ void Game::render() {
     delete cube2;
     texture = nullptr;
     basic = nullptr;
+}
+
+void Game::stop() {
+    glfwSetWindowShouldClose(m_window->getGLFWwindow(), (int)true);
 }

@@ -25,6 +25,9 @@
     <Filter Include="Fichiers d%27en-tête\Inputs">
       <UniqueIdentifier>{b06e89a0-143a-4e30-8003-0d1ce3d7bcf7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Fichiers sources\Inputs">
+      <UniqueIdentifier>{b35dc59f-d5a7-43a0-890d-c95ff1a77bd9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -71,6 +74,9 @@
     </ClCompile>
     <ClCompile Include="Player.cpp">
       <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="Escape.cpp">
+      <Filter>Fichiers sources\Inputs</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
