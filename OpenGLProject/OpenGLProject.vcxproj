@@ -136,17 +136,26 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Backward.cpp" />
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="Crouch.cpp" />
     <ClCompile Include="Cube.cpp" />
     <ClCompile Include="Escape.cpp" />
+    <ClCompile Include="Forward.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="glad.c" />
+    <ClCompile Include="Jump.cpp" />
+    <ClCompile Include="KeyManager.cpp" />
+    <ClCompile Include="Left.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="Entity.cpp" />
+    <ClCompile Include="Mouse.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Renderer.cpp" />
+    <ClCompile Include="Right.cpp" />
     <ClCompile Include="Shader.cpp" />
+    <ClCompile Include="Sprint.cpp" />
     <ClCompile Include="Transformation.cpp" />
     <ClCompile Include="Transformation.h" />
     <ClCompile Include="Texture.cpp" />

@@ -8,21 +8,9 @@ public:
     Forward(Player* player) : Key(player, "Forward", ConfigKeys::KEY_FORWARD) {}  // Appel du constructeur parent
     virtual ~Forward() {}
 
-    void onPress() override {
-        if (!m_isPressed) {
-		    m_isPressed = true;
-        }
-    }
+    void onPress() override;
 
-    void onRelease() override {
-        if (m_isPressed) {
-            m_isPressed = false;
-        }
-    }
+    void onRelease() override;
 
-    void ifPressed() override {
-        if (m_isPressed) {
-            m_player->proccessDirectionKey(direction::FORWARD);
-        }
-    }
+    void ifPressed() override;
 };
