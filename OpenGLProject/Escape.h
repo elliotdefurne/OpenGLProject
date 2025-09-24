@@ -2,6 +2,7 @@
 #include "Key.h"
 #include "configKeys.h"
 #include <GLFW/glfw3.h>
+#include <..\Game.h>
 
 class Escape : public Key {
 public:
@@ -18,7 +19,7 @@ public:
     void onRelease() override {
         if (m_isPressed) {
             std::cout << "Escape onReleased" << std::endl;
-            m_isPressed = false;
+            m_player->processEscapeKey();
         }
     }
 

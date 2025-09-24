@@ -118,3 +118,8 @@ void Game::render() {
     texture = nullptr;
     basic = nullptr;
 }
+
+void Game::stop() { 
+    m_isRunning = false; 
+    Game::~Game();
+}

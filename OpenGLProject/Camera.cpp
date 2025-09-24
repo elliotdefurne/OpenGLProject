@@ -25,10 +25,10 @@ void Camera::update(Entity* entity) {
 // du repère monde vers le repère caméra)
 glm::mat4 Camera::getViewMatrix() {
     // Petit debug dans la console pour voir la position de la caméra
-    std::cout << "Camera Position: ("
+    /*std::cout << "Camera Position: ("
         << m_position.x << ", "
         << m_position.y << ", "
-        << m_position.z << ")\n";
+        << m_position.z << ")\n";*/
 
     // glm::lookAt crée une matrice View en utilisant position, target et upVector
     return glm::lookAt(m_position, m_target, m_upVector);

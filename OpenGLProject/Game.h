@@ -11,6 +11,9 @@ public:
 	// Boucle principale du jeu
 	void Run();
 
+	// Méthode pour arrêter le jeu (quitter la boucle principale)
+	void stop();
+
 private:
 	Window* m_window;					// Pointeur vers la fenêtre (gestion GLFW + contexte OpenGL)
 	Renderer* m_renderer;				// Pointeur vers le moteur de rendu (FPS, clear, deltaTime…)
@@ -23,5 +26,4 @@ private:
 	void Initialize();					// Méthode d’initialisation du jeu (création fenêtre, chargement ressources…)
 	void update();						// Mise à jour de la logique du jeu (input, entités, physique…)
 	void render();						// Rendu de la scène (dessiner les entités, appliquer les shaders/textures…)
-
 };
