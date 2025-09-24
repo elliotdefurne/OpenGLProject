@@ -1,30 +1,34 @@
 #pragma once
+#include "Game.h"
 #include "Key.h"
+
+
 #include "configKeys.h"
 #include <GLFW/glfw3.h>
-#include <..\Game.h>
+
 
 class Escape : public Key {
 public:
-    Escape(Player* player) : Key(player, "Escape", ConfigKeys::KEY_ESCAPE) {}  // Appel du constructeur parent
+    Escape(Game* game) : Key(nullptr, "Escape", ConfigKeys::KEY_ESCAPE), m_game(game) {}  // Appel du constructeur parent
     virtual ~Escape() {}
 
     void onPress() override {
         if (!m_isPressed) {
-            std::cout << "Escape onPressed" << std::endl;
             m_isPressed = true;
         }
     }
 
     void onRelease() override {
         if (m_isPressed) {
-            std::cout << "Escape onReleased" << std::endl;
-            m_player->processEscapeKey();
+            delete m_game;
         }
     }
 
     void ifPressed() override {
 		//définit pour éviter les problèmes mais ne fait rien
-        return ;
+        if (m_isPressed) {  
+        }
     }
+private:
+	Game* m_game;
 };

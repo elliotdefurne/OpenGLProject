@@ -7,6 +7,9 @@
 #include <unordered_map>
 #include <memory>
 
+
+#include "Game.h"
+
 #include "Key.h"
 #include "Forward.h"
 #include "Backward.h"
@@ -20,7 +23,7 @@
 
 class KeyManager {
 public:
-    KeyManager(Player* player) :m_player(player) { loadKeys(); }
+    KeyManager(Game* game, Player* player) : m_game(game), m_player(player) { loadKeys(); }
 
     ~KeyManager() {
         for (auto& pair : m_keys) {
@@ -54,6 +57,7 @@ public:
 private:
     std::unordered_map<std::string, Key*> m_keys;
     Player* m_player;
+    Game* m_game;
 
     void loadKeys() {
         m_keys["Forward"] = new Forward(m_player);
@@ -63,6 +67,6 @@ private:
         m_keys["Crouch"] = new Crouch(m_player);
         m_keys["Jump"] = new Jump(m_player);
 		m_keys["Sprint"] = new Sprint(m_player);
-		m_keys["Escape"] = new Escape(m_player);
+		m_keys["Escape"] = new Escape(m_game);
     }
 };
