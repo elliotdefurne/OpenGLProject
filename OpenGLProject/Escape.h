@@ -1,7 +1,6 @@
 #pragma once
 #include "Key.h"
 
-
 #include "configKeys.h"
 #include <GLFW/glfw3.h>
 
