@@ -9,8 +9,7 @@ public:
 	~Game();  // Destructeur (nettoie les ressources)
 
 	// Boucle principale du jeu
-	void run();
-	void stop();
+	void Run();
 
 private:
 	Window* m_window;					// Pointeur vers la fenêtre (gestion GLFW + contexte OpenGL)
@@ -21,7 +20,8 @@ private:
 	Player* m_player;					// Joueur (hérite sûrement de Entity)
 	Camera* m_camera;					// Caméra (utilisée pour générer la matrice de vue)
 	bool m_isRunning = true;			// Booléen pour contrôler si le jeu est en cours d’exécution
-	void initialize();					// Méthode d’initialisation du jeu (création fenêtre, chargement ressources…)
+	void Initialize();					// Méthode d’initialisation du jeu (création fenêtre, chargement ressources…)
 	void update();						// Mise à jour de la logique du jeu (input, entités, physique…)
 	void render();						// Rendu de la scène (dessiner les entités, appliquer les shaders/textures…)
+
 };

@@ -1,58 +1,46 @@
 #pragma once
-#include <GLFW/glfw3.h>
-#include <glm/glm.hpp>
+#include <vector>
+#include <stdexcept>
+#include <string>
+#include <iostream>
+#include <filesystem>
+#include <unordered_map>
+#include <memory>
 
-#include <Windows.h>
+#include "configKeys.h"
 
-class Mouse
-{
+
+
+class Mouse {
+
 public:
-	Mouse();
-	~Mouse();
-    glfwSetCursorPosCallback(window, mouse_callback);
-	void mouse_callback(GLFWwindow* window, double xpos, double ypos);
-private:
-    const float m_sensitivity = 0.1f;
-    float m_yaw = -90.0f;
-};
 
-Mouse::Mouse()
-{
-}
+    void handleMovement(double xpos, double ypos) {
 
-Mouse::~Mouse()
-{
-}
+        if ((m_oldxpos!=xpos) or (m_oldypos!=ypos)) {
+            double xoffset = xpos - m_oldxpos;
+            double yoffset = m_oldypos - ypos; // Inversé : l'axe Y va de bas en haut
+            m_oldxpos = xpos;
+            m_oldypos = ypos;
+            xoffset *= m_sensitivity;
+            yoffset *= m_sensitivity;
+            // Mettre à jour les angles de la caméra ici (non implémenté dans cette classe)
+            // Par exemple : cameraYaw += xoffset; cameraPitch += yoffset;
 
-void Mouse::mouse_callback(GLFWwindow* window, double xpos, double ypos)
-{
-    if (firstMouse)
-    {
-        lastX = xpos;
-        lastY = ypos;
-        firstMouse = false;
+            double cameraYaw;
+            double cameraPitch;
+
+
+            std::cout << "Mouse Position: ("
+                << xoffset << ", "
+                << yoffset << ")\n";
+
+		}
+
     }
 
-    float xoffset = xpos - lastX;
-    float yoffset = lastY - ypos;
-    lastX = xpos;
-    lastY = ypos;
-
-    float sensitivity = 0.1f;
-    xoffset *= sensitivity;
-    yoffset *= sensitivity;
-
-    m_yaw += xoffset;
-    pitch += yoffset;
-
-    if (pitch > 89.0f)
-        pitch = 89.0f;
-    if (pitch < -89.0f)
-        pitch = -89.0f;
-
-    glm::vec3 direction;
-    direction.x = cos(glm::radians(yaw)) * cos(glm::radians(pitch));
-    direction.y = sin(glm::radians(pitch));
-    direction.z = sin(glm::radians(yaw)) * cos(glm::radians(pitch));
-    cameraFront = glm::normalize(direction);
-}
+private:
+    double m_oldxpos = 0.0;
+    double m_oldypos = 0.0;
+	const float m_sensitivity = ConfigKeys::sensitivity; // Sensibilité de la souris
+};

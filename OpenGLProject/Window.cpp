@@ -151,11 +151,10 @@ bool Window::init() {
         return false;
     }
 
-    // Définition de la zone de rendu
-    glViewport(0, 0, m_width, m_height);
-
-    //efface le bouton de la souris et permet de capturer la souris
+	// Focus sur la fenêtre et capture de la souris
     glfwSetInputMode(m_window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
+    // Définition de la zone de rendu
+    glViewport(0, 0, m_width, m_height);
     return true;
 }

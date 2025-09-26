@@ -30,6 +30,7 @@ void Player::draw()
 void Player::proccessDirectionKey(int direction) {
     // Vitesse de déplacement du joueur
     float velocity = Constants::PLAYER_SPEED * m_renderer->getDeltaTime();
+
     if (direction == direction::FORWARD)
         m_position += glm::vec3(0.0f, 0.0f, 1.0f) * velocity;
     if (direction == direction::BACKWARD)
@@ -42,9 +43,4 @@ void Player::proccessDirectionKey(int direction) {
         m_position += glm::vec3(0.0f, 1.0f, 0.0f) * velocity;
     if (direction == direction::DOWN)
         m_position += glm::vec3(0.0f, -1.0f, 0.0f) * velocity;
-}
-
-void Player::processEscapeKey() {
-    std::cout << "Escape key pressed. Exiting game..." << std::endl;
-    exit(0); // Quitte le programme
 }

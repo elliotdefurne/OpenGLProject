@@ -24,6 +24,9 @@ private:
 	glm::vec3 m_position = glm::vec3(3.0f, 3.0f, 3.0f);			// Position de la caméra
 	glm::vec3 m_target = glm::vec3(0.0f, 0.0f, 0.0f);			// Point regardé
 	glm::vec3 m_upVector = glm::vec3(0.0f, 1.0f, 0.0f);			// Direction "haut" de la caméra
+
+	//glm::vec3 m_direction = glm::normalize(m_position - m_target);	// Vecteur direction de la caméra en fonction de la position et de la cible
+	glm::vec3 m_direction = glm::vec3(0.0f, 0.0f, 0.0f);
 };
 
 

@@ -42,6 +42,7 @@ public:
     // Getters
     glm::vec3 getPosition() const { return m_position; } // Retourne la position de l’entité
     glm::vec3 getTarget() const { return m_target; }     // Retourne le point regardé/ciblé
+	glm::vec3 getDirection() const { return glm::normalize(m_target - m_position); } // Vecteur direction
 
 protected:
     glm::vec3 m_target;     // Vecteur de direction ou "cible" de l’entité

@@ -19,17 +19,18 @@ void Camera::update(Entity* entity) {
     // Et on définit comme "target" ce que l’entité regarde
     // (il faut que Entity ait une méthode getTarget() qui renvoie un glm::vec3)
     m_target = entity->getTarget();
+	m_direction = entity->getDirection();
 }
 
 // Calcul de la matrice de vue (utilisée par OpenGL pour transformer la scène
 // du repère monde vers le repère caméra)
 glm::mat4 Camera::getViewMatrix() {
     // Petit debug dans la console pour voir la position de la caméra
-    /*std::cout << "Camera Position: ("
-        << m_position.x << ", "
-        << m_position.y << ", "
-        << m_position.z << ")\n";*/
+    std::cout << "Camera Position: ("
+        << m_direction.x << ", "
+        << m_direction.y << ", "
+        << m_direction.z << ")\n";
 
     // glm::lookAt crée une matrice View en utilisant position, target et upVector
-    return glm::lookAt(m_position, m_target, m_upVector);
+    return glm::lookAt(m_position, m_direction, m_upVector);
 }

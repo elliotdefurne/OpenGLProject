@@ -10,18 +10,21 @@ public:
 
     void onPress() override {
         if (!m_isPressed) {
+            std::cout << "Sprint onPressed" << std::endl;
             m_isPressed = true;
         }
     }
 
     void onRelease() override {
         if (m_isPressed) {
+            std::cout << "Sprint onReleased" << std::endl;
             m_isPressed = false;
         }
     }
 
     void ifPressed() override {
         if (m_isPressed) {
+            std::cout << "Sprint ifPressed" << std::endl;
         }
     }
 };

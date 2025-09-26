@@ -9,6 +9,7 @@ namespace ConfigKeys {
 	inline const int KEY_CROUCH = GLFW_KEY_LEFT_CONTROL;
 	inline const int KEY_JUMP = GLFW_KEY_SPACE;
 	inline const int KEY_SPRINT = GLFW_KEY_LEFT_SHIFT;
-	inline const int KEY_ESCAPE = GLFW_KEY_ESCAPE;
 	// Add other key names here as needed
+
+	const float sensitivity = 0.1f;
 }

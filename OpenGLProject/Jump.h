@@ -8,9 +8,24 @@ public:
     Jump(Player* player) : Key(player, "Jump", ConfigKeys::KEY_JUMP) {}  // Appel du constructeur parent
     virtual ~Jump() {}
 
-    void onPress() override;
+    void onPress() override {
+        if (!m_isPressed) {
+            std::cout << "Jump onPressed" << std::endl;
+            m_isPressed = true;
+        }
+    }
 
-    void onRelease() override;
+    void onRelease() override {
+        if (m_isPressed) {
+            std::cout << "Jump onReleased" << std::endl;
+            m_isPressed = false;
+        }
+    }
 
-    void ifPressed() override;
+    void ifPressed() override {
+        if (m_isPressed) {
+            std::cout << "Jump ifPressed" << std::endl;
+            m_player->proccessDirectionKey(direction::UP);
+        }
+    }
 };

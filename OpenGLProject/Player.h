@@ -24,6 +24,4 @@ public:
 
     // Traite les touches de direction (FORWARD, BACKWARD, LEFT, RIGHT, UP, DOWN)
     void proccessDirectionKey(int direction);
-
-    void processEscapeKey();
 };
