@@ -78,6 +78,33 @@
     <ClCompile Include="Escape.cpp">
       <Filter>Fichiers sources\Inputs</Filter>
     </ClCompile>
+    <ClCompile Include="KeyManager.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="Sprint.cpp">
+      <Filter>Fichiers sources\Inputs</Filter>
+    </ClCompile>
+    <ClCompile Include="Right.cpp">
+      <Filter>Fichiers sources\Inputs</Filter>
+    </ClCompile>
+    <ClCompile Include="Left.cpp">
+      <Filter>Fichiers sources\Inputs</Filter>
+    </ClCompile>
+    <ClCompile Include="Mouse.cpp">
+      <Filter>Fichiers sources\Inputs</Filter>
+    </ClCompile>
+    <ClCompile Include="Jump.cpp">
+      <Filter>Fichiers sources\Inputs</Filter>
+    </ClCompile>
+    <ClCompile Include="Forward.cpp">
+      <Filter>Fichiers sources\Inputs</Filter>
+    </ClCompile>
+    <ClCompile Include="Crouch.cpp">
+      <Filter>Fichiers sources\Inputs</Filter>
+    </ClCompile>
+    <ClCompile Include="Backward.cpp">
+      <Filter>Fichiers sources\Inputs</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="config.h">
