@@ -3,7 +3,6 @@
 #include "KeyManager.h"
 #include "Game.h"
 
-
 Key* KeyManager::getKey(const std::string& name) {
 	auto it = m_keys.find(name);
 	if (it != m_keys.end()) {
