@@ -83,10 +83,6 @@ void Game::run() {
 
         m_window->update(); // Swap buffers et gestion des événements
     }
-<<<<<<< Updated upstream
-    delete this;
-=======
->>>>>>> Stashed changes
 }
 
 /**
