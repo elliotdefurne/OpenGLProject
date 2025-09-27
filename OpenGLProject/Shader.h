@@ -1,6 +1,5 @@
 #pragma once
 #include <string>
-#include <glad/glad.h>
 #include <unordered_map>
 #include <glm/glm.hpp>
 #include <glm/gtc/type_ptr.hpp>
@@ -23,7 +22,7 @@ public:
     void use();
 
     // Associe une texture 2D à un uniform du shader
-    void setTexture(const std::string& name, GLuint textureID, GLuint unit = 0);
+    void setTexture(const std::string& name, unsigned int textureID, unsigned int unit = 0);
 
     // Envoie une transformation encapsulée dans la classe Transformation
     void setTransformation(const std::string& name, Transformation* trans);
@@ -32,21 +31,21 @@ public:
     void clearUniformLocations();
 
     // Retourne l'identifiant OpenGL du programme shader
-    GLuint getID() const;
+    unsigned int getID() const;
 
     // Méthodes pour envoyer des variables uniformes simples
-    void setBool(const std::string& name, bool value) { glUniform1i(getUniformLocation(name), (int)value); }
-    void setInt(const std::string& name, int value) { glUniform1i(getUniformLocation(name), value); }
-    void setFloat(const std::string& name, float value) { glUniform1f(getUniformLocation(name), value); }
-    void setVec2(const std::string& name, const glm::vec2& value) { glUniform2fv(getUniformLocation(name), 1, &value[0]); }
-    void setVec2(const std::string& name, float x, float y) { glUniform2f(getUniformLocation(name), x, y); }
-    void setVec3(const std::string& name, const glm::vec3& value) { glUniform3fv(getUniformLocation(name), 1, &value[0]); }
-    void setVec3(const std::string& name, float x, float y, float z) { glUniform3f(getUniformLocation(name), x, y, z); }
-    void setVec4(const std::string& name, const glm::vec4& value) { glUniform4fv(getUniformLocation(name), 1, &value[0]); }
-    void setVec4(const std::string& name, float x, float y, float z, float w) { glUniform4f(getUniformLocation(name), x, y, z, w); }
-    void setMat2(const std::string& name, const glm::mat2& mat) { glUniformMatrix2fv(getUniformLocation(name), 1, GL_FALSE, &mat[0][0]); }
-    void setMat3(const std::string& name, const glm::mat3& mat) { glUniformMatrix3fv(getUniformLocation(name), 1, GL_FALSE, &mat[0][0]); }
-    void setMat4(const std::string& name, const glm::mat4& mat) { glUniformMatrix4fv(getUniformLocation(name), 1, GL_FALSE, &mat[0][0]); }
+    void setBool(const std::string& name, bool value);
+    void setInt(const std::string& name, int value);
+    void setFloat(const std::string& name, float value);
+    void setVec2(const std::string& name, const glm::vec2& value);
+    void setVec2(const std::string& name, float x, float y);
+    void setVec3(const std::string& name, const glm::vec3& value);
+    void setVec3(const std::string& name, float x, float y, float z);
+    void setVec4(const std::string& name, const glm::vec4& value);
+    void setVec4(const std::string& name, float x, float y, float z, float w);
+    void setMat2(const std::string& name, const glm::mat2& mat);
+    void setMat3(const std::string& name, const glm::mat3& mat);
+    void setMat4(const std::string& name, const glm::mat4& mat);
 
     // Méthodes pour modifier les matrices internes du shader
     void setModel(const glm::mat4& model) { m_model = model; }
@@ -59,20 +58,20 @@ public:
     const glm::mat4& getProjection() const { return m_projection; }
 
 private:
-    GLuint m_id;  // ID OpenGL du programme shader
+    unsigned int m_id;  // ID OpenGL du programme shader
     Camera* m_camera;  // Pointeur vers la caméra pour récupérer la vue
     glm::mat4 m_projection, m_model, m_view = glm::mat4(1.0f);  // Matrices de transformation
-    std::unordered_map<std::string, GLint> m_uniformLocations; // Cache des emplacements des uniforms
+    std::unordered_map<std::string, unsigned int> m_uniformLocations; // Cache des emplacements des uniforms
 
     // Charge le code source depuis un fichier
     std::string loadFromFile(const std::string& path);
 
     // Compile un shader GLSL (vertex ou fragment)
-    GLuint compile(GLenum type, const std::string& source);
+    unsigned int compile(unsigned int type, const std::string& source);
 
     // Vérifie les erreurs de compilation ou de linkage
-    void checkCompileErrors(GLuint shader, std::string type);
+    void checkCompileErrors(unsigned int shader, std::string type);
 
     // Récupère l'emplacement d'un uniform dans le shader (avec cache)
-    GLint getUniformLocation(const std::string& name);
+    unsigned int getUniformLocation(const std::string& name);
 };

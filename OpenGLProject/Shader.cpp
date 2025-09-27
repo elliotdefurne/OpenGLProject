@@ -3,28 +3,13 @@
 #include <iostream>
 #include <stdexcept>
 
+#include <glad/glad.h>
+#include <GLFW/glfw3.h>
+
 #include "Shader.h"
 #include "Constants.h"
 #include "Camera.h"
 
-/**
- * @class Shader
- * @brief Classe pour gérer les shaders OpenGL (vertex + fragment)
- *
- * Gère :
- * - Compilation et linkage des shaders
- * - Envoi des variables uniformes (matrices, textures)
- * - Activation du shader pour le rendu
- */
-
- /**
-  * @brief Constructeur : compile et lie les shaders
-  *
-  * @param vertexSource Chemin ou code source du vertex shader
-  * @param fragmentSource Chemin ou code source du fragment shader
-  * @param camera Pointeur vers la caméra pour récupérer la vue
-  * @param isFile Indique si vertexSource et fragmentSource sont des chemins de fichiers
-  */
 Shader::Shader(const std::string& vertexSource, const std::string& fragmentSource, Camera* camera, bool isFile) {
     m_model = glm::mat4(1.0f);
     m_view = glm::mat4(1.0f);
@@ -61,18 +46,12 @@ Shader::Shader(const std::string& vertexSource, const std::string& fragmentSourc
     glDeleteShader(fragment);
 }
 
-/**
- * @brief Destructeur : supprime le programme shader côté GPU
- */
 Shader::~Shader() {
     if (m_id) {
         glDeleteProgram(m_id);
     }
 }
 
-/**
- * @brief Active ce shader et envoie les matrices au GPU
- */
 void Shader::use() {
     m_view = m_camera->getViewMatrix();
 
@@ -83,19 +62,10 @@ void Shader::use() {
     setMat4("projection", m_projection);
 }
 
-/**
- * @brief Retourne l'identifiant OpenGL du shader
- */
 GLuint Shader::getID() const {
     return m_id;
 }
 
-/**
- * @brief Charge un shader depuis un fichier texte
- * @param path Chemin du fichier
- * @return Contenu du fichier
- * @throws runtime_error si le fichier ne peut pas être ouvert
- */
 std::string Shader::loadFromFile(const std::string& path) {
     std::ifstream file(path);
     if (!file.is_open()) {
@@ -107,35 +77,18 @@ std::string Shader::loadFromFile(const std::string& path) {
     return buffer.str();
 }
 
-/**
- * @brief Associe une texture 2D à un uniform du shader
- * @param name Nom de l'uniform
- * @param textureID ID OpenGL de la texture
- * @param unit Unité de texture (slot)
- */
-void Shader::setTexture(const std::string& name, GLuint textureID, GLuint unit) {
+void Shader::setTexture(const std::string& name, unsigned int textureID, unsigned int unit) {
     glActiveTexture(GL_TEXTURE0 + unit);
     glBindTexture(GL_TEXTURE_2D, textureID);
     glUniform1i(getUniformLocation(name), unit);
 }
 
-/**
- * @brief Envoie une transformation au shader
- * @param name Nom de l'uniform
- * @param trans Pointeur vers une Transformation contenant une matrice
- */
 void Shader::setTransformation(const std::string& name, Transformation* trans) {
     unsigned int transformLoc = getUniformLocation(name);
     glUniformMatrix4fv(transformLoc, 1, GL_FALSE, glm::value_ptr(trans->getMatrix()));
 }
 
-/**
- * @brief Compile un shader GLSL
- * @param type Type (GL_VERTEX_SHADER ou GL_FRAGMENT_SHADER)
- * @param source Code source GLSL
- * @return ID du shader compilé
- */
-GLuint Shader::compile(GLenum type, const std::string& source) {
+unsigned int Shader::compile(unsigned int type, const std::string& source) {
     GLuint shader = glCreateShader(type);
     const char* src = source.c_str();
     glShaderSource(shader, 1, &src, nullptr);
@@ -146,13 +99,7 @@ GLuint Shader::compile(GLenum type, const std::string& source) {
     return shader;
 }
 
-/**
- * @brief Vérifie les erreurs de compilation ou de linkage
- * @param object ID du shader ou du programme
- * @param type "VERTEX", "FRAGMENT" ou "PROGRAM"
- * @throws runtime_error si erreur détectée
- */
-void Shader::checkCompileErrors(GLuint object, std::string type) {
+void Shader::checkCompileErrors(unsigned int object, std::string type) {
     GLint success;
     GLchar infoLog[1024];
     if (type == "PROGRAM") {
@@ -171,13 +118,21 @@ void Shader::checkCompileErrors(GLuint object, std::string type) {
     }
 }
 
-/**
- * @brief Récupère l'emplacement d'un uniform dans le shader
- * @param name Nom de l'uniform
- * @return Position de l'uniform dans le programme
- * @throws invalid_argument si l'uniform n'existe pas
- */
-GLint Shader::getUniformLocation(const std::string& name) {
+// Méthodes pour envoyer des variables uniformes simples
+void Shader::setBool(const std::string& name, bool value) { glUniform1i(getUniformLocation(name), (int)value); }
+void Shader::setInt(const std::string& name, int value) { glUniform1i(getUniformLocation(name), value); }
+void Shader::setFloat(const std::string& name, float value) { glUniform1f(getUniformLocation(name), value); }
+void Shader::setVec2(const std::string& name, const glm::vec2& value) { glUniform2fv(getUniformLocation(name), 1, &value[0]); }
+void Shader::setVec2(const std::string& name, float x, float y) { glUniform2f(getUniformLocation(name), x, y); }
+void Shader::setVec3(const std::string& name, const glm::vec3& value) { glUniform3fv(getUniformLocation(name), 1, &value[0]); }
+void Shader::setVec3(const std::string& name, float x, float y, float z) { glUniform3f(getUniformLocation(name), x, y, z); }
+void Shader::setVec4(const std::string& name, const glm::vec4& value) { glUniform4fv(getUniformLocation(name), 1, &value[0]); }
+void Shader::setVec4(const std::string& name, float x, float y, float z, float w) { glUniform4f(getUniformLocation(name), x, y, z, w); }
+void Shader::setMat2(const std::string& name, const glm::mat2& mat) { glUniformMatrix2fv(getUniformLocation(name), 1, GL_FALSE, &mat[0][0]); }
+void Shader::setMat3(const std::string& name, const glm::mat3& mat) { glUniformMatrix3fv(getUniformLocation(name), 1, GL_FALSE, &mat[0][0]); }
+void Shader::setMat4(const std::string& name, const glm::mat4& mat) { glUniformMatrix4fv(getUniformLocation(name), 1, GL_FALSE, &mat[0][0]); }
+
+unsigned int Shader::getUniformLocation(const std::string& name) {
     auto it = m_uniformLocations.find(name);
     if (it == m_uniformLocations.end()) {
         GLint location = glGetUniformLocation(m_id, name.c_str());
@@ -190,9 +145,6 @@ GLint Shader::getUniformLocation(const std::string& name) {
     return it->second;  // Retourne la valeur mise en cache
 }
 
-/**
- * @brief Vide le cache des uniforms
- */
 void Shader::clearUniformLocations() {
     m_uniformLocations.clear();
 }

@@ -1,19 +1,12 @@
-#include "Window.h"
-#include "constants.h"
 #include <iostream>
 #include <cstdlib>
 
-/**
- * @brief Constructeur de la classe Window.
- *
- * Initialise une fenêtre GLFW avec les dimensions et le titre fournis.
- * Charge le contexte OpenGL via GLAD.
- * Si l'initialisation échoue, le programme se termine.
- *
- * @param width Largeur de la fenêtre.
- * @param height Hauteur de la fenêtre.
- * @param title Titre de la fenêtre.
- */
+#include "Window.h"
+#include "constants.h"
+
+#include <glad/glad.h>
+#include <GLFW/glfw3.h>
+
 Window::Window(int width, int height, const char* title)
     : m_width(width), m_height(height), m_title(title), m_window(nullptr) {
     if (!init()) {
@@ -22,88 +15,41 @@ Window::Window(int width, int height, const char* title)
     }
 }
 
-/**
- * @brief Destructeur de la classe Window.
- *
- * Détruit la fenêtre GLFW si elle a été créée pour libérer les ressources.
- */
 Window::~Window() {
     if (m_window) {
         glfwDestroyWindow(m_window);
     }
 }
 
-/**
- * @brief Vérifie si la fenêtre doit se fermer.
- *
- * @return true si l'utilisateur ou le système a demandé la fermeture.
- * @return false sinon.
- */
 bool Window::getShouldClose() const {
     return glfwWindowShouldClose(m_window);
 }
 
-/**
- * @brief Traite les événements en attente (clavier, souris, etc.).
- */
 void Window::pollEvents() const {
     glfwPollEvents();
 }
 
-/**
- * @brief Échange les buffers avant et arrière.
- *
- * Nécessaire pour afficher le rendu OpenGL à l'écran.
- */
 void Window::swapBuffers() const {
     glfwSwapBuffers(m_window);
 }
 
-/**
- * @brief Met à jour la fenêtre.
- *
- * Combine le swap des buffers et la gestion des événements.
- */
 void Window::update() const {
     swapBuffers();
     pollEvents();
 }
 
-/**
- * @brief Retourne le pointeur interne vers la fenêtre GLFW.
- *
- * @return GLFWwindow* Pointeur vers la fenêtre GLFW.
- */
 GLFWwindow* Window::getGLFWwindow() const {
     return m_window;
 }
 
-/**
- * @brief Obtient la largeur de la fenêtre.
- *
- * @return int Largeur en pixels.
- */
 int Window::getWidth() const {
     return m_width;
 }
 
-/**
- * @brief Obtient la hauteur de la fenêtre.
- *
- * @return int Hauteur en pixels.
- */
 int Window::getHeight() const {
     return m_height;
 }
 
-/**
- * @brief Initialise la fenêtre GLFW et le contexte OpenGL.
- *
- * Configure les options de création, crée la fenêtre, initialise GLAD et définit le viewport.
- *
- * @return true si l'initialisation réussit.
- * @return false en cas d'échec.
- */
 bool Window::init() {
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);

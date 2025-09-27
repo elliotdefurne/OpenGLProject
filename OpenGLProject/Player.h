@@ -4,9 +4,8 @@
 #include <iostream>
 #include "Entity.h"
 
-// Classe qui représente le joueur dans le jeu
-// Hérite de Entity
-// Gère le déplacement, le rendu et le traitement des entrées clavier
+// Classe Player : représente le joueur dans le jeu
+// Hérite de Entity et gère le déplacement, la vue et le rendu
 class Player : public Entity {
 public:
     // Constructeur : prend un pointeur vers le moteur de rendu
@@ -16,14 +15,19 @@ public:
     // Destructeur par défaut, aucune ressource supplémentaire à libérer
     ~Player() = default;
 
-    // Met à jour la logique du joueur (position, mouvement, etc.)
+    // Met à jour la logique du joueur chaque frame
+    // Déplacement, animations, actions
     void update() override;
 
     // Dessine le joueur à l'écran
     void draw() override;
 
-    // Traite les touches de direction (FORWARD, BACKWARD, LEFT, RIGHT, UP, DOWN)
+    // Traite les touches de direction
+    // direction : valeur parmi direction::FORWARD, BACKWARD, LEFT, RIGHT, UP, DOWN
     void processDirectionKey(int direction);
 
+    // Traite les mouvements de la souris
+    // yaw : rotation horizontale
+    // pitch : rotation verticale
     void processMouseMovements(double yaw, double pitch);
 };

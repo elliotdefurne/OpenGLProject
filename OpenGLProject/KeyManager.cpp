@@ -1,7 +1,18 @@
 #pragma once
-
 #include "KeyManager.h"
-#include "Game.h"
+#include "Key.h"
+#include "Forward.h"
+#include "Backward.h"
+#include "Left.h"
+#include "Right.h"
+#include "Crouch.h"
+#include "Jump.h"
+#include "Sprint.h"
+#include "Escape.h"
+#include "Mouse.h"
+#include "Window.h"
+
+KeyManager::~KeyManager() { for (auto& pair : m_keys) { delete pair.second; } }
 
 Key* KeyManager::getKey(const std::string& name) {
 	auto it = m_keys.find(name);

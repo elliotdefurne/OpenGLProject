@@ -157,10 +157,9 @@
     <ClCompile Include="Right.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="Sprint.cpp" />
-    <ClCompile Include="Transformation.cpp" />
+    <ClCompile Include="TextureManager.cpp" />
     <ClCompile Include="Transformation.h" />
     <ClCompile Include="Texture.cpp" />
-    <ClCompile Include="Vertex.cpp" />
     <ClCompile Include="Window.cpp" />
   </ItemGroup>
   <ItemGroup>

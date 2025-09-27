@@ -1,28 +1,26 @@
 #pragma once
-#include "Key.h"
-#include "configKeys.h"
-#include <GLFW/glfw3.h>
 
+#include "Key.h"         // Classe de base pour toutes les touches
+#include "configKeys.h"  // Contient les touches et configurations par defaut
+#include <GLFW/glfw3.h>  // Librairie pour les touches et fenetres OpenGL
+
+// Classe Right : represente la touche pour se deplacer a droite
+// Herite de Key et definit son comportement
 class Right : public Key {
 public:
-    Right(Player* player) : Key(player, "Right", ConfigKeys::KEY_RIGHT) {}  // Appel du constructeur parent
+    // Constructeur
+    // player : pointeur vers le joueur associe a cette touche
+    Right(Player* player) : Key(player, "Right", ConfigKeys::KEY_RIGHT) {}
+
+    // Destructeur vide
     virtual ~Right() {}
 
-    void onPress() override {
-        if (!m_isPressed) {
-            m_isPressed = true;
-        }
-    }
+    // Methode appelee lorsque la touche est appuyee
+    void onPress() override;
 
-    void onRelease() override {
-        if (m_isPressed) {
-            m_isPressed = false;
-        }
-    }
+    // Methode appelee lorsque la touche est relachee
+    void onRelease() override;
 
-    void ifPressed() override {
-        if (m_isPressed) {
-            m_player->processDirectionKey(direction::RIGHT);
-        }
-    }
+    // Methode appelee chaque frame tant que la touche est maintenue
+    void ifPressed() override;
 };

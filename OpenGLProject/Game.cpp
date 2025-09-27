@@ -1,49 +1,26 @@
 #include "Game.h"
+#include "config.h"
 
-/**
- * @class Game
- * @brief Classe principale qui gère la boucle du jeu
- *
- * Cette classe s'occupe de :
- * - Initialiser GLFW et OpenGL
- * - Créer la fenêtre
- * - Lancer la boucle principale (update + render)
- * - Libérer les ressources à la fermeture
- */
 Game::Game() : m_window(nullptr), m_renderer(nullptr) {
-    // Initialisation de GLFW
+    // Initialisation de GLFW (si ça échoue, on arrête tout)
     if (!glfwInit()) {
-        throw std::runtime_error("Failed to initialize GLFW");
+        throw std::runtime_error("Impossible d'initialiser GLFW");
     }
-    initialize(); // Appelle la méthode privée pour initialiser les composants
+    initialize(); // On prépare tous les objets nécessaires au jeu
 }
 
-/**
- * @brief Destructeur du jeu : libère la mémoire et termine GLFW
- */
 Game::~Game() {
-    if (m_keyManager) delete m_keyManager;              // Libération de KeyManager
-    if (m_player) delete m_player;              // Libération de KeyManager
-    if (m_shaderManager) delete m_shaderManager;   // Libération des shaders
-    if (m_textureManager) delete m_textureManager; // Libération des textures
-    if (m_camera) delete m_camera;              // Libération de la caméra
-    if (m_renderer) delete m_renderer;         // Libération du moteur de rendu
-    if (m_window) delete m_window;             // Libération de la fenêtre
-    
-    glfwTerminate();                            // Terminer GLFW proprement
+    if (m_keyManager) delete m_keyManager;
+    if (m_player) delete m_player;
+    if (m_shaderManager) delete m_shaderManager;
+    if (m_textureManager) delete m_textureManager;
+    if (m_camera) delete m_camera;
+    if (m_renderer) delete m_renderer;
+    if (m_window) delete m_window;
+
+    glfwTerminate(); // On termine GLFW proprement
 }
 
-/**
- * @brief Initialise les composants du jeu
- *
- * Crée les objets nécessaires :
- * - fenêtre
- * - renderer
- * - caméra
- * - gestionnaires de textures et shaders
- * - joueur et gestionnaire de touches
- * Configure OpenGL pour activer la 3D (depth test, face culling)
- */
 void Game::initialize() {
     m_window = new Window(Constants::WINDOW_WIDTH, Constants::WINDOW_HEIGHT, Constants::WINDOW_TITLE);
     m_renderer = new Renderer();
@@ -53,70 +30,49 @@ void Game::initialize() {
     m_player = new Player(m_renderer);
     m_keyManager = new KeyManager(this, m_window, m_player);
 
-    // Activer le test de profondeur
+    // Active le test de profondeur (évite que des objets derrière passent devant)
     glEnable(GL_DEPTH_TEST);
     glDepthFunc(GL_LESS);
 
-    // Effacer les buffers couleur et profondeur
+    // Efface l’écran au lancement
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-    // Activer le culling des faces arrière (optionnel)
+    // Active l’option qui permet de ne pas dessiner les faces arrière des objets (gain de perf)
     glCullFace(GL_BACK);
 }
 
-/**
- * @brief Boucle principale du jeu
- *
- * La boucle continue tant que la fenêtre n'est pas fermée :
- * - gérer le timing (delta time, FPS)
- * - mettre à jour la logique du jeu
- * - effacer l'écran
- * - dessiner la scène
- * - mettre à jour la fenêtre
- */
 void Game::run() {
     while (!m_window->getShouldClose()) {
-        m_renderer->handleFrameTiming(); // Gérer le framerate
-        update();  // Mettre à jour la logique
-        m_renderer->clear(); // Effacer l'écran
-        render(); // Dessiner la scène
-
-        m_window->update(); // Swap buffers et gestion des événements
+        m_renderer->handleFrameTiming();
+        update();
+        m_renderer->clear();
+        render();
+        m_window->update();
     }
 }
 
-/**
- * @brief Met à jour la logique du jeu
- *
- * Gestion des entrées clavier et mise à jour de la caméra
- */
 void Game::update() {
-	m_keyManager->update();      // Gestion des entrées clavier/souris
-    m_camera->update(m_player);  // Caméra suit le joueur
+    m_keyManager->update();
+    m_camera->update(m_player);
 }
 
-/**
- * @brief Rendu de la scène
- *
- * Crée et dessine temporairement deux cubes avec un shader et une texture
- */
 void Game::render() {
-    Texture* texture = m_textureManager->getTexture("test/rocks.png"); // Récupérer la texture
-    Shader* basic = m_shaderManager->getShader("cube");                // Récupérer le shader
+    Texture* texture = m_textureManager->getTexture("test/rocks.png");
+    Shader* basic = m_shaderManager->getShader("cube");
 
-    // Création de deux cubes
+    // Création de deux cubes à des positions différentes
     Cube* cube = new Cube(glm::vec3(0, 0, 0), 1, basic, texture);
     Cube* cube2 = new Cube(glm::vec3(0, 1, 0), 1, basic, texture);
 
-    // Mise à jour des buffers du mesh
+    // Prépare leurs données pour le GPU
     cube->update();
     cube2->update();
 
-    // Dessin
+    // Dessine les cubes
     cube->draw();
     cube2->draw();
 
-    // Nettoyage de la mémoire
+    // Supprime les cubes de la mémoire (sinon fuite mémoire)
     delete cube;
     delete cube2;
     texture = nullptr;

@@ -1,27 +1,46 @@
-#pragma once 
+#pragma once
 
-#include "config.h"
+// Déclarations anticipées pour éviter les inclusions circulaires
+class Window;
+class Renderer;
+class TextureManager;
+class ShaderManager;
+class KeyManager;
+class Player;
+class Camera;
 
+// Classe Game : coeur du jeu, gère la boucle principale et tous les sous-systèmes
 class Game
 {
 public:
-	Game();   // Constructeur (initialise les sous-systèmes du jeu)
-	~Game();  // Destructeur (nettoie les ressources)
+    // Constructeur : initialise les sous-systèmes du jeu
+    Game();
 
-	// Boucle principale du jeu
-	void run();
-	void stop();
+    // Destructeur : libère toutes les ressources
+    ~Game();
+
+    // Boucle principale du jeu
+    void run();
+
+    // Stoppe le jeu
+    void stop();
 
 private:
-	Window* m_window;					// Pointeur vers la fenêtre (gestion GLFW + contexte OpenGL)
-	Renderer* m_renderer;				// Pointeur vers le moteur de rendu (FPS, clear, deltaTime…)
-	TextureManager* m_textureManager;	// Gestionnaire de textures (chargement et récupération des textures)
-	ShaderManager* m_shaderManager;		// Gestionnaire de shaders (compilation, stockage et utilisation des programmes GLSL)
-	KeyManager* m_keyManager;			// Gestionnaire de clavier (détecte et traite les entrées utilisateur)
-	Player* m_player;					// Joueur (hérite sûrement de Entity)
-	Camera* m_camera;					// Caméra (utilisée pour générer la matrice de vue)
-	bool m_isRunning = true;			// Booléen pour contrôler si le jeu est en cours d’exécution
-	void initialize();					// Méthode d’initialisation du jeu (création fenêtre, chargement ressources…)
-	void update();						// Mise à jour de la logique du jeu (input, entités, physique…)
-	void render();						// Rendu de la scène (dessiner les entités, appliquer les shaders/textures…)
+    Window* m_window;                    // Fenêtre GLFW + contexte OpenGL
+    Renderer* m_renderer;                // Gestion du rendu (FPS, clear, deltaTime…)
+    TextureManager* m_textureManager;    // Chargement et stockage des textures
+    ShaderManager* m_shaderManager;      // Compilation et stockage des shaders GLSL
+    KeyManager* m_keyManager;            // Gestion des entrées clavier
+    Player* m_player;                    // Joueur (hérite d'Entity)
+    Camera* m_camera;                    // Caméra pour générer la matrice de vue
+    bool m_isRunning = true;             // Indique si le jeu est en cours d'exécution
+
+    // Méthode d'initialisation : crée la fenêtre et charge les ressources
+    void initialize();
+
+    // Mise à jour de la logique du jeu chaque frame : input, entités, physique…
+    void update();
+
+    // Rendu de la scène chaque frame : dessiner les entités et appliquer shaders/textures
+    void render();
 };

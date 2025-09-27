@@ -10,10 +10,10 @@
 #include "Shader.h"
 #include "constants.h"
 
-// Structure représentant un noeud de l'arborescence des shaders
+// Structure représentant un noeud dans l'arborescence des shaders
 struct ShaderNode {
     std::unordered_map<std::string, ShaderNode*> children; ///< Sous-dossiers
-    Shader* shader = nullptr; ///< Shader associé si c'est une feuille
+    Shader* shader = nullptr;                               ///< Shader associé si c'est une feuille
 };
 
 /**
@@ -59,7 +59,7 @@ public:
         }
 
         if (!current->shader) {
-            throw std::out_of_range("No texture at path: " + path);
+            throw std::out_of_range("No shader at path: " + path);
         }
         return current->shader;
     }
@@ -77,6 +77,7 @@ private:
             std::cerr << "Le dossier des shaders n’existe pas: " << shadersFolderPath << std::endl;
             return;
         }
+
         for (const auto& entry : std::filesystem::recursive_directory_iterator(shadersFolderPath)) {
             if (entry.is_directory()) {
                 auto vertPath = entry.path() / "basic.vert";
@@ -91,6 +92,7 @@ private:
 
                     while (std::getline(ss, part, sep)) {
                         if (ss.peek() == EOF) {
+                            // Dernier dossier : créer le Shader
                             if (current->children.find(part) == current->children.end()) {
                                 current->children[part] = new ShaderNode();
                             }

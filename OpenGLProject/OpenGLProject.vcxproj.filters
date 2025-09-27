@@ -57,9 +57,6 @@
     <ClCompile Include="Transformation.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClCompile>
-    <ClCompile Include="Vertex.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
     <ClCompile Include="Camera.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
@@ -67,9 +64,6 @@
       <Filter>Fichiers sources</Filter>
     </ClCompile>
     <ClCompile Include="Entity.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="Transformation.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
     <ClCompile Include="Player.cpp">
@@ -106,6 +100,9 @@
       <Filter>Fichiers sources\Inputs</Filter>
     </ClCompile>
     <ClCompile Include="Direction.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="TextureManager.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
   </ItemGroup>

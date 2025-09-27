@@ -1,40 +1,46 @@
 #pragma once
+
 #include <glm/glm.hpp>
 #include <vector>
 
-#include "Vertex.h"
-#include "Mesh.h"
-#include "Shader.h"
+#include "Vertex.h"   // Structure d'un sommet (position, couleur, texture…)
+#include "Mesh.h"     // Classe pour gerer les buffers OpenGL et dessiner
+#include "Shader.h"   // Classe pour les shaders OpenGL
+#include "Texture.h"  // Classe pour les textures
+#include "Transformation.h" // Classe pour position, rotation et scale
 
+// Classe Cube : represente un cube 3D dans le jeu
 class Cube
 {
 public:
-    // Constructeur : crée un cube à partir de son centre, de la taille de son arête,
-    // du shader utilisé et de sa texture
+    // Constructeur
+    // center : position du centre du cube
+    // edge : taille d'une arête du cube
+    // shader : shader utilisé pour le rendu
+    // texture : texture appliquée au cube
     Cube(glm::vec3 center, float edge, Shader* shader, Texture* texture);
 
-    // Destructeur : libère la mémoire (mesh, etc.)
+    // Destructeur : libere la memoire (mesh, transformation…)
     ~Cube();
 
-    // Mise à jour du cube (transformations, animations…)
+    // Mise à jour du cube (transformations, animations, effets…)
     void update();
 
-    // Dessine le cube (appel au Mesh + Shader)
+    // Dessine le cube a l'ecran (appelle Mesh + Shader)
     void draw();
 
-    // Getter pour récupérer la texture du cube
+    // Retourne la texture du cube
     inline Texture* getTexture() const { return m_mesh->getTexture(); }
 
 private:
-    Mesh* m_mesh;                  // Maillage du cube (contient les buffers OpenGL)
-    Texture* m_texture;            // Texture appliquée au cube
-    Shader* m_shader;              // Shader utilisé pour le rendu
-    Transformation* m_transformation; // Transformation du cube (position, rotation, scale)
+    Mesh* m_mesh;                     // Maillage du cube (buffers OpenGL)
+    Texture* m_texture;               // Texture appliquée
+    Shader* m_shader;                 // Shader pour le rendu
+    Transformation* m_transformation; // Transformations : position, rotation, scale
 
     std::vector<Vertex> m_vertices;       // Liste des sommets du cube
-    std::vector<unsigned int> m_indices;  // Indices (ordre pour dessiner les triangles)
-    glm::vec3 m_center;                   // Centre du cube dans l’espace
+    std::vector<unsigned int> m_indices;  // Indices pour dessiner les triangles
+    glm::vec3 m_center;                   // Centre du cube dans l'espace
 
-    float m_edge;                         // Longueur d’une arête du cube
+    float m_edge;                         // Taille d'une arête du cube
 };
-

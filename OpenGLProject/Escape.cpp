@@ -1,5 +1,4 @@
 #include "Escape.h"
-
 #include "Game.h"
 
 void Escape::onPress() {
@@ -17,7 +16,7 @@ void Escape::onRelease() {
 }
 
 void Escape::ifPressed() {
-    //définit pour éviter les problèmes mais ne fait rien
+    //definit pour éviter les problèmes mais ne fait rien
     if (m_isPressed) {
     }
 }

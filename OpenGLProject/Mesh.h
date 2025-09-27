@@ -1,9 +1,8 @@
 #pragma once
 
 #include <vector>
-#include <glad/glad.h>
-#include "Vertex.h"
-#include "Texture.h"
+#include "Vertex.h"   // Structure d'un sommet (position, couleur, UV)
+#include "Texture.h"  // Classe pour gerer les textures
 
 /**
  * @class Mesh
@@ -58,11 +57,11 @@ public:
     inline Texture* getTexture() const { return m_texture; };
 
 private:
-    GLuint m_vao = 0;          // Vertex Array Object
-    GLuint m_vbo = 0;          // Vertex Buffer Object
-    GLuint m_ebo = 0;          // Element Buffer Object
-    GLsizei m_indexCount = 0;  // Nombre d'indices
-    Texture* m_texture;        // Pointeur vers la texture
+    unsigned int m_vao = 0;      // Vertex Array Object
+    unsigned int m_vbo = 0;      // Vertex Buffer Object
+    unsigned int m_ebo = 0;      // Element Buffer Object
+    int m_indexCount = 0;         // Nombre d'indices
+    Texture* m_texture;           // Pointeur vers la texture
 
     /**
      * @brief Libère manuellement les ressources GPU (VAO, VBO, EBO)

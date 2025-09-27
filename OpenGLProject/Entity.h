@@ -4,48 +4,46 @@
 #include <glm/ext/matrix_transform.hpp>
 #include <glm/fwd.hpp>
 
-#include <glad/glad.h>
-#include <GLFW/glfw3.h>
-
 #include "Renderer.h"
 #include "Direction.h"
 #include "constants.h"
 
-// Namespace direction -> définit des constantes pour représenter des directions de mouvement
+// Namespace direction : contient des constantes pour les directions de mouvement
 namespace direction {
     enum {
         FORWARD,   // Avancer
         BACKWARD,  // Reculer
-        LEFT,      // Aller à gauche
-        RIGHT,     // Aller à droite
+        LEFT,      // Aller a gauche
+        RIGHT,     // Aller a droite
         UP,        // Monter
         DOWN       // Descendre
     };
 }
 
-// Classe de base "Entity" : représente un objet de la scène (joueur, cube, caméra, etc.)
+// Classe Entity : classe de base pour tous les objets de la scene
+// Exemple : joueur, cube, camera, etc.
 class Entity
 {
 public:
-    // Constructeur : prend un pointeur vers le renderer
+    // Constructeur
+    // renderer : pointeur vers le renderer, utile pour dessiner l'entité
     Entity(Renderer* renderer);
 
-    // Destructeur virtuel pour libérer correctement les ressources dans les classes dérivées
+    // Destructeur virtuel pour que les classes derives liberent correctement leur memoire
     ~Entity();
 
-    // Méthodes virtuelles (peuvent être redéfinies par les classes filles)
-    // update() -> logique de mise à jour de l’entité (mouvement, physique…)
+    // Methode virtuelle : mise a jour de l'entité (mouvement, physique, logique)
     void virtual update();
 
-    // draw() -> rendu de l’entité (OpenGL)
+    // Methode virtuelle : rendu de l'entité (envoie les donnees a OpenGL)
     void virtual draw();
 
     // Getters
-    glm::vec3 getPosition() const { return m_position; } // Retourne la position de l’entité
-    glm::vec3 getDirection() const { return m_direction->getDirectionVector(); }     // Retourne le point regardé/ciblé
+    glm::vec3 getPosition() const { return m_position; }           // Position de l'entité
+    glm::vec3 getDirection() const { return m_direction->getDirectionVector(); } // Direction regardee
 
 protected:
-    Renderer* m_renderer;   // Pointeur vers le Renderer (pour le timing/rendu)
-    Direction* m_direction;
-    glm::vec3 m_position;   // Position de l’entité dans l’espace 3D
+    Renderer* m_renderer;     // Renderer pour dessiner et gerer le rendu
+    Direction* m_direction;   // Orientation de l'entité (yaw/pitch)
+    glm::vec3 m_position;     // Position dans l'espace 3D
 };

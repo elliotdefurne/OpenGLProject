@@ -1,32 +1,13 @@
 #include "Player.h"
 
-/**
- * @brief Met à jour la logique du joueur
- *
- * Pour l'instant, cette fonction est vide.
- * Elle pourra gérer les animations, collisions, ou autres mises à jour futures.
- */
 void Player::update()
 {
 }
 
-/**
- * @brief Dessine le joueur à l'écran
- *
- * Actuellement vide. On pourra y ajouter le rendu du joueur ou ses effets graphiques.
- */
 void Player::draw()
 {
 }
 
-/**
- * @brief Traite les touches de direction et déplace le joueur
- *
- * @param direction Constante indiquant la direction du mouvement
- *
- * Déplace le joueur selon la direction passée en paramètre et en tenant
- * compte de la vitesse et du deltaTime pour un mouvement fluide.
- */
 void Player::processDirectionKey(int direction) {
     // Vitesse de déplacement du joueur
     float velocity = Constants::PLAYER_SPEED * m_renderer->getDeltaTime();
@@ -45,6 +26,5 @@ void Player::processDirectionKey(int direction) {
 }
 
 void Player::processMouseMovements(double yaw, double pitch) {
-    // À implémenter si nécessaire
 	m_direction->addDelta(yaw, pitch);
 }
