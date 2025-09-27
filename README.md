@@ -29,8 +29,8 @@ Avant de faire tourner ce code sur votre machine, il vous faut (normalement tout
 
 ## Roadmap
 
-![Roadmap actuelle](https://github.com/elliotdefurne/OpenGLProject/blob/40c14c48b2a2e5769cba9efb4be8372555d1e9fd/Gestion%20de%20projet/Roadmaps/RoadMapV0.0.3.drawio.png)
+![Roadmap actuelle]([https://github.com/elliotdefurne/OpenGLProject/blob/40c14c48b2a2e5769cba9efb4be8372555d1e9fd/Gestion%20de%20projet/Roadmaps/RoadMapV0.0.3.drawio.png])
 
 ## Diagramme de classe
 
-![Diagramme de classe actuel](https://github.com/elliotdefurne/OpenGLProject/blob/40c14c48b2a2e5769cba9efb4be8372555d1e9fd/Gestion%20de%20projet/Diagramme%20de%20Classe.png)
+![Diagramme de classe actuelle](https://github.com/elliotdefurne/OpenGLProject/blob/master/Gestion%20de%20projet/Diagramme%20de%20Classe.png)
