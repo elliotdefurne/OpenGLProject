@@ -8,24 +8,9 @@ public:
     Crouch(Player* player) : Key(player, "Crouch", ConfigKeys::KEY_CROUCH) {}  // Appel du constructeur parent
     virtual ~Crouch() {}
 
-    void onPress() override {
-        if (!m_isPressed) {
-            std::cout << "Crouch onPressed" << std::endl;
-            m_isPressed = true;
-        }
-    }
+    void onPress() override;
 
-    void onRelease() override {
-        if (m_isPressed) {
-            std::cout << "Crouch onReleased" << std::endl;
-            m_isPressed = false;
-        }
-    }
+    void onRelease() override;
 
-    void ifPressed() override {
-        if (m_isPressed) {
-            std::cout << "Crouch ifPressed" << std::endl;
-            m_player->proccessDirectionKey(direction::DOWN);
-        }
-    }
+    void ifPressed() override;
 };

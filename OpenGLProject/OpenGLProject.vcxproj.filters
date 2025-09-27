@@ -78,9 +78,6 @@
     <ClCompile Include="Escape.cpp">
       <Filter>Fichiers sources\Inputs</Filter>
     </ClCompile>
-    <ClCompile Include="KeyManager.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
     <ClCompile Include="Sprint.cpp">
       <Filter>Fichiers sources\Inputs</Filter>
     </ClCompile>
@@ -103,6 +100,9 @@
       <Filter>Fichiers sources\Inputs</Filter>
     </ClCompile>
     <ClCompile Include="Backward.cpp">
+      <Filter>Fichiers sources\Inputs</Filter>
+    </ClCompile>
+    <ClCompile Include="KeyManager.cpp">
       <Filter>Fichiers sources\Inputs</Filter>
     </ClCompile>
   </ItemGroup>

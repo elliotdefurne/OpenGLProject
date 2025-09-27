@@ -6,9 +6,11 @@
 */
 
 int main() {
-    Game game;
+    Game* game = new Game();
 
-    game.Run();
+    game->run();
 
+    delete game;
+    
     return 0;
 }
