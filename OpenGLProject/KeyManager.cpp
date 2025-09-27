@@ -28,7 +28,7 @@ void KeyManager::loadKeys() {
 void KeyManager::update() {
 	double xpos, ypos;
 	glfwGetCursorPos(m_window->getGLFWwindow(), &xpos, &ypos);
-	m_mouse->handleMovement(xpos, ypos);
+	m_mouse->handleMovement(xpos, ypos); // Appel avec des valeurs factices pour l'instant
 	for (const auto& pair : m_keys) {
 		Key* key = pair.second;
 		int state = glfwGetKey(glfwGetCurrentContext(), key->getKey());

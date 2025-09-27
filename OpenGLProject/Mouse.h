@@ -27,7 +27,7 @@ public:
             xoffset *= m_sensitivity;
             yoffset *= m_sensitivity;
 
-			// FAIRE LE TRI SUR CE QUI VA DANS LA CLASSE CAMERA ET CE QUI VA DANS LA CLASSE MOUSE
+            // FAIRE LE TRI SUR CE QUI VA DANS LA CLASSE CAMERA ET CE QUI VA DANS LA CLASSE MOUSE
             // The angle of rotation up or down is also referred to as pitch;
             // the angle of rotation left or right is also referred to as yaw.
             m_cameraYaw += xoffset;

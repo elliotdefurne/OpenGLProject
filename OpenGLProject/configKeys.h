@@ -12,5 +12,4 @@ namespace ConfigKeys {
 	inline const int KEY_ESCAPE = GLFW_KEY_ESCAPE;
 
 	inline const float DEFAULT_MOUSE_SENSITIVITY = 0.1f;
-	// Add other key names here as needed
 }
