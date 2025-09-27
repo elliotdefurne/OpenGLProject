@@ -22,7 +22,7 @@ void KeyManager::loadKeys() {
 	m_keys["Sprint"] = new Sprint(m_player);
 	m_keys["Escape"] = new Escape(m_game);
 
-	m_mouse = new Mouse();
+	m_mouse = new Mouse(m_player);
 }
 
 void KeyManager::update() {

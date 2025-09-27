@@ -11,5 +11,5 @@ namespace ConfigKeys {
 	inline const int KEY_SPRINT = GLFW_KEY_LEFT_SHIFT;
 	inline const int KEY_ESCAPE = GLFW_KEY_ESCAPE;
 
-	inline const float DEFAULT_MOUSE_SENSITIVITY = 0.1f;
+	inline const float DEFAULT_MOUSE_SENSITIVITY = 0.05f;
 }

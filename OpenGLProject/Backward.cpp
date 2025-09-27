@@ -12,5 +12,5 @@ void Backward::onRelease() {
 
 void Backward::ifPressed() {
     if (!m_isPressed) return;
-    m_player->proccessDirectionKey(direction::BACKWARD);
+    m_player->processDirectionKey(direction::BACKWARD);
 }

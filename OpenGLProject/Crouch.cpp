@@ -14,6 +14,6 @@ void Crouch::onRelease() {
 }
 void Crouch::ifPressed() {
 	if (m_isPressed) {
-		m_player->proccessDirectionKey(direction::DOWN);
+		m_player->processDirectionKey(direction::DOWN);
 	}
 }

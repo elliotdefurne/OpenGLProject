@@ -14,6 +14,6 @@ void Forward::onRelease() {
 }
 void Forward::ifPressed() {
 	if (m_isPressed) {
-		m_player->proccessDirectionKey(direction::FORWARD);
+		m_player->processDirectionKey(direction::FORWARD);
 	}
 }
