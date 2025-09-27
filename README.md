@@ -29,7 +29,7 @@ Avant de faire tourner ce code sur votre machine, il vous faut (normalement tout
 
 ## Roadmap
 
-![Roadmap actuelle](https://github.com/elliotdefurne/OpenGLProject/blob/master/Gestion%20de%20projet/Roadmaps/RoadMapV0.0.3.drawio.png)
+![Roadmap actuelle](https://github.com/elliotdefurne/OpenGLProject/blob/master/Gestion%20de%20projet/Roadmaps/RoadMapV0.0.4.drawio.png)
 
 ## Diagramme de classe
 
