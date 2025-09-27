@@ -8,6 +8,7 @@
 #include <GLFW/glfw3.h>
 
 #include "Renderer.h"
+#include "Direction.h"
 #include "constants.h"
 
 // Namespace direction -> définit des constantes pour représenter des directions de mouvement
@@ -41,10 +42,10 @@ public:
 
     // Getters
     glm::vec3 getPosition() const { return m_position; } // Retourne la position de l’entité
-    glm::vec3 getTarget() const { return m_target; }     // Retourne le point regardé/ciblé
+    glm::vec3 getDirection() const { return m_direction->getDirectionVector(); }     // Retourne le point regardé/ciblé
 
 protected:
-    glm::vec3 m_target;     // Vecteur de direction ou "cible" de l’entité
-    glm::vec3 m_position;   // Position de l’entité dans l’espace 3D
     Renderer* m_renderer;   // Pointeur vers le Renderer (pour le timing/rendu)
+    Direction* m_direction;
+    glm::vec3 m_position;   // Position de l’entité dans l’espace 3D
 };

@@ -3,7 +3,7 @@
 
 Entity::Entity(Renderer* renderer)
 	: m_position(glm::vec3(0.0f, 0.0f, 3.0f)),
-	  m_target(glm::vec3(0.0f, 0.0f, 0.0f)),
+	  m_direction(new Direction(-90.0f, 0.0f)),
 	  m_renderer(renderer)
 {
 	// Initialisation des attributs du joueur si nécessaire

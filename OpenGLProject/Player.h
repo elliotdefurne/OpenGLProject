@@ -23,7 +23,7 @@ public:
     void draw() override;
 
     // Traite les touches de direction (FORWARD, BACKWARD, LEFT, RIGHT, UP, DOWN)
-    void proccessDirectionKey(int direction);
+    void processDirectionKey(int direction);
 
-    void processEscapeKey();
+    void processMouseMovements(double yaw, double pitch);
 };

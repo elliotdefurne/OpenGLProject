@@ -51,7 +51,7 @@ void Game::initialize() {
     m_textureManager = new TextureManager();
     m_shaderManager = new ShaderManager(m_camera);
     m_player = new Player(m_renderer);
-    m_keyManager = new KeyManager(this, m_player);
+    m_keyManager = new KeyManager(this, m_window, m_player);
 
     // Activer le test de profondeur
     glEnable(GL_DEPTH_TEST);

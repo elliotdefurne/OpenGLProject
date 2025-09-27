@@ -3,6 +3,14 @@
 #include "KeyManager.h"
 #include "Game.h"
 
+Key* KeyManager::getKey(const std::string& name) {
+	auto it = m_keys.find(name);
+	if (it != m_keys.end()) {
+		return it->second;
+	}
+	throw std::out_of_range("Key not found: " + name);
+}
+
 void KeyManager::loadKeys() {
 	m_keys["Forward"] = new Forward(m_player);
 	m_keys["Backward"] = new Backward(m_player);
@@ -12,9 +20,14 @@ void KeyManager::loadKeys() {
 	m_keys["Jump"] = new Jump(m_player);
 	m_keys["Sprint"] = new Sprint(m_player);
 	m_keys["Escape"] = new Escape(m_game);
+
+	m_mouse = new Mouse(m_player);
 }
 
 void KeyManager::update() {
+	double xpos, ypos;
+	glfwGetCursorPos(m_window->getGLFWwindow(), &xpos, &ypos);
+	m_mouse->handleMovement(xpos, ypos); // Appel avec des valeurs factices pour l'instant
 	for (const auto& pair : m_keys) {
 		Key* key = pair.second;
 		int state = glfwGetKey(glfwGetCurrentContext(), key->getKey());

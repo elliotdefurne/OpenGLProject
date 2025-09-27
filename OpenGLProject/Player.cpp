@@ -27,24 +27,24 @@ void Player::draw()
  * Déplace le joueur selon la direction passée en paramètre et en tenant
  * compte de la vitesse et du deltaTime pour un mouvement fluide.
  */
-void Player::proccessDirectionKey(int direction) {
+void Player::processDirectionKey(int direction) {
     // Vitesse de déplacement du joueur
     float velocity = Constants::PLAYER_SPEED * m_renderer->getDeltaTime();
     if (direction == direction::FORWARD)
-        m_position += glm::vec3(0.0f, 0.0f, 1.0f) * velocity;
+        m_position += m_direction->getDirectionVector() * velocity;
     if (direction == direction::BACKWARD)
-        m_position += glm::vec3(0.0f, 0.0f, -1.0f) * velocity;
+        m_position -= m_direction->getDirectionVector() * velocity;
     if (direction == direction::LEFT)
-        m_position += glm::vec3(1.0f, 0.0f, 0.0f) * velocity;
+        m_position -= m_direction->rotateRight90KeepY() * velocity;
     if (direction == direction::RIGHT)
-        m_position += glm::vec3(-1.0f, 0.0f, 0.0f) * velocity;
+        m_position += m_direction->rotateRight90KeepY() * velocity;
     if (direction == direction::UP)
         m_position += glm::vec3(0.0f, 1.0f, 0.0f) * velocity;
     if (direction == direction::DOWN)
-        m_position += glm::vec3(0.0f, -1.0f, 0.0f) * velocity;
+        m_position -= glm::vec3(0.0f, 1.0f, 0.0f) * velocity;
 }
 
-void Player::processEscapeKey() {
-    std::cout << "Escape key pressed. Exiting game..." << std::endl;
-    exit(0); // Quitte le programme
+void Player::processMouseMovements(double yaw, double pitch) {
+    // À implémenter si nécessaire
+	m_direction->addDelta(yaw, pitch);
 }

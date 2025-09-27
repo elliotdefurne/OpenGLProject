@@ -1,58 +1,44 @@
 #pragma once
-#include <GLFW/glfw3.h>
+#include <vector>
+#include <stdexcept>
+#include <string>
+#include <iostream>
+#include <filesystem>
+#include <unordered_map>
+#include <memory>
 #include <glm/glm.hpp>
+#include <glm/ext/matrix_transform.hpp>
 
-#include <Windows.h>
+#include "configKeys.h"
 
-class Mouse
-{
+
+
+class Mouse {
+
 public:
-	Mouse();
-	~Mouse();
-    glfwSetCursorPosCallback(window, mouse_callback);
-	void mouse_callback(GLFWwindow* window, double xpos, double ypos);
-private:
-    const float m_sensitivity = 0.1f;
-    float m_yaw = -90.0f;
-};
+    Mouse(Player* player) : m_player(player), m_xpos(0.0f), m_ypos(0.0f), m_sensitivity(ConfigKeys::DEFAULT_MOUSE_SENSITIVITY) {}
 
-Mouse::Mouse()
-{
-}
+    void handleMovement(double xpos, double ypos) {
+        if ((m_xpos != xpos) or (m_ypos != ypos)) {
+            double xoffset = xpos - m_xpos;
+            double yoffset = m_ypos - ypos; // Inversé : l'axe Y va de bas en haut
+            m_xpos = xpos;
+            m_ypos = ypos;
+            xoffset *= m_sensitivity;
+            yoffset *= m_sensitivity;
 
-Mouse::~Mouse()
-{
-}
+            // The angle of rotation up or down is also referred to as pitch;
+            // the angle of rotation left or right is also referred to as yaw.
+            
+			m_player->processMouseMovements(xoffset, yoffset);
 
-void Mouse::mouse_callback(GLFWwindow* window, double xpos, double ypos)
-{
-    if (firstMouse)
-    {
-        lastX = xpos;
-        lastY = ypos;
-        firstMouse = false;
+        }
+
     }
 
-    float xoffset = xpos - lastX;
-    float yoffset = lastY - ypos;
-    lastX = xpos;
-    lastY = ypos;
-
-    float sensitivity = 0.1f;
-    xoffset *= sensitivity;
-    yoffset *= sensitivity;
-
-    m_yaw += xoffset;
-    pitch += yoffset;
-
-    if (pitch > 89.0f)
-        pitch = 89.0f;
-    if (pitch < -89.0f)
-        pitch = -89.0f;
-
-    glm::vec3 direction;
-    direction.x = cos(glm::radians(yaw)) * cos(glm::radians(pitch));
-    direction.y = sin(glm::radians(pitch));
-    direction.z = sin(glm::radians(yaw)) * cos(glm::radians(pitch));
-    cameraFront = glm::normalize(direction);
-}
+private:
+    Player* m_player;
+    double m_xpos, m_ypos;
+    const float m_sensitivity; // Sensibilité de la souris
+    glm::highp_vec3 m_front = glm::vec3(0.0f, 0.0f, -1.0f);
+};

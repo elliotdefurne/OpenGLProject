@@ -14,6 +14,6 @@ void Jump::onRelease() {
 }
 void Jump::ifPressed() {
 	if (m_isPressed) {
-		m_player->proccessDirectionKey(direction::UP);
+		m_player->processDirectionKey(direction::UP);
 	}
 }

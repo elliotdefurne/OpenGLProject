@@ -22,7 +22,7 @@ public:
 
     void ifPressed() override {
         if (m_isPressed) {
-            m_player->proccessDirectionKey(direction::RIGHT);
+            m_player->processDirectionKey(direction::RIGHT);
         }
     }
 };

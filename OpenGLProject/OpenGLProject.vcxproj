@@ -140,6 +140,7 @@
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Crouch.cpp" />
     <ClCompile Include="Cube.cpp" />
+    <ClCompile Include="Direction.cpp" />
     <ClCompile Include="Escape.cpp" />
     <ClCompile Include="Forward.cpp" />
     <ClCompile Include="Game.cpp" />
@@ -170,6 +171,7 @@
     <ClInclude Include="constants.h" />
     <ClInclude Include="Crouch.h" />
     <ClInclude Include="Cube.h" />
+    <ClInclude Include="Direction.h" />
     <ClInclude Include="Escape.h" />
     <ClInclude Include="Forward.h" />
     <ClInclude Include="Game.h" />
