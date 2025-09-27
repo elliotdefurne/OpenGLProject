@@ -1,6 +1,7 @@
 #pragma once
 
 #include "KeyManager.h"
+#include "Game.h"
 
 void KeyManager::loadKeys() {
 	m_keys["Forward"] = new Forward(m_player);
