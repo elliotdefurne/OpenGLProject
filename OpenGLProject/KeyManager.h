@@ -7,9 +7,12 @@
 #include <unordered_map>
 #include <memory>
 
+<<<<<<< Updated upstream
 
 #include "Game.h"
 
+=======
+>>>>>>> Stashed changes
 #include "Key.h"
 #include "Forward.h"
 #include "Backward.h"
@@ -20,6 +23,10 @@
 #include "Sprint.h"
 #include "Escape.h"
 
+<<<<<<< Updated upstream
+=======
+class Game; // Declaration anticipee de la classe Game & on include Game.h dans KeyManager.cpp
+>>>>>>> Stashed changes
 
 class KeyManager {
 public:
