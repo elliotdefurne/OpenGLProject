@@ -1,7 +1,7 @@
 # Projet OpenGL en C++
 
 Ce dépôt contient un projet minimal de rendu graphique via OpenGL.<br>
-La progression des Basé sur https://learnopengl.com/.
+La progression est basé sur https://learnopengl.com/.
 
 
 ##  Structure du dépôt
