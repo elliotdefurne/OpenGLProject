@@ -67,6 +67,7 @@ Cube::Cube(glm::vec3 center, float edge, Shader* shader, Texture* texture)
         16, 17, 18, 18, 19, 16, // Face du bas
         20, 21, 22, 22, 23, 20  // Face du haut
     };
+    m_mesh->load(m_vertices, m_indices, m_texture);
 }
 
 // Destructeur -> appelé quand on détruit l’objet Cube
@@ -81,7 +82,7 @@ Cube::~Cube() {
 // Prépare le cube pour être affiché (envoie les données au GPU)
 void Cube::update()
 {
-    m_mesh->load(m_vertices, m_indices, m_texture);
+   
 }
 
 // Dessine le cube à l’écran
