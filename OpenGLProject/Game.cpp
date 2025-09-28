@@ -45,7 +45,7 @@ void Game::initialize() {
     Texture* light = m_textureManager->getTexture("light.png");
     Shader* basic = m_shaderManager->getShader("cube");
 
-    m_cubes.push_back(new Cube(glm::vec3(0, 0, 0), 1, basic, texture));
+    m_cubes.push_back(std::unique_ptr(Cube(glm::vec3(0, 0, 0), 1, basic, texture)));
 	m_cubes.push_back(new Cube(glm::vec3(1, 0.5, 2), 0.5, basic, light));
 }
 
