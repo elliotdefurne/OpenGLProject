@@ -12,6 +12,9 @@ Mesh::~Mesh() {
 }
 
 void Mesh::load(const std::vector<Vertex>& vertices, const std::vector<unsigned int>& indices, Texture* texture) {
+
+    if (m_loaded) return; // déjà chargé, on ne refait rien
+
     m_texture = texture; // Stocke la texture
     m_indexCount = static_cast<GLsizei>(indices.size()); // Nombre d'indices
 
@@ -44,6 +47,8 @@ void Mesh::load(const std::vector<Vertex>& vertices, const std::vector<unsigned 
     glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)(6 * sizeof(float)));
 
     glBindVertexArray(0); // Débind pour éviter les erreurs plus tard
+
+    m_loaded = true;
 }
 
 void Mesh::draw() const {

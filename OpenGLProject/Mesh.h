@@ -63,6 +63,8 @@ private:
     int m_indexCount = 0;         // Nombre d'indices
     Texture* m_texture;           // Pointeur vers la texture
 
+    bool m_loaded = false;
+
     /**
      * @brief Libère manuellement les ressources GPU (VAO, VBO, EBO)
      */
