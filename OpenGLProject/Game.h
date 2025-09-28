@@ -1,5 +1,7 @@
 #pragma once
 
+#include <vector>
+
 // Déclarations anticipées pour éviter les inclusions circulaires
 class Window;
 class Renderer;
@@ -8,6 +10,7 @@ class ShaderManager;
 class KeyManager;
 class Player;
 class Camera;
+class Cube;
 
 // Classe Game : coeur du jeu, gère la boucle principale et tous les sous-systèmes
 class Game
@@ -26,6 +29,7 @@ public:
     void stop();
 
 private:
+    std::vector<Cube*> m_cubes;
     Window* m_window;                    // Fenêtre GLFW + contexte OpenGL
     Renderer* m_renderer;                // Gestion du rendu (FPS, clear, deltaTime…)
     TextureManager* m_textureManager;    // Chargement et stockage des textures

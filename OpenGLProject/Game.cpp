@@ -39,6 +39,14 @@ void Game::initialize() {
 
     // Active l’option qui permet de ne pas dessiner les faces arrière des objets (gain de perf)
     glCullFace(GL_BACK);
+
+    // Création des cubes
+    Texture* texture = m_textureManager->getTexture("test/rocks.png");
+    Texture* light = m_textureManager->getTexture("light.png");
+    Shader* basic = m_shaderManager->getShader("cube");
+
+    m_cubes.push_back(std::unique_ptr(Cube(glm::vec3(0, 0, 0), 1, basic, texture)));
+	m_cubes.push_back(new Cube(glm::vec3(1, 0.5, 2), 0.5, basic, light));
 }
 
 void Game::run() {
@@ -54,29 +62,17 @@ void Game::run() {
 void Game::update() {
     m_keyManager->update();
     m_camera->update(m_player);
+
+    for (auto& cube : m_cubes) {
+        cube->update();
+	}
 }
 
 void Game::render() {
-    Texture* texture = m_textureManager->getTexture("test/rocks.png");
-    Shader* basic = m_shaderManager->getShader("cube");
-
-    // Création de deux cubes à des positions différentes
-    Cube* cube = new Cube(glm::vec3(0, 0, 0), 1, basic, texture);
-    Cube* cube2 = new Cube(glm::vec3(0, 1, 0), 1, basic, texture);
-
-    // Prépare leurs données pour le GPU
-    cube->update();
-    cube2->update();
-
     // Dessine les cubes
-    cube->draw();
-    cube2->draw();
-
-    // Supprime les cubes de la mémoire (sinon fuite mémoire)
-    delete cube;
-    delete cube2;
-    texture = nullptr;
-    basic = nullptr;
+    for (auto& cube : m_cubes) {
+        cube->draw();
+    }
 }
 
 void Game::stop() {
