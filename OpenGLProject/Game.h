@@ -1,8 +1,9 @@
 #pragma once
 
 #include <vector>
+#include <memory>
 
-// Déclarations anticipées pour éviter les inclusions circulaires
+// Déclarations anticipées
 class Window;
 class Renderer;
 class TextureManager;
@@ -12,39 +13,28 @@ class Player;
 class Camera;
 class Cube;
 
-// Classe Game : coeur du jeu, gère la boucle principale et tous les sous-systèmes
-class Game
-{
+class Game {
 public:
-    // Constructeur : initialise les sous-systèmes du jeu
     Game();
+    ~Game(); // tu peux même le supprimer si tu n’as rien de spécial à libérer
 
-    // Destructeur : libère toutes les ressources
-    ~Game();
-
-    // Boucle principale du jeu
     void run();
-
-    // Stoppe le jeu
     void stop();
 
 private:
-    std::vector<Cube*> m_cubes;
-    Window* m_window;                    // Fenêtre GLFW + contexte OpenGL
-    Renderer* m_renderer;                // Gestion du rendu (FPS, clear, deltaTime…)
-    TextureManager* m_textureManager;    // Chargement et stockage des textures
-    ShaderManager* m_shaderManager;      // Compilation et stockage des shaders GLSL
-    KeyManager* m_keyManager;            // Gestion des entrées clavier
-    Player* m_player;                    // Joueur (hérite d'Entity)
-    Camera* m_camera;                    // Caméra pour générer la matrice de vue
-    bool m_isRunning = true;             // Indique si le jeu est en cours d'exécution
+    std::vector<std::unique_ptr<Cube>> m_cubes;
 
-    // Méthode d'initialisation : crée la fenêtre et charge les ressources
+    std::unique_ptr<Window> m_window;
+    std::unique_ptr<Renderer> m_renderer;
+    std::unique_ptr<TextureManager> m_textureManager;
+    std::unique_ptr<ShaderManager> m_shaderManager;
+    std::unique_ptr<KeyManager> m_keyManager;
+    std::unique_ptr<Player> m_player;
+    std::unique_ptr<Camera> m_camera;
+
+    bool m_isRunning = true;
+
     void initialize();
-
-    // Mise à jour de la logique du jeu chaque frame : input, entités, physique…
     void update();
-
-    // Rendu de la scène chaque frame : dessiner les entités et appliquer shaders/textures
     void render();
 };
