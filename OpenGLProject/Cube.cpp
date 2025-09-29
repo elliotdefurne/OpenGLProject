@@ -28,40 +28,40 @@ Cube::Cube(glm::vec3 center, float edge, Shader* shader, Texture* texture)
     // Chaque sommet a : position (x,y,z), normale (ici mise à 0 pour l’instant), coordonnées UV
     m_vertices = {
         // Face avant (Z+)
-        Vertex(x - halfEdge, y - halfEdge, z + halfEdge, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f),
-        Vertex(x + halfEdge, y - halfEdge, z + halfEdge, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f),
-        Vertex(x + halfEdge, y + halfEdge, z + halfEdge, 0.0f, 0.0f, 0.0f, 1.0f, 1.0f),
-        Vertex(x - halfEdge, y + halfEdge, z + halfEdge, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f),
+        Vertex(x - halfEdge, y - halfEdge, z + halfEdge, 0.0f,  0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f),
+        Vertex(x + halfEdge, y - halfEdge, z + halfEdge, 0.0f,  0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f),
+        Vertex(x + halfEdge, y + halfEdge, z + halfEdge, 0.0f,  0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 1.0f, 1.0f),
+        Vertex(x - halfEdge, y + halfEdge, z + halfEdge, 0.0f,  0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f),
 
         // Face arrière (Z-)
-        Vertex(x - halfEdge, y - halfEdge, z - halfEdge, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f),
-        Vertex(x + halfEdge, y - halfEdge, z - halfEdge, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f),
-        Vertex(x + halfEdge, y + halfEdge, z - halfEdge, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f),
-        Vertex(x - halfEdge, y + halfEdge, z - halfEdge, 0.0f, 0.0f, 0.0f, 1.0f, 1.0f),
+        Vertex(x - halfEdge, y - halfEdge, z - halfEdge, 0.0f,  0.0f, -1.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f),
+        Vertex(x + halfEdge, y - halfEdge, z - halfEdge, 0.0f,  0.0f, -1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f),
+        Vertex(x + halfEdge, y + halfEdge, z - halfEdge, 0.0f,  0.0f, -1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f),
+        Vertex(x - halfEdge, y + halfEdge, z - halfEdge, 0.0f,  0.0f, -1.0f, 0.0f, 0.0f, 0.0f, 1.0f, 1.0f),
 
         // Face gauche (X-)
-        Vertex(x - halfEdge, y - halfEdge, z - halfEdge, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f),
-        Vertex(x - halfEdge, y - halfEdge, z + halfEdge, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f),
-        Vertex(x - halfEdge, y + halfEdge, z + halfEdge, 0.0f, 0.0f, 0.0f, 1.0f, 1.0f),
-        Vertex(x - halfEdge, y + halfEdge, z - halfEdge, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f),
+        Vertex(x - halfEdge, y - halfEdge, z - halfEdge, -1.0f,  0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f),
+        Vertex(x - halfEdge, y - halfEdge, z + halfEdge, -1.0f,  0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f),
+        Vertex(x - halfEdge, y + halfEdge, z + halfEdge, -1.0f,  0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 1.0f),
+        Vertex(x - halfEdge, y + halfEdge, z - halfEdge, -1.0f,  0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f),
 
         // Face droite (X+)
-        Vertex(x + halfEdge, y - halfEdge, z - halfEdge, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f),
-        Vertex(x + halfEdge, y - halfEdge, z + halfEdge, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f),
-        Vertex(x + halfEdge, y + halfEdge, z + halfEdge, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f),
-        Vertex(x + halfEdge, y + halfEdge, z - halfEdge, 0.0f, 0.0f, 0.0f, 1.0f, 1.0f),
+        Vertex(x + halfEdge, y - halfEdge, z - halfEdge, 1.0f,  0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f),
+        Vertex(x + halfEdge, y - halfEdge, z + halfEdge, 1.0f,  0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f),
+        Vertex(x + halfEdge, y + halfEdge, z + halfEdge, 1.0f,  0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f),
+        Vertex(x + halfEdge, y + halfEdge, z - halfEdge, 1.0f,  0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 1.0f),
 
         // Face du bas (Y-)
-        Vertex(x - halfEdge, y - halfEdge, z - halfEdge, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f),
-        Vertex(x + halfEdge, y - halfEdge, z - halfEdge, 0.0f, 0.0f, 0.0f, 1.0f, 1.0f),
-        Vertex(x + halfEdge, y - halfEdge, z + halfEdge, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f),
-        Vertex(x - halfEdge, y - halfEdge, z + halfEdge, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f),
+        Vertex(x - halfEdge, y - halfEdge, z - halfEdge, 0.0f,  -1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f),
+        Vertex(x + halfEdge, y - halfEdge, z - halfEdge, 0.0f,  -1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 1.0f),
+        Vertex(x + halfEdge, y - halfEdge, z + halfEdge, 0.0f,  -1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f),
+        Vertex(x - halfEdge, y - halfEdge, z + halfEdge, 0.0f,  -1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f),
 
         // Face du haut (Y+)
-        Vertex(x - halfEdge, y + halfEdge, z - halfEdge, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f),
-        Vertex(x + halfEdge, y + halfEdge, z - halfEdge, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f),
-        Vertex(x + halfEdge, y + halfEdge, z + halfEdge, 0.0f, 0.0f, 0.0f, 1.0f, 1.0f),
-        Vertex(x - halfEdge, y + halfEdge, z + halfEdge, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f)
+        Vertex(x - halfEdge, y + halfEdge, z - halfEdge, 0.0f,  1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f),
+        Vertex(x + halfEdge, y + halfEdge, z - halfEdge, 0.0f,  1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f),
+        Vertex(x + halfEdge, y + halfEdge, z + halfEdge, 0.0f,  1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 1.0f),
+        Vertex(x - halfEdge, y + halfEdge, z + halfEdge, 0.0f,  1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f)
     };
 
     // Indices : disent dans quel ordre relier les sommets pour former les triangles

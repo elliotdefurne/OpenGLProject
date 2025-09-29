@@ -32,16 +32,21 @@ void Mesh::load(const std::vector<Vertex>& vertices, const std::vector<unsigned 
 
     // Définition du layout mémoire pour chaque attribut
     // Position (x, y, z)
+// Position (layout = 0) : offset = 0
     glEnableVertexAttribArray(0);
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)0);
 
-    // Couleur (r, g, b)
+    // Normal (layout = 1) : offset = 3 floats
     glEnableVertexAttribArray(1);
     glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)(3 * sizeof(float)));
 
-    // Coordonnées de texture (s, t)
+    // Couleur (layout = 2) : offset = 6 floats
     glEnableVertexAttribArray(2);
-    glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)(6 * sizeof(float)));
+    glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)(6 * sizeof(float)));
+
+    // TexCoord (layout = 3) : offset = 9 floats
+    glEnableVertexAttribArray(3);
+    glVertexAttribPointer(3, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)(9 * sizeof(float)));
 
     glBindVertexArray(0); // Débind pour éviter les erreurs plus tard
 }
