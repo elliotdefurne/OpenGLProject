@@ -3,11 +3,13 @@
 #include <glm/glm.hpp>
 #include <vector>
 
-#include "Vertex.h"   // Structure d'un sommet (position, couleur, texture…)
-#include "Mesh.h"     // Classe pour gerer les buffers OpenGL et dessiner
-#include "Shader.h"   // Classe pour les shaders OpenGL
-#include "Texture.h"  // Classe pour les textures
-#include "Transformation.h" // Classe pour position, rotation et scale
+#include "Vertex.h"
+
+class Shader;
+class Mesh;
+class Shader;
+class Texture;
+class Transformation;
 
 // Classe Cube : represente un cube 3D dans le jeu
 class Cube
@@ -27,12 +29,12 @@ public:
     void update();
 
     // Dessine le cube a l'ecran (appelle Mesh + Shader)
-    void draw();
+    virtual void draw();
 
     // Retourne la texture du cube
-    inline Texture* getTexture() const { return m_mesh->getTexture(); }
+    inline Texture* getTexture() const;
 
-private:
+protected:
     Mesh* m_mesh;                     // Maillage du cube (buffers OpenGL)
     Texture* m_texture;               // Texture appliquée
     Shader* m_shader;                 // Shader pour le rendu

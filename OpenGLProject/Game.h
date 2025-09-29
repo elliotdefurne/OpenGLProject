@@ -1,7 +1,10 @@
 #pragma once
 
 #include <vector>
+#pragma warning(push)
+#pragma warning(disable: 4244)
 #include <memory>
+#pragma warning(pop)
 
 // Déclarations anticipées
 class Window;

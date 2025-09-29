@@ -80,8 +80,9 @@ private:
 
         for (const auto& entry : std::filesystem::recursive_directory_iterator(shadersFolderPath)) {
             if (entry.is_directory()) {
-                auto vertPath = entry.path() / "basic.vert";
-                auto fragPath = entry.path() / "basic.frag";
+                std::string folderName = entry.path().filename().string();
+                auto vertPath = entry.path() / (folderName + ".vert");
+                auto fragPath = entry.path() / (folderName + ".frag");
 
                 if (std::filesystem::exists(vertPath) && std::filesystem::exists(fragPath)) {
                     std::string relative = entry.path().lexically_relative(shadersFolderPath).string();

@@ -26,12 +26,13 @@ void Game::initialize() {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glCullFace(GL_BACK);
 
-    Texture* texture = m_textureManager->getTexture("test/rocks.png");
-    Texture* light   = m_textureManager->getTexture("light.png");
-    Shader* basic    = m_shaderManager->getShader("cube");
+    Texture* rocksTexture = m_textureManager->getTexture("test/rocks.png");
+    Texture* lightTexture   = m_textureManager->getTexture("light.png");
+    Shader* cubeShader = m_shaderManager->getShader("cube");
+    Shader* lightShader    = m_shaderManager->getShader("light");
 
-    m_cubes.push_back(std::make_unique<Cube>(glm::vec3(0, 0, 0), 1, basic, texture));
-    m_cubes.push_back(std::make_unique<Cube>(glm::vec3(1, 0.5, 2), 0.5, basic, light));
+    m_cubes.push_back(std::make_unique<Cube>(glm::vec3(0, 0, 0), 1, cubeShader, rocksTexture));
+    m_cubes.push_back(std::make_unique<LightBlock>(glm::vec3(1, 0.5, 2), 0.5, lightShader, lightTexture));
 }
 
 void Game::run() {

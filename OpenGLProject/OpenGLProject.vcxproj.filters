@@ -28,6 +28,9 @@
     <Filter Include="Fichiers sources\Inputs">
       <UniqueIdentifier>{b35dc59f-d5a7-43a0-890d-c95ff1a77bd9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Fichiers de ressources\shaders\light">
+      <UniqueIdentifier>{4e02fd8a-f27c-4616-a9d2-b0d49ba1a2df}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -103,6 +106,9 @@
       <Filter>Fichiers sources</Filter>
     </ClCompile>
     <ClCompile Include="TextureManager.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="LightBlock.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
   </ItemGroup>
@@ -191,18 +197,27 @@
     <ClInclude Include="Direction.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="res\shaders\basic.vert">
-      <Filter>Fichiers de ressources\shaders</Filter>
-    </None>
-    <None Include="res\shaders\basic.frag">
-      <Filter>Fichiers de ressources\shaders</Filter>
-    </None>
+    <ClInclude Include="LightBlock.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\textures\rocks.png">
       <Filter>Fichiers de ressources\textures</Filter>
     </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="res\shaders\cube\cube.frag">
+      <Filter>Fichiers de ressources\shaders\cube</Filter>
+    </None>
+    <None Include="res\shaders\cube\cube.vert">
+      <Filter>Fichiers de ressources\shaders\cube</Filter>
+    </None>
+    <None Include="res\shaders\light\light.frag">
+      <Filter>Fichiers de ressources\shaders\light</Filter>
+    </None>
+    <None Include="res\shaders\light\light.vert">
+      <Filter>Fichiers de ressources\shaders\light</Filter>
+    </None>
   </ItemGroup>
 </Project>

@@ -148,6 +148,7 @@
     <ClCompile Include="Jump.cpp" />
     <ClCompile Include="KeyManager.cpp" />
     <ClCompile Include="Left.cpp" />
+    <ClCompile Include="LightBlock.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="Entity.cpp" />
@@ -178,6 +179,7 @@
     <ClInclude Include="Key.h" />
     <ClInclude Include="KeyManager.h" />
     <ClInclude Include="Left.h" />
+    <ClInclude Include="LightBlock.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="Mouse.h" />
@@ -193,11 +195,13 @@
     <ClInclude Include="Window.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="res\shaders\basic.frag" />
-    <None Include="res\shaders\basic.vert" />
+    <Image Include="res\textures\rocks.png" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="res\textures\rocks.png" />
+    <None Include="res\shaders\cube\cube.frag" />
+    <None Include="res\shaders\cube\cube.vert" />
+    <None Include="res\shaders\light\light.frag" />
+    <None Include="res\shaders\light\light.vert" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -1,5 +1,12 @@
 #include "Cube.h"
 
+#include "Vertex.h"   // Structure d'un sommet (position, couleur, texture…)
+#include "Mesh.h"     // Classe pour gerer les buffers OpenGL et dessiner
+#include "Shader.h"   // Classe pour les shaders OpenGL
+#include "Texture.h"  // Classe pour les textures
+#include "Transformation.h" // Classe pour position, rotation et scale
+
+
 // Constructeur du cube
 Cube::Cube(glm::vec3 center, float edge, Shader* shader, Texture* texture)
     : m_center(center), m_edge(edge), m_shader(shader), m_texture(texture)
@@ -79,6 +86,10 @@ Cube::~Cube() {
     delete m_transformation;  // Détruit la transformation
 }
 
+inline Texture* Cube::getTexture() const {
+    return m_mesh->getTexture();
+}
+
 // Prépare le cube pour être affiché (envoie les données au GPU)
 void Cube::update()
 {
@@ -87,9 +98,10 @@ void Cube::update()
 
 // Dessine le cube à l’écran
 void Cube::draw() {
-    m_shader->clearUniformLocations();                  // Nettoie les anciens réglages du shader
-    m_shader->setModel(m_transformation->getMatrix());  // Envoie la matrice "modèle" (position/rotation/scale)
-    m_shader->use();                                    // Active le shader
-    m_shader->setTexture("ourTexture", m_texture->getID()); // Associe la texture au shader
-    m_mesh->draw();                                     // Demande à OpenGL de dessiner le maillage
+    m_shader->clearUniformLocations();                          // Nettoie les anciens réglages du shader
+    m_shader->setModel(m_transformation->getMatrix());          // Envoie la matrice "modèle" (position/rotation/scale)
+    m_shader->use();                                            // Active le shader
+    m_shader->setTexture("ourTexture", m_texture->getID());     // Associe la texture au shader
+    m_shader->setVec3("lightColor", 1.0f, 1.0f, 1.0f);          // Associe la couleur au shader
+    m_mesh->draw();                                             // Demande à OpenGL de dessiner le maillage
 }
