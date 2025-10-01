@@ -103,5 +103,6 @@ void Cube::draw() {
     m_shader->use();                                            // Active le shader
     m_shader->setTexture("ourTexture", m_texture->getID());     // Associe la texture au shader
     m_shader->setVec3("lightColor", 1.0f, 1.0f, 1.0f);          // Associe la couleur au shader
+	m_shader->setVec3("lightPos", 1.0f, 0.5f, 2.0f);            // Associe la position de la lumière au shader
     m_mesh->draw();                                             // Demande à OpenGL de dessiner le maillage
 }
