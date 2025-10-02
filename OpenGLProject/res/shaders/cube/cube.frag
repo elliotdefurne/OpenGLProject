@@ -8,7 +8,6 @@ in vec2 TexCoord;
 uniform sampler2D ourTexture;
 uniform vec3 lightPos;
 uniform vec3 lightColor;
-uniform vec3 lightPos;
 
 void main()
 {
