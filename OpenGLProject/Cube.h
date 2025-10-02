@@ -10,6 +10,7 @@ class Mesh;
 class Shader;
 class Texture;
 class Transformation;
+class LightSource;
 
 // Classe Cube : represente un cube 3D dans le jeu
 class Cube
@@ -20,7 +21,7 @@ public:
     // edge : taille d'une arête du cube
     // shader : shader utilisé pour le rendu
     // texture : texture appliquée au cube
-    Cube(glm::vec3 center, float edge, Shader* shader, Texture* texture);
+    Cube(glm::vec3 center, float edge, Shader* shader, Texture* texture, LightSource* lightblock);
 
     // Destructeur : libere la memoire (mesh, transformation…)
     ~Cube();
@@ -34,11 +35,14 @@ public:
     // Retourne la texture du cube
     inline Texture* getTexture() const;
 
+	inline glm::vec3 getCenter() const { return m_center; }
+
 protected:
     Mesh* m_mesh;                     // Maillage du cube (buffers OpenGL)
     Texture* m_texture;               // Texture appliquée
     Shader* m_shader;                 // Shader pour le rendu
     Transformation* m_transformation; // Transformations : position, rotation, scale
+	LightSource* m_light;              // Pointeur vers le LightBlock associé (si applicable)
 
     std::vector<Vertex> m_vertices;       // Liste des sommets du cube
     std::vector<unsigned int> m_indices;  // Indices pour dessiner les triangles

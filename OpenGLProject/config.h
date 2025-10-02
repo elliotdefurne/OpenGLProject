@@ -16,6 +16,6 @@
 #include "Player.h"
 #include "Camera.h"
 #include "Cube.h"
-#include "LightBlock.h"
+#include "LightSource.h"
 
 #include "constants.h"

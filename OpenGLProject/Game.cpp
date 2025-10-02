@@ -31,8 +31,8 @@ void Game::initialize() {
     Shader* cubeShader = m_shaderManager->getShader("cube");
     Shader* lightShader    = m_shaderManager->getShader("light");
 
-    m_cubes.push_back(std::make_unique<Cube>(glm::vec3(0, 0, 0), 1, cubeShader, rocksTexture));
-    m_cubes.push_back(std::make_unique<LightBlock>(glm::vec3(1, 0.5, 2), 0.5, lightShader, lightTexture));
+    m_lights.push_back(std::make_unique<LightSource>(glm::vec3(1, 0.5, 2), lightShader, lightTexture));
+    m_cubes.push_back(std::make_unique<Cube>(glm::vec3(0, 0, 0), 1, cubeShader, rocksTexture, m_lights.back().get()));
 }
 
 void Game::run() {
@@ -52,11 +52,17 @@ void Game::update() {
     for (auto& cube : m_cubes) {
         cube->update();
     }
+    for (auto& light : m_lights) {
+        light->update();
+    }
 }
 
 void Game::render() {
     for (auto& cube : m_cubes) {
         cube->draw();
+    }
+    for (auto& light : m_lights) {
+        light->draw();
     }
 }
 

@@ -15,6 +15,7 @@ class KeyManager;
 class Player;
 class Camera;
 class Cube;
+class LightSource;
 
 class Game {
 public:
@@ -26,6 +27,7 @@ public:
 
 private:
     std::vector<std::unique_ptr<Cube>> m_cubes;
+    std::vector<std::unique_ptr<LightSource>> m_lights;
 
     std::unique_ptr<Window> m_window;
     std::unique_ptr<Renderer> m_renderer;
