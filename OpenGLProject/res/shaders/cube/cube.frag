@@ -4,10 +4,11 @@ out vec4 FragColor;
 in vec3 Normal;  
 in vec3 FragPos;
 in vec2 TexCoord;
-  
+
 uniform sampler2D ourTexture;
 uniform vec3 lightPos;
 uniform vec3 lightColor;
+uniform vec3 lightPos;
 
 void main()
 {
@@ -25,4 +26,4 @@ void main()
             
     vec3 result = (ambient + diffuse) * texColor.rgb;
     FragColor = vec4(result, 1.0);
-} 
+}
