@@ -56,7 +56,7 @@ public:
     const glm::mat4& getModel() const { return m_model; }
     const glm::mat4& getView() const { return m_view; }
     const glm::mat4& getProjection() const { return m_projection; }
-
+	inline const Camera* getCamera() const { return m_camera; }
 private:
     unsigned int m_id;  // ID OpenGL du programme shader
     Camera* m_camera;  // Pointeur vers la caméra pour récupérer la vue

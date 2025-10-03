@@ -10,8 +10,7 @@
 
 // Constructeur du cube
 Cube::Cube(glm::vec3 center, float edge, Shader* shader, Texture* texture, LightSource* light)
-	: m_center(center), m_edge(edge), m_shader(shader), m_texture(texture), m_light(light)
-{
+	: m_center(center), m_edge(edge), m_shader(shader), m_texture(texture), m_light(light) {
     // Coordonnées du centre du cube
     float x = center[0];
     float y = center[1];
@@ -103,6 +102,9 @@ void Cube::draw() {
     m_shader->use();                                            // Active le shader
     m_shader->setTexture("ourTexture", m_texture->getID());     // Associe la texture au shader
     m_shader->setVec3("lightColor", 1.0f, 1.0f, 1.0f);          // Associe la couleur au shader
-    if(m_light->getPos() != m_center) m_shader->setVec3("lightPos", m_light->getPos());
+    if (m_light->getPos() != m_center) { 
+        m_shader->setVec3("viewPos", m_shader->getCamera()->getPosition());
+        m_shader->setVec3("lightPos", m_light->getPos());
+    }
     m_mesh->draw();                                             // Demande à OpenGL de dessiner le maillage
 }
