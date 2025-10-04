@@ -103,7 +103,7 @@ void Cube::draw() {
     m_shader->setTexture("ourTexture", m_texture->getID());     // Associe la texture au shader
     m_shader->setVec3("lightColor", m_light->getLightColor());  // Associe la couleur au shader
 
-	// Si la position est différente du centre, c'est qu'on est un LightBlock
+	// Si la position est différente du centre, c'est que c'est pas un LightBlock
     if (m_light->getPos() != m_center) { 
         m_shader->setVec3("viewPos", m_shader->getCamera()->getPosition());
         m_shader->setVec3("lightPos", m_light->getPos());
