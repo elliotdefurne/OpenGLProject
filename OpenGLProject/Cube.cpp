@@ -101,9 +101,8 @@ void Cube::draw() {
     m_shader->setModel(m_transformation->getMatrix());          // Envoie la matrice "modèle" (position/rotation/scale)
     m_shader->use();                                            // Active le shader
     m_shader->setTexture("ourTexture", m_texture->getID());     // Associe la texture au shader
-    m_shader->setVec3("lightColor", m_light->getLightColor());  // Associe la couleur au shader
 
-	// Si la position est différente du centre, c'est que c'est pas un LightBlock
+	// Si la position de la lumière est différente au centre du cube, c'est que c'est pas un LightBlock
     if (m_light->getPos() != m_center) { 
         m_shader->setVec3("viewPos", m_shader->getCamera()->getPosition());
         m_shader->setVec3("lightPos", m_light->getPos());
@@ -111,6 +110,13 @@ void Cube::draw() {
         m_shader->setVec3("material.diffuse", 0.75f, 0.75f, 0.75f);
         m_shader->setVec3("material.specular", 0.5f, 0.5f, 0.5f);
         m_shader->setFloat("material.shininess", 32.0f);
+        m_shader->setVec3("light.ambient", 0.4f, 0.4f, 0.4f);
+        m_shader->setVec3("light.diffuse", 0.5f, 0.5f, 0.5f); // darken diffuse light a bit
+        m_shader->setVec3("light.specular", 1.0f, 1.0f, 1.0f);
+    }
+    // Si la position de la lumière est égale au centre du cube, c'est que c'est un LightBlock
+    else {
+        m_shader->setVec3("lightColor", m_light->getLightColor());  // Associe la couleur au shader
     }
     m_mesh->draw();                                             // Demande à OpenGL de dessiner le maillage
 }
