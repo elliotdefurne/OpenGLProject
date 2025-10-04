@@ -22,7 +22,7 @@ public:
     void use();
 
     // Associe une texture 2D à un uniform du shader
-    void setTexture(const std::string& name, unsigned int textureID, unsigned int unit = 0);
+    void setTexture(const std::string& name, unsigned int textureID, unsigned int unit);
 
     // Envoie une transformation encapsulée dans la classe Transformation
     void setTransformation(const std::string& name, Transformation* trans);

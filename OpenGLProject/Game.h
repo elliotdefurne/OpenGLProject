@@ -27,6 +27,7 @@ public:
 
 private:
     std::vector<std::unique_ptr<Cube>> m_cubes;
+    std::vector<std::unique_ptr<Cube>> m_alphacubes;
     std::vector<std::unique_ptr<LightSource>> m_lights;
 
     std::unique_ptr<Window> m_window;

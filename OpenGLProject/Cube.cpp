@@ -67,12 +67,12 @@ Cube::Cube(glm::vec3 center, float edge, Shader* shader, Texture* texture, Light
     // Indices : disent dans quel ordre relier les sommets pour former les triangles
     // Chaque face du cube = 2 triangles = 6 indices
     m_indices = {
-        0, 1, 2,   2, 3, 0,     // Face avant
-        4, 5, 6,   6, 7, 4,     // Face arrière
-        8, 9, 10,  10, 11, 8,   // Face gauche
-        12, 13, 14, 14, 15, 12, // Face droite
-        16, 17, 18, 18, 19, 16, // Face du bas
-        20, 21, 22, 22, 23, 20  // Face du haut
+        0, 1, 2,   2, 3, 0,     // Face avant (Z+)
+        5, 4, 7,   7, 6, 5,     // Face arrière (Z-)
+        8, 9, 10,  10, 11, 8,   // Face gauche (X-)
+        13, 12, 15, 15, 14, 13, // Face droite (X+)
+        17, 16, 19, 19, 18, 17, // Face du bas (Y-)
+        20, 21, 22, 22, 23, 20  // Face du haut (Y+)
     };
     m_mesh->load(m_vertices, m_indices, m_texture);
 }
@@ -100,18 +100,16 @@ void Cube::draw() {
     m_shader->clearUniformLocations();                          // Nettoie les anciens réglages du shader
     m_shader->setModel(m_transformation->getMatrix());          // Envoie la matrice "modèle" (position/rotation/scale)
     m_shader->use();                                            // Active le shader
-    m_shader->setTexture("ourTexture", m_texture->getID());     // Associe la texture au shader
 
 	// Si la position de la lumière est différente au centre du cube, c'est que c'est pas un LightBlock
     if (m_light->getPos() != m_center) { 
         m_shader->setVec3("viewPos", m_shader->getCamera()->getPosition());
-        m_shader->setVec3("lightPos", m_light->getPos());
-        m_shader->setVec3("material.ambient", 0.5f, 0.5f, 0.5f);
-        m_shader->setVec3("material.diffuse", 0.75f, 0.75f, 0.75f);
+        m_shader->setVec3("light.position", m_light->getPos());
+        m_shader->setTexture("material.diffuse", m_texture->getID(), 0);
         m_shader->setVec3("material.specular", 0.5f, 0.5f, 0.5f);
         m_shader->setFloat("material.shininess", 32.0f);
-        m_shader->setVec3("light.ambient", 0.4f, 0.4f, 0.4f);
-        m_shader->setVec3("light.diffuse", 0.5f, 0.5f, 0.5f); // darken diffuse light a bit
+        m_shader->setVec3("light.ambient", 0.75f, 0.75f, 0.75f);
+        m_shader->setVec3("light.diffuse", 1.0f, 1.0f, 1.0f); // darken diffuse light a bit
         m_shader->setVec3("light.specular", 1.0f, 1.0f, 1.0f);
     }
     // Si la position de la lumière est égale au centre du cube, c'est que c'est un LightBlock
