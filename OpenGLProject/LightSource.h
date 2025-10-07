@@ -16,6 +16,9 @@ public:
     void update();
 
     glm::vec3 getLightColor();
+    glm::vec3 getAmbient();
+    glm::vec3 getDiffuse();
+    glm::vec3 getSpecular();
     glm::vec3 getPos();
 
     // Accès au Cube (version smart pointer)
@@ -23,5 +26,5 @@ public:
 
 private:
     std::unique_ptr<Cube> m_cube;  // Propriété du cube
-    glm::vec3 m_lightColor;
+    glm::vec3 m_lightColor, m_ambient, m_diffuse, m_specular;
 };

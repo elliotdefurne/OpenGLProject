@@ -200,6 +200,8 @@
   <ItemGroup>
     <None Include="res\shaders\cube\cube.frag" />
     <None Include="res\shaders\cube\cube.vert" />
+    <None Include="res\shaders\cube\specularMap\specularMap.frag" />
+    <None Include="res\shaders\cube\specularMap\specularMap.vert" />
     <None Include="res\shaders\light\light.frag" />
     <None Include="res\shaders\light\light.vert" />
   </ItemGroup>

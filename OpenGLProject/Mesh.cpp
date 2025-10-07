@@ -52,7 +52,6 @@ void Mesh::load(const std::vector<Vertex>& vertices, const std::vector<unsigned 
 }
 
 void Mesh::draw() const {
-    glBindTexture(GL_TEXTURE_2D, m_texture->getID());   // Active la texture
     glBindVertexArray(m_vao);                           // Bind du VAO
     glDrawElements(GL_TRIANGLES, m_indexCount, GL_UNSIGNED_INT, nullptr); // Dessin
     glBindVertexArray(0);                               // Débind

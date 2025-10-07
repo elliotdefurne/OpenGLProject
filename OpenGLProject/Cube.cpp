@@ -10,7 +10,7 @@
 
 // Constructeur du cube
 Cube::Cube(glm::vec3 center, float edge, Shader* shader, Texture* texture, LightSource* light)
-	: m_center(center), m_edge(edge), m_shader(shader), m_texture(texture), m_light(light) {
+	: m_center(center), m_edge(edge), m_shader(shader), m_texture(texture), m_light(light), m_specularMap(nullptr) {
     // Coordonnées du centre du cube
     float x = center[0];
     float y = center[1];
@@ -77,6 +77,10 @@ Cube::Cube(glm::vec3 center, float edge, Shader* shader, Texture* texture, Light
     m_mesh->load(m_vertices, m_indices, m_texture);
 }
 
+Cube::Cube(glm::vec3 center, float edge, Shader* shader, Texture* texture, Texture* specularMap, LightSource* light): Cube(center, edge, shader, texture, light) {
+    m_specularMap = specularMap;
+}
+
 // Destructeur -> appelé quand on détruit l’objet Cube
 // Libère la mémoire utilisée
 Cube::~Cube() {
@@ -101,20 +105,49 @@ void Cube::draw() {
     m_shader->setModel(m_transformation->getMatrix());          // Envoie la matrice "modèle" (position/rotation/scale)
     m_shader->use();                                            // Active le shader
 
-	// Si la position de la lumière est différente au centre du cube, c'est que c'est pas un LightBlock
-    if (m_light->getPos() != m_center) { 
-        m_shader->setVec3("viewPos", m_shader->getCamera()->getPosition());
-        m_shader->setVec3("light.position", m_light->getPos());
-        m_shader->setTexture("material.diffuse", m_texture->getID(), 0);
-        m_shader->setVec3("material.specular", 0.5f, 0.5f, 0.5f);
-        m_shader->setFloat("material.shininess", 32.0f);
-        m_shader->setVec3("light.ambient", 0.75f, 0.75f, 0.75f);
-        m_shader->setVec3("light.diffuse", 1.0f, 1.0f, 1.0f); // darken diffuse light a bit
-        m_shader->setVec3("light.specular", 1.0f, 1.0f, 1.0f);
+    if (m_shader->getName() == "cube") {
+        drawCubeShader();
     }
-    // Si la position de la lumière est égale au centre du cube, c'est que c'est un LightBlock
+    else if (m_shader->getName() == "specularMap") {
+        drawSpecularMapShader();
+    }
+    else if (m_shader->getName() == "light") {
+        drawLightShader();
+	}
     else {
-        m_shader->setVec3("lightColor", m_light->getLightColor());  // Associe la couleur au shader
+		std::cout << "Shader name: " << m_shader->getName() << std::endl;
     }
+
     m_mesh->draw();                                             // Demande à OpenGL de dessiner le maillage
+}
+
+void Cube::drawCubeShader() {
+    m_shader->setVec3("viewPos", m_shader->getCamera()->getPosition());
+    m_shader->setTexture("material.diffuse", m_texture->getID(), 0);
+    m_shader->setVec3("material.specular", 0.75, 0.75, 0.75);
+    m_shader->setFloat("material.shininess", 32.0f);
+    m_shader->setVec3("light.position", m_light->getPos());
+    m_shader->setVec3("light.ambient", 0.75f, 0.75f, 0.75f);
+    m_shader->setVec3("light.diffuse", 1.0f, 1.0f, 1.0f); // darken diffuse light a bit
+    m_shader->setVec3("light.specular", 1.0f, 1.0f, 1.0f);
+}
+
+void Cube::drawSpecularMapShader() {
+    if (!m_specularMap) {
+        throw std::invalid_argument("Error: No specular map texture set for specularMap shader.");
+        return;
+	}
+    m_shader->setVec3("viewPos", m_shader->getCamera()->getPosition());
+    m_shader->setTexture("material.diffuse", m_texture->getID(), 0);
+    m_shader->setTexture("material.specular", m_specularMap->getID(), 1);
+    m_shader->setFloat("material.shininess", 32.0f);
+    m_shader->setVec3("light.position", m_light->getPos());
+    m_shader->setVec3("light.ambient", m_light->getAmbient());
+    m_shader->setVec3("light.diffuse", m_light->getDiffuse()); // darken diffuse light a bit
+    m_shader->setVec3("light.specular", m_light->getSpecular());
+}
+
+
+void Cube::drawLightShader() {
+    m_shader->setVec3("lightColor", m_light->getLightColor());  // Associe la couleur au shader
 }

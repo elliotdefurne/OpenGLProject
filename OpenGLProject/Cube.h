@@ -22,6 +22,7 @@ public:
     // shader : shader utilisé pour le rendu
     // texture : texture appliquée au cube
     Cube(glm::vec3 center, float edge, Shader* shader, Texture* texture, LightSource* lightblock);
+    Cube(glm::vec3 center, float edge, Shader* shader, Texture* texture, Texture* specularMap, LightSource* light);
 
     // Destructeur : libere la memoire (mesh, transformation…)
     ~Cube();
@@ -39,7 +40,8 @@ public:
 
 protected:
     Mesh* m_mesh;                     // Maillage du cube (buffers OpenGL)
-    Texture* m_texture;               // Texture appliquée
+    Texture* m_texture;               // Texture appliquee
+    Texture* m_specularMap;           // Texture speculaire
     Shader* m_shader;                 // Shader pour le rendu
     Transformation* m_transformation; // Transformations : position, rotation, scale
 	LightSource* m_light;              // Pointeur vers le LightBlock associé (si applicable)
@@ -49,4 +51,9 @@ protected:
     glm::vec3 m_center;                   // Centre du cube dans l'espace
 
     float m_edge;                         // Taille d'une arête du cube
+
+private:
+    void drawCubeShader();
+    void drawSpecularMapShader();
+    void drawLightShader();
 };

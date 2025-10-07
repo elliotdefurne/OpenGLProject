@@ -12,7 +12,7 @@
 
 // Structure représentant un noeud dans l'arborescence des shaders
 struct ShaderNode {
-    std::unordered_map<std::string, ShaderNode*> children; ///< Sous-dossiers
+    std::unordered_map<std::string, ShaderNode*> children;  ///< Sous-dossiers
     Shader* shader = nullptr;                               ///< Shader associé si c'est une feuille
 };
 

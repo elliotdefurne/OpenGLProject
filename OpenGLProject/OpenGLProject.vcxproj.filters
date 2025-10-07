@@ -28,8 +28,11 @@
     <Filter Include="Fichiers sources\Inputs">
       <UniqueIdentifier>{b35dc59f-d5a7-43a0-890d-c95ff1a77bd9}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Fichiers de ressources\shaders\light">
+    <Filter Include="Fichiers de ressources\shaders\cube\light">
       <UniqueIdentifier>{4e02fd8a-f27c-4616-a9d2-b0d49ba1a2df}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers de ressources\shaders\cube\specularMap">
+      <UniqueIdentifier>{4f152a3a-51af-46c8-a751-04ed5323a2be}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -214,10 +217,16 @@
       <Filter>Fichiers de ressources\shaders\cube</Filter>
     </None>
     <None Include="res\shaders\light\light.frag">
-      <Filter>Fichiers de ressources\shaders\light</Filter>
+      <Filter>Fichiers de ressources\shaders\cube\light</Filter>
     </None>
     <None Include="res\shaders\light\light.vert">
-      <Filter>Fichiers de ressources\shaders\light</Filter>
+      <Filter>Fichiers de ressources\shaders\cube\light</Filter>
+    </None>
+    <None Include="res\shaders\cube\specularMap\specularMap.frag">
+      <Filter>Fichiers de ressources\shaders\cube\specularMap</Filter>
+    </None>
+    <None Include="res\shaders\cube\specularMap\specularMap.vert">
+      <Filter>Fichiers de ressources\shaders\cube\specularMap</Filter>
     </None>
   </ItemGroup>
 </Project>
