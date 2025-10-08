@@ -55,5 +55,6 @@ protected:
 private:
     void drawCubeShader();
     void drawSpecularMapShader();
-    void drawLightShader();
+    void drawLightSourceShader();
+    void drawDirectionalLightShader();
 };

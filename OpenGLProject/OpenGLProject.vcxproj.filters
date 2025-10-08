@@ -34,6 +34,9 @@
     <Filter Include="Fichiers de ressources\shaders\cube\lightsource">
       <UniqueIdentifier>{4e02fd8a-f27c-4616-a9d2-b0d49ba1a2df}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Fichiers de ressources\shaders\directionallight">
+      <UniqueIdentifier>{a5a39447-321f-409a-b2d0-5e7aff377795}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -227,6 +230,12 @@
     </None>
     <None Include="res\shaders\cube\lightsource\lightsource.vert">
       <Filter>Fichiers de ressources\shaders\cube\lightsource</Filter>
+    </None>
+    <None Include="res\shaders\directionallight\directionallight.frag">
+      <Filter>Fichiers de ressources\shaders\directionallight</Filter>
+    </None>
+    <None Include="res\shaders\directionallight\directionallight.vert">
+      <Filter>Fichiers de ressources\shaders\directionallight</Filter>
     </None>
   </ItemGroup>
 </Project>

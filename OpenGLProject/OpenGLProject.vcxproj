@@ -204,6 +204,8 @@
     <None Include="res\shaders\cube\lightsource\lightsource.vert" />
     <None Include="res\shaders\cube\specularMap\specularMap.frag" />
     <None Include="res\shaders\cube\specularMap\specularMap.vert" />
+    <None Include="res\shaders\directionallight\directionallight.frag" />
+    <None Include="res\shaders\directionallight\directionallight.vert" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
