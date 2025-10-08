@@ -200,10 +200,10 @@
   <ItemGroup>
     <None Include="res\shaders\cube\cube.frag" />
     <None Include="res\shaders\cube\cube.vert" />
+    <None Include="res\shaders\cube\lightsource\lightsource.frag" />
+    <None Include="res\shaders\cube\lightsource\lightsource.vert" />
     <None Include="res\shaders\cube\specularMap\specularMap.frag" />
     <None Include="res\shaders\cube\specularMap\specularMap.vert" />
-    <None Include="res\shaders\light\light.frag" />
-    <None Include="res\shaders\light\light.vert" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

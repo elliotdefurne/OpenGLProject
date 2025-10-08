@@ -28,7 +28,7 @@ void Game::initialize() {
     Texture* lightTexture   = m_textureManager->getTexture("light.png");
     Shader* cubeSpecularShader = m_shaderManager->getShader("cube/specularMap");
     Shader* cubeShader = m_shaderManager->getShader("cube");
-    Shader* lightShader    = m_shaderManager->getShader("cube/light");
+    Shader* lightShader    = m_shaderManager->getShader("cube/lightsource");
 
     m_lights.push_back(std::make_unique<LightSource>(glm::vec3(1, 0.5, 2), lightShader, lightTexture));
     m_cubes.push_back(std::make_unique<Cube>(glm::vec3(0, 0, 0), 1, cubeShader, rocksTexture, m_lights.back().get()));

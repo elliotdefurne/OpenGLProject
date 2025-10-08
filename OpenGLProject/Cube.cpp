@@ -111,14 +111,14 @@ void Cube::draw() {
     else if (m_shader->getName() == "specularMap") {
         drawSpecularMapShader();
     }
-    else if (m_shader->getName() == "light") {
+    else if (m_shader->getName() == "lightsource") {
         drawLightShader();
 	}
     else {
-		std::cout << "Shader name: " << m_shader->getName() << std::endl;
+		std::cout << "Shader name not found in Cube draw : " << m_shader->getName() << std::endl;
     }
 
-    m_mesh->draw();                                             // Demande à OpenGL de dessiner le maillage
+    m_mesh->draw();
 }
 
 void Cube::drawCubeShader() {
