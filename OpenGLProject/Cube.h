@@ -57,4 +57,5 @@ private:
     void drawSpecularMapShader();
     void drawLightSourceShader();
     void drawDirectionalLightShader();
+    void drawLightPointShader();
 };

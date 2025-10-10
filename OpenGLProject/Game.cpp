@@ -27,13 +27,15 @@ void Game::initialize() {
     Texture* glassTexture = m_textureManager->getTexture("glass/glass.png");
     Texture* lightTexture   = m_textureManager->getTexture("light.png");
     Shader* cubeSpecularShader = m_shaderManager->getShader("cube/specularMap");
-    Shader* cubeShader = m_shaderManager->getShader("cube/directionallight");
+    Shader* cubeShader = m_shaderManager->getShader("cube/lightpoint");
     Shader* lightShader    = m_shaderManager->getShader("cube/lightsource");
 
     m_lights.push_back(std::make_unique<LightSource>(glm::vec3(1, 0.5, 2), lightShader, lightTexture));
-    m_cubes.push_back(std::make_unique<Cube>(glm::vec3(0, 0, 0), 1, cubeShader, rocksTexture, m_lights.back().get()));
-    m_cubes.push_back(std::make_unique<Cube>(glm::vec3(0, 0, 1), 1, cubeSpecularShader, containerTexture, containerSpecularTexture, m_lights.back().get()));
-    m_alphacubes.push_back(std::make_unique<Cube>(glm::vec3(1, 1, 0), 1, cubeShader, glassTexture, m_lights.back().get()));
+    m_cubes.push_back(std::make_unique<Cube>(glm::vec3(1, 0, 0), 1, cubeShader, rocksTexture, m_lights.back().get()));
+    m_cubes.push_back(std::make_unique<Cube>(glm::vec3(0, 0, -2), 1, cubeShader, rocksTexture, m_lights.back().get()));
+    m_cubes.push_back(std::make_unique<Cube>(glm::vec3(1, 5, 0), 1, cubeShader, rocksTexture, m_lights.back().get()));
+    //m_cubes.push_back(std::make_unique<Cube>(glm::vec3(0, 0, 1), 1, cubeSpecularShader, containerTexture, containerSpecularTexture, m_lights.back().get()));
+    //m_alphacubes.push_back(std::make_unique<Cube>(glm::vec3(1, 1, 0), 1, cubeShader, glassTexture, m_lights.back().get()));
 
     glGetString(GL_VERSION) ? std::cout << "OpenGL version: " << glGetString(GL_VERSION) << std::endl
         : throw std::runtime_error("Impossible de récupérer la version OpenGL");

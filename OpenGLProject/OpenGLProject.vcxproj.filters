@@ -34,8 +34,11 @@
     <Filter Include="Fichiers de ressources\shaders\cube\lightsource">
       <UniqueIdentifier>{4e02fd8a-f27c-4616-a9d2-b0d49ba1a2df}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Fichiers de ressources\shaders\directionallight">
+    <Filter Include="Fichiers de ressources\shaders\cube\directionallight">
       <UniqueIdentifier>{a5a39447-321f-409a-b2d0-5e7aff377795}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers de ressources\shaders\cube\lightpoint">
+      <UniqueIdentifier>{b895d61e-0923-42e7-bd76-150c20b419a1}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -232,10 +235,16 @@
       <Filter>Fichiers de ressources\shaders\cube\lightsource</Filter>
     </None>
     <None Include="res\shaders\directionallight\directionallight.frag">
-      <Filter>Fichiers de ressources\shaders\directionallight</Filter>
+      <Filter>Fichiers de ressources\shaders\cube\directionallight</Filter>
     </None>
     <None Include="res\shaders\directionallight\directionallight.vert">
-      <Filter>Fichiers de ressources\shaders\directionallight</Filter>
+      <Filter>Fichiers de ressources\shaders\cube\directionallight</Filter>
+    </None>
+    <None Include="res\shaders\cube\lightpoint\lightpoint.frag">
+      <Filter>Fichiers de ressources\shaders\cube\lightpoint</Filter>
+    </None>
+    <None Include="res\shaders\cube\lightpoint\lightpoint.vert">
+      <Filter>Fichiers de ressources\shaders\cube\lightpoint</Filter>
     </None>
   </ItemGroup>
 </Project>

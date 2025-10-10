@@ -117,6 +117,9 @@ void Cube::draw() {
     else if (m_shader->getName() == "directionallight") {
         drawDirectionalLightShader();
     }
+    else if (m_shader->getName() == "lightpoint") {
+		drawLightPointShader();
+    }
     else {
 		std::cout << "Shader name not found in Cube draw : " << m_shader->getName() << std::endl;
     }
@@ -159,6 +162,23 @@ void Cube::drawDirectionalLightShader() {
     m_shader->setVec3("light.diffuse", m_light->getDiffuse());
     m_shader->setVec3("light.specular", m_light->getSpecular());
 }
+
+void Cube::drawLightPointShader() {
+    m_shader->setVec3("viewPos", m_shader->getCamera()->getPosition());
+    m_shader->setTexture("material.diffuse", m_texture->getID(), 0);
+    m_shader->setFloat("material.shininess", 32.0f);
+
+    m_shader->setVec3("light.position", m_light->getPos());
+
+    m_shader->setVec3("light.ambient", m_light->getAmbient());
+    m_shader->setVec3("light.diffuse", m_light->getDiffuse());
+    m_shader->setVec3("light.specular", m_light->getSpecular());
+
+    m_shader->setFloat("light.constant", 1.0f);
+    m_shader->setFloat("light.linear", 0.09f);
+    m_shader->setFloat("light.quadratic", 0.032f);
+}
+
 
 void Cube::drawLightSourceShader() {
     m_shader->setVec3("lightColor", m_light->getLightColor());  // Associe la couleur au shader
