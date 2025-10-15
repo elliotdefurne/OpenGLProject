@@ -40,6 +40,9 @@
     <Filter Include="Fichiers de ressources\shaders\cube\lightpoint">
       <UniqueIdentifier>{b895d61e-0923-42e7-bd76-150c20b419a1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Fichiers de ressources\shaders\cube\flashlight">
+      <UniqueIdentifier>{9d03d7c4-378c-4051-9002-2ec04bb892c6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -245,6 +248,12 @@
     </None>
     <None Include="res\shaders\cube\lightpoint\lightpoint.vert">
       <Filter>Fichiers de ressources\shaders\cube\lightpoint</Filter>
+    </None>
+    <None Include="res\shaders\cube\flashlight\flashlight.frag">
+      <Filter>Fichiers de ressources\shaders\cube\flashlight</Filter>
+    </None>
+    <None Include="res\shaders\cube\flashlight\flashlight.vert">
+      <Filter>Fichiers de ressources\shaders\cube\flashlight</Filter>
     </None>
   </ItemGroup>
 </Project>

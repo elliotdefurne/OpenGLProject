@@ -34,6 +34,10 @@ void Game::initialize() {
     m_cubes.push_back(std::make_unique<Cube>(glm::vec3(1, 0, 0), 1, cubeShader, rocksTexture, m_lights.back().get()));
     m_cubes.push_back(std::make_unique<Cube>(glm::vec3(0, 0, -2), 1, cubeShader, rocksTexture, m_lights.back().get()));
     m_cubes.push_back(std::make_unique<Cube>(glm::vec3(1, 5, 0), 1, cubeShader, rocksTexture, m_lights.back().get()));
+
+	m_cubes.at(0).get()->getTransformation()->rotate(glm::vec3(1, 0, 0), -10).translate(glm::vec3(0, 0, -1));
+	m_cubes.at(1).get()->getTransformation()->rotate(glm::vec3(0, 1, 0), 25).translate(glm::vec3(0, 0, -1));
+	m_cubes.at(2).get()->getTransformation()->rotate(glm::vec3(1, 0, 1), -45).translate(glm::vec3(0, 0, -1));
     //m_cubes.push_back(std::make_unique<Cube>(glm::vec3(0, 0, 1), 1, cubeSpecularShader, containerTexture, containerSpecularTexture, m_lights.back().get()));
     //m_alphacubes.push_back(std::make_unique<Cube>(glm::vec3(1, 1, 0), 1, cubeShader, glassTexture, m_lights.back().get()));
 
@@ -55,6 +59,8 @@ void Game::update() {
     m_keyManager->update();
     m_camera->update(m_player.get());
 
+
+    m_cubes.at(2).get()->getTransformation()->rotate(glm::vec3(1, 0, 0), 10 * fmod(m_renderer->getDeltaTime(), 360.0));
     for (auto& cube : m_cubes) {
         cube->update();
     }

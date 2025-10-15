@@ -200,6 +200,8 @@
   <ItemGroup>
     <None Include="res\shaders\cube\cube.frag" />
     <None Include="res\shaders\cube\cube.vert" />
+    <None Include="res\shaders\cube\flashlight\flashlight.frag" />
+    <None Include="res\shaders\cube\flashlight\flashlight.vert" />
     <None Include="res\shaders\cube\lightpoint\lightpoint.frag" />
     <None Include="res\shaders\cube\lightpoint\lightpoint.vert" />
     <None Include="res\shaders\cube\lightsource\lightsource.frag" />

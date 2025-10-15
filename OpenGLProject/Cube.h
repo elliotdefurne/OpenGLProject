@@ -33,6 +33,8 @@ public:
     // Dessine le cube a l'ecran (appelle Mesh + Shader)
     virtual void draw();
 
+	inline Transformation* getTransformation() const { return m_transformation; }
+
     // Retourne la texture du cube
     inline Texture* getTexture() const;
 
@@ -58,4 +60,5 @@ private:
     void drawLightSourceShader();
     void drawDirectionalLightShader();
     void drawLightPointShader();
+    void drawFlashlightShader();
 };
