@@ -122,56 +122,17 @@ void Cube::draw() {
     m_shader->setModel(m_transformation->getMatrix());          // Envoie la matrice "modèle" (position/rotation/scale)
     m_shader->use();                                            // Active le shader
 
-    if (m_shader->getName() == "cube") {
-        drawCubeShader();
-    }
-    else if (m_shader->getName() == "lightsource") {
+    if (m_shader->getName() == "lightsource") {
         drawLightSourceShader();
 	}
-    else if (m_shader->getName() == "flashlight") {
-        drawFlashlightShader();
-    }
     else if (m_shader->getName() == "severallights") {
-        drawSeverallight();
+        drawSeveralLightShader();
     }
     else {
 		std::cout << "Shader name not found in Cube draw : " << m_shader->getName() << std::endl;
     }
     
     m_mesh->draw();
-}
-
-void Cube::drawCubeShader() {
-    m_shader->setVec3("viewPos", m_shader->getCamera()->getPosition());
-    m_shader->setTexture("material.diffuse", m_texture->getID(), 0);
-    m_shader->setVec3("material.specular", 0.75, 0.75, 0.75);
-    m_shader->setFloat("material.shininess", 32.0f);
-}
-
-void Cube::drawFlashlightShader() {
-    if (!m_player) {
-        throw std::invalid_argument("Error: No camera set for Flashlight shader.");
-        return;
-    }
-    if (!m_specularMap) {
-        throw std::invalid_argument("Error: No specular map texture set for specularMap shader.");
-        return;
-    }
-
-    m_shader->setVec3("light.position", m_player->getPosition());
-    m_shader->setVec3("light.direction", m_player->getDirection());
-    m_shader->setFloat("light.cutOff", glm::cos(glm::radians(12.5f)));
-    m_shader->setFloat("light.outerCutOff", glm::cos(glm::radians(17.5f)));
-
-    m_shader->setVec3("light.ambient", glm::vec3(0.1f, 0.1f, 0.1f));   // Lumière ambiante faible
-    m_shader->setVec3("light.diffuse", glm::vec3(0.8f, 0.8f, 0.8f));   // Lumière diffuse
-    m_shader->setVec3("light.specular", glm::vec3(1.0f, 1.0f, 1.0f));  // Lumière spéculaire
-
-    m_shader->setVec3("viewPos", m_shader->getCamera()->getPosition());
-
-    m_shader->setTexture("material.diffuse", m_texture->getID(), 0);
-    m_shader->setTexture("material.specular", m_specularMap->getID(), 1);
-    m_shader->setFloat("material.shininess", 32.0f);
 }
 
 void Cube::drawLightSourceShader() {
@@ -183,7 +144,7 @@ void Cube::drawLightSourceShader() {
     m_shader->setVec3("lightColor", m_lightSource->getLightColor());  // Associe la couleur au shader
 }
 
-void Cube::drawSeverallight() {
+void Cube::drawSeveralLightShader() {
     if (!m_player) {
         throw std::invalid_argument("Error: No camera set for Flashlight shader.");
         return;

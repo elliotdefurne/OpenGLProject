@@ -52,9 +52,9 @@ void Mesh::load(const std::vector<Vertex>& vertices, const std::vector<unsigned 
 }
 
 void Mesh::draw() const {
-    glBindVertexArray(m_vao);                           // Bind du VAO
+    glBindVertexArray(m_vao);                                             // Bind du VAO
     glDrawElements(GL_TRIANGLES, m_indexCount, GL_UNSIGNED_INT, nullptr); // Dessin
-    glBindVertexArray(0);                               // Débind
+    glBindVertexArray(0);                                                 // Débind
 }
 
 

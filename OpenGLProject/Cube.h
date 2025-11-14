@@ -63,8 +63,6 @@ protected:
     float m_edge;                         // Taille d'une arête du cube
 
 private:
-    void drawCubeShader();
     void drawLightSourceShader();
-    void drawFlashlightShader();
-    void drawSeverallight();
+    void drawSeveralLightShader();
 };
