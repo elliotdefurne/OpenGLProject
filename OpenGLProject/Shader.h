@@ -22,7 +22,7 @@ public:
     void use();
 
     // Associe une texture 2D à un uniform du shader
-    void setTexture(const std::string& name, unsigned int textureID, unsigned int unit = 0);
+    void setTexture(const std::string& name, unsigned int textureID, unsigned int unit);
 
     // Envoie une transformation encapsulée dans la classe Transformation
     void setTransformation(const std::string& name, Transformation* trans);
@@ -56,10 +56,12 @@ public:
     const glm::mat4& getModel() const { return m_model; }
     const glm::mat4& getView() const { return m_view; }
     const glm::mat4& getProjection() const { return m_projection; }
-
+	inline const Camera* getCamera() const { return m_camera; }
+	inline const std::string getName() const { return m_name; }
 private:
     unsigned int m_id;  // ID OpenGL du programme shader
     Camera* m_camera;  // Pointeur vers la caméra pour récupérer la vue
+	std::string m_name; // Noms ou sources des shaders
     glm::mat4 m_projection, m_model, m_view = glm::mat4(1.0f);  // Matrices de transformation
     std::unordered_map<std::string, unsigned int> m_uniformLocations; // Cache des emplacements des uniforms
 

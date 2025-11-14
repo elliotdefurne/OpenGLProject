@@ -9,11 +9,13 @@
 #include "Shader.h"
 #include "Constants.h"
 #include "Camera.h"
+#include <filesystem>
 
 Shader::Shader(const std::string& vertexSource, const std::string& fragmentSource, Camera* camera, bool isFile) {
     m_model = glm::mat4(1.0f);
     m_view = glm::mat4(1.0f);
     m_projection = glm::mat4(1.0f);
+	m_name = std::filesystem::path(vertexSource).stem().string();
     m_camera = camera;
 
     m_view = m_camera->getViewMatrix();
@@ -78,6 +80,7 @@ std::string Shader::loadFromFile(const std::string& path) {
 }
 
 void Shader::setTexture(const std::string& name, unsigned int textureID, unsigned int unit) {
+    //setInt(name, unit);
     glActiveTexture(GL_TEXTURE0 + unit);
     glBindTexture(GL_TEXTURE_2D, textureID);
     glUniform1i(getUniformLocation(name), unit);

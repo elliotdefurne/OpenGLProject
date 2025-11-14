@@ -28,6 +28,24 @@
     <Filter Include="Fichiers sources\Inputs">
       <UniqueIdentifier>{b35dc59f-d5a7-43a0-890d-c95ff1a77bd9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Fichiers de ressources\shaders\cube\specularMap">
+      <UniqueIdentifier>{4f152a3a-51af-46c8-a751-04ed5323a2be}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers de ressources\shaders\cube\lightsource">
+      <UniqueIdentifier>{4e02fd8a-f27c-4616-a9d2-b0d49ba1a2df}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers de ressources\shaders\cube\directionallight">
+      <UniqueIdentifier>{a5a39447-321f-409a-b2d0-5e7aff377795}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers de ressources\shaders\cube\lightpoint">
+      <UniqueIdentifier>{b895d61e-0923-42e7-bd76-150c20b419a1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers de ressources\shaders\cube\flashlight">
+      <UniqueIdentifier>{9d03d7c4-378c-4051-9002-2ec04bb892c6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers de ressources\shaders\cube\severallights">
+      <UniqueIdentifier>{5f46799b-20b1-4970-baa8-64c6d3ba6b71}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -103,6 +121,12 @@
       <Filter>Fichiers sources</Filter>
     </ClCompile>
     <ClCompile Include="TextureManager.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="LightSource.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="LightManager.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
   </ItemGroup>
@@ -191,18 +215,60 @@
     <ClInclude Include="Direction.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="res\shaders\basic.vert">
-      <Filter>Fichiers de ressources\shaders</Filter>
-    </None>
-    <None Include="res\shaders\basic.frag">
-      <Filter>Fichiers de ressources\shaders</Filter>
-    </None>
+    <ClInclude Include="LightSource.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="LightManager.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\textures\rocks.png">
       <Filter>Fichiers de ressources\textures</Filter>
     </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="res\shaders\cube\cube.frag">
+      <Filter>Fichiers de ressources\shaders\cube</Filter>
+    </None>
+    <None Include="res\shaders\cube\cube.vert">
+      <Filter>Fichiers de ressources\shaders\cube</Filter>
+    </None>
+    <None Include="res\shaders\cube\specularMap\specularMap.frag">
+      <Filter>Fichiers de ressources\shaders\cube\specularMap</Filter>
+    </None>
+    <None Include="res\shaders\cube\specularMap\specularMap.vert">
+      <Filter>Fichiers de ressources\shaders\cube\specularMap</Filter>
+    </None>
+    <None Include="res\shaders\cube\lightsource\lightsource.frag">
+      <Filter>Fichiers de ressources\shaders\cube\lightsource</Filter>
+    </None>
+    <None Include="res\shaders\cube\lightsource\lightsource.vert">
+      <Filter>Fichiers de ressources\shaders\cube\lightsource</Filter>
+    </None>
+    <None Include="res\shaders\directionallight\directionallight.frag">
+      <Filter>Fichiers de ressources\shaders\cube\directionallight</Filter>
+    </None>
+    <None Include="res\shaders\directionallight\directionallight.vert">
+      <Filter>Fichiers de ressources\shaders\cube\directionallight</Filter>
+    </None>
+    <None Include="res\shaders\cube\lightpoint\lightpoint.frag">
+      <Filter>Fichiers de ressources\shaders\cube\lightpoint</Filter>
+    </None>
+    <None Include="res\shaders\cube\lightpoint\lightpoint.vert">
+      <Filter>Fichiers de ressources\shaders\cube\lightpoint</Filter>
+    </None>
+    <None Include="res\shaders\cube\flashlight\flashlight.frag">
+      <Filter>Fichiers de ressources\shaders\cube\flashlight</Filter>
+    </None>
+    <None Include="res\shaders\cube\flashlight\flashlight.vert">
+      <Filter>Fichiers de ressources\shaders\cube\flashlight</Filter>
+    </None>
+    <None Include="res\shaders\cube\severallights\severallights.frag">
+      <Filter>Fichiers de ressources\shaders\cube\severallights</Filter>
+    </None>
+    <None Include="res\shaders\cube\severallights\severallights.vert">
+      <Filter>Fichiers de ressources\shaders\cube\severallights</Filter>
+    </None>
   </ItemGroup>
 </Project>

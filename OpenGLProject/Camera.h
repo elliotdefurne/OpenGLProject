@@ -9,8 +9,7 @@
 #include "Direction.h" // Classe pour stocker les angles de rotation de la caméra
 
 // Classe Camera : gere la vue 3D dans le jeu
-class Camera
-{
+class Camera {
 public:
     // Constructeur
     // position : position initiale de la caméra
@@ -20,6 +19,9 @@ public:
     // Retourne la matrice "View" (vue de la caméra) calculée avec glm::lookAt
     // Utilisée par OpenGL pour savoir d'où et vers quoi regarder
     glm::mat4 getViewMatrix();
+
+    // Position actuelle de la caméra
+	inline glm::vec3 getPosition() const { return m_position; } 
 
     // Met à jour la position et la direction de la caméra en suivant une entité
     // entity : objet à suivre (ex : le joueur)

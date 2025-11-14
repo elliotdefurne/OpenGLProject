@@ -1,7 +1,10 @@
 #pragma once
 
 #include <vector>
+#pragma warning(push)
+#pragma warning(disable: 4244)
 #include <memory>
+#pragma warning(pop)
 
 // Déclarations anticipées
 class Window;
@@ -12,6 +15,8 @@ class KeyManager;
 class Player;
 class Camera;
 class Cube;
+class LightSource;
+class LightManager;
 
 class Game {
 public:
@@ -23,6 +28,8 @@ public:
 
 private:
     std::vector<std::unique_ptr<Cube>> m_cubes;
+    std::vector<std::unique_ptr<Cube>> m_alphacubes;
+    std::vector<std::unique_ptr<LightSource>> m_lights;
 
     std::unique_ptr<Window> m_window;
     std::unique_ptr<Renderer> m_renderer;
@@ -31,6 +38,7 @@ private:
     std::unique_ptr<KeyManager> m_keyManager;
     std::unique_ptr<Player> m_player;
     std::unique_ptr<Camera> m_camera;
+    std::unique_ptr<LightManager> m_lightManager;
 
     bool m_isRunning = true;
 

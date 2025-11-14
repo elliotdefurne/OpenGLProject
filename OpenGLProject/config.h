@@ -4,6 +4,9 @@
 #include <iostream>
 #include <vector>
 
+#include <glad/glad.h>
+#include <GLFW/glfw3.h>
+
 #include "Mesh.h"
 #include "Vertex.h"
 #include "Shader.h"
@@ -13,8 +16,10 @@
 #include "TextureManager.h"
 #include "ShaderManager.h"
 #include "KeyManager.h"
-#include "Cube.h"
 #include "Player.h"
 #include "Camera.h"
+#include "Cube.h"
+#include "LightSource.h"
+#include "LightManager.h"
 
 #include "constants.h"

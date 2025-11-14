@@ -2,10 +2,10 @@
 
 namespace Constants {
     // Window
-    constexpr int WINDOW_WIDTH = 800;
-    constexpr int WINDOW_HEIGHT = 600;
+    constexpr int WINDOW_WIDTH = 1920;
+    constexpr int WINDOW_HEIGHT = 1080;
     constexpr const char* WINDOW_TITLE = "Mon jeu OpenGL";
-    constexpr bool IS_WINDOW_FULLSCREEN = false;
+    constexpr bool IS_WINDOW_FULLSCREEN = true;
 
     // Renderer
     constexpr int DEFAULT_FPS_CAPPING = 60;
@@ -26,4 +26,8 @@ namespace Constants {
     // Files
     
     constexpr const char PREFERED_SEPARATOR_PATH = '/';
+
+    // Lights Shadering
+
+    constexpr const int MAX_LIGHTS_SOURCES = 10;
 }

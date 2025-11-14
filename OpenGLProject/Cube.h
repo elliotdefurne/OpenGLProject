@@ -3,11 +3,16 @@
 #include <glm/glm.hpp>
 #include <vector>
 
-#include "Vertex.h"   // Structure d'un sommet (position, couleur, texture…)
-#include "Mesh.h"     // Classe pour gerer les buffers OpenGL et dessiner
-#include "Shader.h"   // Classe pour les shaders OpenGL
-#include "Texture.h"  // Classe pour les textures
-#include "Transformation.h" // Classe pour position, rotation et scale
+#include "Vertex.h"
+
+class Shader;
+class Mesh;
+class Shader;
+class Texture;
+class Transformation;
+class LightManager;
+class LightSource;
+class Player;
 
 // Classe Cube : represente un cube 3D dans le jeu
 class Cube
@@ -18,7 +23,10 @@ public:
     // edge : taille d'une arête du cube
     // shader : shader utilisé pour le rendu
     // texture : texture appliquée au cube
-    Cube(glm::vec3 center, float edge, Shader* shader, Texture* texture);
+    
+    Cube(glm::vec3 center, float edge, Shader* shader, LightSource* lightSource, Player* player);
+    Cube(glm::vec3 center, float edge, Shader* shader, Texture* texture, LightManager* lightManager, Player* player);
+    Cube(glm::vec3 center, float edge, Shader* shader, Texture* texture, LightManager* lightManager, Player* player, Texture* specularMap);
 
     // Destructeur : libere la memoire (mesh, transformation…)
     ~Cube();
@@ -27,20 +35,34 @@ public:
     void update();
 
     // Dessine le cube a l'ecran (appelle Mesh + Shader)
-    void draw();
+    virtual void draw();
+
+	inline Transformation* getTransformation() const { return m_transformation; }
 
     // Retourne la texture du cube
-    inline Texture* getTexture() const { return m_mesh->getTexture(); }
+    inline Texture* getTexture() const;
 
-private:
+	inline glm::vec3 getCenter() const { return m_center; }
+
+protected:
+    Cube(glm::vec3 center, float edge, Shader* shader, Player* player);
+
     Mesh* m_mesh;                     // Maillage du cube (buffers OpenGL)
-    Texture* m_texture;               // Texture appliquée
+    Texture* m_texture;               // Texture appliquee
+    Texture* m_specularMap;           // Texture speculaire
     Shader* m_shader;                 // Shader pour le rendu
     Transformation* m_transformation; // Transformations : position, rotation, scale
+	LightManager* m_lightManager;     // Pointeur vers le LightBlock associé (si applicable)
+	LightSource* m_lightSource;     // Pointeur vers le LightSource associé (si applicable)
+    Player* m_player;
 
     std::vector<Vertex> m_vertices;       // Liste des sommets du cube
     std::vector<unsigned int> m_indices;  // Indices pour dessiner les triangles
     glm::vec3 m_center;                   // Centre du cube dans l'espace
 
     float m_edge;                         // Taille d'une arête du cube
+
+private:
+    void drawLightSourceShader();
+    void drawSeveralLightShader();
 };
