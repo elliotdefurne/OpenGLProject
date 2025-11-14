@@ -20,6 +20,7 @@ void Game::initialize() {
     m_shaderManager  = std::make_unique<ShaderManager>(m_camera.get());
     m_player         = std::make_unique<Player>(m_renderer.get());
     m_keyManager     = std::make_unique<KeyManager>(this, m_window.get(), m_player.get());
+    m_lightManager   = std::make_unique<LightManager>();
 
     Texture* rocksTexture = m_textureManager->getTexture("test/rocks.png");
     Texture* containerTexture = m_textureManager->getTexture("crate/container.png");
@@ -27,19 +28,14 @@ void Game::initialize() {
     Texture* glassTexture = m_textureManager->getTexture("glass/glass.png");
     Texture* lightTexture   = m_textureManager->getTexture("light.png");
     Shader* cubeSpecularShader = m_shaderManager->getShader("cube/specularMap");
-    Shader* cubeShader = m_shaderManager->getShader("cube/lightpoint");
+    Shader* cubeShader = m_shaderManager->getShader("cube/severallights");
     Shader* lightShader    = m_shaderManager->getShader("cube/lightsource");
 
-    m_lights.push_back(std::make_unique<LightSource>(glm::vec3(1, 0.5, 2), lightShader, lightTexture));
-    m_cubes.push_back(std::make_unique<Cube>(glm::vec3(1, 0, 0), 1, cubeShader, rocksTexture, m_lights.back().get()));
-    m_cubes.push_back(std::make_unique<Cube>(glm::vec3(0, 0, -2), 1, cubeShader, rocksTexture, m_lights.back().get()));
-    m_cubes.push_back(std::make_unique<Cube>(glm::vec3(1, 5, 0), 1, cubeShader, rocksTexture, m_lights.back().get()));
-
-	m_cubes.at(0).get()->getTransformation()->rotate(glm::vec3(1, 0, 0), -10).translate(glm::vec3(0, 0, -1));
-	m_cubes.at(1).get()->getTransformation()->rotate(glm::vec3(0, 1, 0), 25).translate(glm::vec3(0, 0, -1));
-	m_cubes.at(2).get()->getTransformation()->rotate(glm::vec3(1, 0, 1), -45).translate(glm::vec3(0, 0, -1));
-    //m_cubes.push_back(std::make_unique<Cube>(glm::vec3(0, 0, 1), 1, cubeSpecularShader, containerTexture, containerSpecularTexture, m_lights.back().get()));
-    //m_alphacubes.push_back(std::make_unique<Cube>(glm::vec3(1, 1, 0), 1, cubeShader, glassTexture, m_lights.back().get()));
+    m_lightManager->addPointLight(new LightSource(glm::vec3(1, 0.5, 2), lightShader, m_player.get(), glm::vec3(2.0f, 0.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(1.0f, 1.0f, 1.0f), 1.0f, 1.0f, 1.0f, glm::vec3(2.0f, 0.0f, 0.0f)));
+    m_lightManager->addPointLight(new LightSource(glm::vec3(3, 0.5, -2), lightShader, m_player.get(), glm::vec3(0.0f, 2.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(1.0f, 1.0f, 1.0f), 1.0f, 1.0f, 1.0f, glm::vec3(0.0f, 2.0f, 0.0f)));
+    m_cubes.push_back(std::make_unique<Cube>(glm::vec3(1, 0, 0), 1.0, cubeShader, containerTexture, m_lightManager.get(), m_player.get(), containerSpecularTexture));
+    m_cubes.push_back(std::make_unique<Cube>(glm::vec3(0, 0, -2), 1.0, cubeShader, containerTexture, m_lightManager.get(), m_player.get(), containerSpecularTexture));
+    m_cubes.push_back(std::make_unique<Cube>(glm::vec3(1, 0.5, 2), 1.0, cubeShader, containerTexture, m_lightManager.get(), m_player.get(), containerSpecularTexture));
 
     glGetString(GL_VERSION) ? std::cout << "OpenGL version: " << glGetString(GL_VERSION) << std::endl
         : throw std::runtime_error("Impossible de récupérer la version OpenGL");
@@ -60,16 +56,14 @@ void Game::update() {
     m_camera->update(m_player.get());
 
 
-    m_cubes.at(2).get()->getTransformation()->rotate(glm::vec3(1, 0, 0), 10 * fmod(m_renderer->getDeltaTime(), 360.0));
+    m_cubes.at(2).get()->getTransformation()->rotate(glm::vec3(1, 0, 0), 10.0f * static_cast<float>(fmod(m_renderer->getDeltaTime(), 360.0)));
     for (auto& cube : m_cubes) {
         cube->update();
     }
     for (auto& alphacube : m_alphacubes) {
         alphacube->update();
     }
-    for (auto& light : m_lights) {
-        light->update();
-    }
+    m_lightManager->update();
 }
 
 void Game::render() {
@@ -80,9 +74,7 @@ void Game::render() {
     for (auto& cube : m_cubes) {
         cube->draw();
     }
-    for (auto& light : m_lights) {
-        light->draw();
-    }
+    m_lightManager->draw();
 
     // 2. Transparences
     glEnable(GL_BLEND);

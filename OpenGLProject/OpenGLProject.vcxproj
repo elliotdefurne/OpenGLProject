@@ -148,6 +148,7 @@
     <ClCompile Include="Jump.cpp" />
     <ClCompile Include="KeyManager.cpp" />
     <ClCompile Include="Left.cpp" />
+    <ClCompile Include="LightManager.cpp" />
     <ClCompile Include="LightSource.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Mesh.cpp" />
@@ -179,6 +180,7 @@
     <ClInclude Include="Key.h" />
     <ClInclude Include="KeyManager.h" />
     <ClInclude Include="Left.h" />
+    <ClInclude Include="LightManager.h" />
     <ClInclude Include="LightSource.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="Entity.h" />
@@ -206,6 +208,8 @@
     <None Include="res\shaders\cube\lightpoint\lightpoint.vert" />
     <None Include="res\shaders\cube\lightsource\lightsource.frag" />
     <None Include="res\shaders\cube\lightsource\lightsource.vert" />
+    <None Include="res\shaders\cube\severallights\severallights.frag" />
+    <None Include="res\shaders\cube\severallights\severallights.vert" />
     <None Include="res\shaders\cube\specularMap\specularMap.frag" />
     <None Include="res\shaders\cube\specularMap\specularMap.vert" />
     <None Include="res\shaders\directionallight\directionallight.frag" />

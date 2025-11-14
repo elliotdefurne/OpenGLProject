@@ -10,7 +10,9 @@ class Mesh;
 class Shader;
 class Texture;
 class Transformation;
+class LightManager;
 class LightSource;
+class Player;
 
 // Classe Cube : represente un cube 3D dans le jeu
 class Cube
@@ -21,8 +23,10 @@ public:
     // edge : taille d'une arête du cube
     // shader : shader utilisé pour le rendu
     // texture : texture appliquée au cube
-    Cube(glm::vec3 center, float edge, Shader* shader, Texture* texture, LightSource* lightblock);
-    Cube(glm::vec3 center, float edge, Shader* shader, Texture* texture, Texture* specularMap, LightSource* light);
+    
+    Cube(glm::vec3 center, float edge, Shader* shader, LightSource* lightSource, Player* player);
+    Cube(glm::vec3 center, float edge, Shader* shader, Texture* texture, LightManager* lightManager, Player* player);
+    Cube(glm::vec3 center, float edge, Shader* shader, Texture* texture, LightManager* lightManager, Player* player, Texture* specularMap);
 
     // Destructeur : libere la memoire (mesh, transformation…)
     ~Cube();
@@ -41,12 +45,16 @@ public:
 	inline glm::vec3 getCenter() const { return m_center; }
 
 protected:
+    Cube(glm::vec3 center, float edge, Shader* shader, Player* player);
+
     Mesh* m_mesh;                     // Maillage du cube (buffers OpenGL)
     Texture* m_texture;               // Texture appliquee
     Texture* m_specularMap;           // Texture speculaire
     Shader* m_shader;                 // Shader pour le rendu
     Transformation* m_transformation; // Transformations : position, rotation, scale
-	LightSource* m_light;              // Pointeur vers le LightBlock associé (si applicable)
+	LightManager* m_lightManager;     // Pointeur vers le LightBlock associé (si applicable)
+	LightSource* m_lightSource;     // Pointeur vers le LightSource associé (si applicable)
+    Player* m_player;
 
     std::vector<Vertex> m_vertices;       // Liste des sommets du cube
     std::vector<unsigned int> m_indices;  // Indices pour dessiner les triangles
@@ -56,9 +64,7 @@ protected:
 
 private:
     void drawCubeShader();
-    void drawSpecularMapShader();
     void drawLightSourceShader();
-    void drawDirectionalLightShader();
-    void drawLightPointShader();
     void drawFlashlightShader();
+    void drawSeverallight();
 };

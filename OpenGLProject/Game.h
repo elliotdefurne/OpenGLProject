@@ -16,6 +16,7 @@ class Player;
 class Camera;
 class Cube;
 class LightSource;
+class LightManager;
 
 class Game {
 public:
@@ -37,6 +38,7 @@ private:
     std::unique_ptr<KeyManager> m_keyManager;
     std::unique_ptr<Player> m_player;
     std::unique_ptr<Camera> m_camera;
+    std::unique_ptr<LightManager> m_lightManager;
 
     bool m_isRunning = true;
 

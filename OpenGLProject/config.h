@@ -20,5 +20,6 @@
 #include "Camera.h"
 #include "Cube.h"
 #include "LightSource.h"
+#include "LightManager.h"
 
 #include "constants.h"

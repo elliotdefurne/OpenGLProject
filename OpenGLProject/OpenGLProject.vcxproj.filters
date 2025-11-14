@@ -43,6 +43,9 @@
     <Filter Include="Fichiers de ressources\shaders\cube\flashlight">
       <UniqueIdentifier>{9d03d7c4-378c-4051-9002-2ec04bb892c6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Fichiers de ressources\shaders\cube\severallights">
+      <UniqueIdentifier>{5f46799b-20b1-4970-baa8-64c6d3ba6b71}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -121,6 +124,9 @@
       <Filter>Fichiers sources</Filter>
     </ClCompile>
     <ClCompile Include="LightSource.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="LightManager.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
   </ItemGroup>
@@ -212,6 +218,9 @@
     <ClInclude Include="LightSource.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
+    <ClInclude Include="LightManager.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\textures\rocks.png">
@@ -254,6 +263,12 @@
     </None>
     <None Include="res\shaders\cube\flashlight\flashlight.vert">
       <Filter>Fichiers de ressources\shaders\cube\flashlight</Filter>
+    </None>
+    <None Include="res\shaders\cube\severallights\severallights.frag">
+      <Filter>Fichiers de ressources\shaders\cube\severallights</Filter>
+    </None>
+    <None Include="res\shaders\cube\severallights\severallights.vert">
+      <Filter>Fichiers de ressources\shaders\cube\severallights</Filter>
     </None>
   </ItemGroup>
 </Project>

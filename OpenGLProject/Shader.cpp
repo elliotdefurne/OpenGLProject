@@ -80,6 +80,7 @@ std::string Shader::loadFromFile(const std::string& path) {
 }
 
 void Shader::setTexture(const std::string& name, unsigned int textureID, unsigned int unit) {
+    //setInt(name, unit);
     glActiveTexture(GL_TEXTURE0 + unit);
     glBindTexture(GL_TEXTURE_2D, textureID);
     glUniform1i(getUniformLocation(name), unit);
