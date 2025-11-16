@@ -9,6 +9,7 @@ Game::Game() {
 }
 
 Game::~Game() {
+    m_socket->stop();
     glfwTerminate(); // pas besoin de delete, les unique_ptr nettoient tout seuls
 }
 
@@ -20,7 +21,10 @@ void Game::initialize() {
     m_shaderManager  = std::make_unique<ShaderManager>(m_camera.get());
     m_player         = std::make_unique<Player>(m_renderer.get());
     m_keyManager     = std::make_unique<KeyManager>(this, m_window.get(), m_player.get());
-    m_lightManager = std::make_unique<LightManager>(m_renderer.get(), m_player.get());
+    m_lightManager   = std::make_unique<LightManager>(m_renderer.get(), m_player.get());
+    m_socket         = std::make_unique<Socket>();
+
+    m_socket->connectToServer(Constants::SERVER_IP, Constants::SERVER_PORT);
 
     Texture* rocksTexture = m_textureManager->getTexture("test/rocks.png");
     Texture* containerTexture = m_textureManager->getTexture("crate/container.png");
@@ -51,6 +55,16 @@ void Game::run() {
 }
 
 void Game::update() {
+    // Printing socket data
+    std::string socketdata;
+    if(m_socket->pollEvent(socketdata)){
+        printf("%s\n", socketdata.c_str());
+    }
+    // Sending socket ping
+    std::string pingData;
+    pingData = "Ping from " + m_socket->getLocalIP() + ":" + std::to_string(m_socket->getLocalPort()) + " to " + m_socket->getServerIP() + ":" + std::to_string(m_socket->getServerPort());
+    m_socket->sendPacket(pingData);
+
     m_keyManager->update();
     m_camera->update(m_player.get());
 

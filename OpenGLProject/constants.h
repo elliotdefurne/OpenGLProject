@@ -30,6 +30,12 @@ namespace Constants {
     // Lights Shadering
 
     constexpr const int MAX_LIGHTS_SOURCES = 10;
+
+    // Networking
+
+    constexpr const int MAX_PACKET_SIZE = 1024;
+    constexpr const char* SERVER_IP = "127.0.0.1";
+    constexpr const int SERVER_PORT = 3333;
 }
 
 namespace Materials {
