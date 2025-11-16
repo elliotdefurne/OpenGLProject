@@ -9,6 +9,7 @@
 #include "Player.h"
 #include "LightManager.h"
 #include "LightSource.h"
+#include "Renderer.h"
 
 Cube::Cube(glm::vec3 center, float edge, Shader* shader, Player* player)
     : m_center(center), m_edge(edge), m_shader(shader), m_player(player), m_specularMap(nullptr), m_lightManager(nullptr), m_lightSource(nullptr) {
@@ -85,17 +86,19 @@ Cube::Cube(glm::vec3 center, float edge, Shader* shader, LightSource* lightSourc
 }
 
 // Constructeur du cube
-Cube::Cube(glm::vec3 center, float edge, Shader* shader, Texture* texture, LightManager* lightManager, Player* player)
+Cube::Cube(glm::vec3 center, float edge, Shader* shader, Texture* texture, Renderer* renderer, LightManager* lightManager, Player* player)
 	: Cube(center, edge, shader, player) {
     m_texture = texture;
     m_lightManager = lightManager;
+    m_renderer = renderer;
 }
 
-Cube::Cube(glm::vec3 center, float edge, Shader* shader, Texture* texture, LightManager* lightManager, Player* player, Texture* specularMap)
+Cube::Cube(glm::vec3 center, float edge, Shader* shader, Texture* texture, Renderer* renderer, LightManager* lightManager, Player* player, Texture* specularMap)
     : Cube(center, edge, shader, player) {
     m_texture = texture;
     m_lightManager = lightManager;
     m_specularMap = specularMap;
+    m_renderer = renderer;
 }
 
 // Destructeur -> appelé quand on détruit l’objet Cube
@@ -154,31 +157,9 @@ void Cube::drawSeveralLightShader() {
         return;
     }
 
-    // Flashlight
-    
-    m_shader->setVec3("spotLight.position", m_player->getPosition());
-    m_shader->setVec3("spotLight.direction", m_player->getDirection());
-    m_shader->setFloat("spotLight.cutOff", glm::cos(glm::radians(12.5f)));
-    m_shader->setFloat("spotLight.outerCutOff", glm::cos(glm::radians(17.5f)));
-    
-    m_shader->setVec3("spotLight.ambient", glm::vec3(0.1f, 0.1f, 0.1f));   // Lumière ambiante faible
-    m_shader->setVec3("spotLight.diffuse", glm::vec3(0.8f, 0.8f, 0.8f));   // Lumière diffuse
-    m_shader->setVec3("spotLight.specular", glm::vec3(1.0f, 1.0f, 1.0f));  // Lumière spéculaire
-
-    m_shader->setFloat("spotLight.constant", 1.0f);
-    m_shader->setFloat("spotLight.linear", 0.09f);
-    m_shader->setFloat("spotLight.quadratic", 0.032f);
-
     m_shader->setVec3("viewPos", m_shader->getCamera()->getPosition());
 
-    m_shader->setTexture("material.diffuse", m_texture->getID(), 0);
-    m_shader->setTexture("material.specular", m_specularMap->getID(), 1);
-    m_shader->setFloat("material.shininess", 32.0f);
-
-    m_shader->setVec3("dirLight.direction", glm::vec3(-0.2f, -1.0f, -0.3f));
-    m_shader->setVec3("dirLight.ambient", glm::vec3(0.2f, 0.2f, 0.05f));
-    m_shader->setVec3("dirLight.diffuse", glm::vec3(0.2f, 0.2f, 0.2f));
-    m_shader->setVec3("dirLight.specular", glm::vec3(0.5f, 0.5f, 0.5f));
+    m_texture->applyToShader(m_shader, m_specularMap);
 
     m_lightManager->applyToShader(m_shader);
 }

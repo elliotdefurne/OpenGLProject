@@ -20,22 +20,21 @@ void Game::initialize() {
     m_shaderManager  = std::make_unique<ShaderManager>(m_camera.get());
     m_player         = std::make_unique<Player>(m_renderer.get());
     m_keyManager     = std::make_unique<KeyManager>(this, m_window.get(), m_player.get());
-    m_lightManager   = std::make_unique<LightManager>();
+    m_lightManager = std::make_unique<LightManager>(m_renderer.get(), m_player.get());
 
     Texture* rocksTexture = m_textureManager->getTexture("test/rocks.png");
     Texture* containerTexture = m_textureManager->getTexture("crate/container.png");
     Texture* containerSpecularTexture = m_textureManager->getTexture("crate/container_specular.png");
     Texture* glassTexture = m_textureManager->getTexture("glass/glass.png");
     Texture* lightTexture   = m_textureManager->getTexture("light.png");
-    Shader* cubeSpecularShader = m_shaderManager->getShader("cube/specularMap");
     Shader* cubeShader = m_shaderManager->getShader("cube/severallights");
     Shader* lightShader    = m_shaderManager->getShader("cube/lightsource");
 
     m_lightManager->addPointLight(new LightSource(glm::vec3(1, 0.5, 2), lightShader, m_player.get(), glm::vec3(2.0f, 0.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(1.0f, 1.0f, 1.0f), 1.0f, 1.0f, 1.0f, glm::vec3(2.0f, 0.0f, 0.0f)));
     m_lightManager->addPointLight(new LightSource(glm::vec3(3, 0.5, -2), lightShader, m_player.get(), glm::vec3(0.0f, 2.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(1.0f, 1.0f, 1.0f), 1.0f, 1.0f, 1.0f, glm::vec3(0.0f, 2.0f, 0.0f)));
-    m_cubes.push_back(std::make_unique<Cube>(glm::vec3(1, 0, 0), 1.0, cubeShader, containerTexture, m_lightManager.get(), m_player.get(), containerSpecularTexture));
-    m_cubes.push_back(std::make_unique<Cube>(glm::vec3(0, 0, -2), 1.0, cubeShader, containerTexture, m_lightManager.get(), m_player.get(), containerSpecularTexture));
-    m_cubes.push_back(std::make_unique<Cube>(glm::vec3(1, 0.5, 2), 1.0, cubeShader, containerTexture, m_lightManager.get(), m_player.get(), containerSpecularTexture));
+    m_cubes.push_back(std::make_unique<Cube>(glm::vec3(1, 0, 0), 1.0, cubeShader, containerTexture, m_renderer.get(), m_lightManager.get(), m_player.get(), containerSpecularTexture));
+    m_cubes.push_back(std::make_unique<Cube>(glm::vec3(0, 0, -2), 1.0, cubeShader, containerTexture, m_renderer.get(), m_lightManager.get(), m_player.get(), containerSpecularTexture));
+    m_cubes.push_back(std::make_unique<Cube>(glm::vec3(1, 0.5, 2), 1.0, cubeShader, containerTexture, m_renderer.get(), m_lightManager.get(), m_player.get(), containerSpecularTexture));
 
     glGetString(GL_VERSION) ? std::cout << "OpenGL version: " << glGetString(GL_VERSION) << std::endl
         : throw std::runtime_error("Impossible de récupérer la version OpenGL");

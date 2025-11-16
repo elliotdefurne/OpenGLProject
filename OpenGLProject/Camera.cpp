@@ -15,7 +15,7 @@ Camera::Camera(glm::vec3 position, Direction* direction) :
 void Camera::update(Entity* entity) {
     // On place la caméra à la position et la direction de l’entité
     m_position = entity->getPosition();
-    m_front = entity->getDirection();
+    m_front = entity->getDirectionVector();
 }
 
 glm::mat4 Camera::getViewMatrix() {

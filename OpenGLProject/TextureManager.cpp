@@ -50,7 +50,7 @@ void TextureManager::loadTextures(std::string texturesFolderPath) {
                 // Si c’est le dernier segment ET que c’est un fichier .png
                 if (ss.peek() == EOF) {
                     current->children[part] = new TextureNode();
-                    current->children[part]->texture = new Texture(entry.path().string(), id);
+                    current->children[part]->texture = new Texture(entry.path().string(), id, Materials::PLASTIC_GLOSSY);
                     id++;
                 }
                 else {

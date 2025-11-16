@@ -13,6 +13,7 @@ class Transformation;
 class LightManager;
 class LightSource;
 class Player;
+class Renderer;
 
 // Classe Cube : represente un cube 3D dans le jeu
 class Cube
@@ -25,8 +26,8 @@ public:
     // texture : texture appliquée au cube
     
     Cube(glm::vec3 center, float edge, Shader* shader, LightSource* lightSource, Player* player);
-    Cube(glm::vec3 center, float edge, Shader* shader, Texture* texture, LightManager* lightManager, Player* player);
-    Cube(glm::vec3 center, float edge, Shader* shader, Texture* texture, LightManager* lightManager, Player* player, Texture* specularMap);
+    Cube(glm::vec3 center, float edge, Shader* shader, Texture* texture, Renderer* renderer, LightManager* lightManager, Player* player);
+    Cube(glm::vec3 center, float edge, Shader* shader, Texture* texture, Renderer* renderer, LightManager* lightManager, Player* player, Texture* specularMap);
 
     // Destructeur : libere la memoire (mesh, transformation…)
     ~Cube();
@@ -53,8 +54,9 @@ protected:
     Shader* m_shader;                 // Shader pour le rendu
     Transformation* m_transformation; // Transformations : position, rotation, scale
 	LightManager* m_lightManager;     // Pointeur vers le LightBlock associé (si applicable)
-	LightSource* m_lightSource;     // Pointeur vers le LightSource associé (si applicable)
+	LightSource* m_lightSource;       // Pointeur vers le LightSource associé (si applicable)
     Player* m_player;
+    Renderer* m_renderer;
 
     std::vector<Vertex> m_vertices;       // Liste des sommets du cube
     std::vector<unsigned int> m_indices;  // Indices pour dessiner les triangles

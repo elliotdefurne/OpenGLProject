@@ -30,4 +30,10 @@ public:
     // yaw : rotation horizontale
     // pitch : rotation verticale
     void processMouseMovements(double yaw, double pitch);
+
+    inline void processFlashLightKey() { m_isFlashlightEnabled = !m_isFlashlightEnabled; };
+
+    inline bool getFlashlightIsEnabled() { return m_isFlashlightEnabled; };
+private:
+    bool m_isFlashlightEnabled = false;
 };

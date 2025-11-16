@@ -2,13 +2,16 @@
 #include <stb/stb_image.h>
 
 #include "Texture.h"
+#include "Shader.h"
 
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
-Texture::Texture(const std::string& filePath, const int textureID)
-    : m_filePath(filePath), m_textureID(textureID) {
+Texture::Texture(const std::string& filePath, const int textureID, float shininess)
+    : m_filePath(filePath), m_textureID(textureID), m_shininess(shininess) {
+    m_isSpecular = filePath.find("_specular") != std::string::npos; // Si il trouve _specular dans le chemin
     loadTexture();
+    
 }
 
 Texture::~Texture() {
@@ -52,4 +55,17 @@ void Texture::loadTexture() {
     stbi_image_free(data);
 
     glBindTexture(GL_TEXTURE_2D, m_textureID);
+}
+
+
+void Texture::applyToShader(Shader* shader, Texture* specularMap) {
+    shader->setTexture("material.diffuse", m_textureID, 0);
+    if (specularMap) {
+        shader->setTexture("material.specular", specularMap->getID(), 1);
+    }
+    else {
+        shader->setTexture("material.specular", m_textureID, 1);
+    }
+
+    shader->setFloat("material.shininess", m_shininess);
 }
