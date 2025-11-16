@@ -40,7 +40,8 @@ public:
 
     // Getters
     glm::vec3 getPosition() const { return m_position; }           // Position de l'entité
-    glm::vec3 getDirection() const { return m_direction->getDirectionVector(); } // Direction regardee
+    Direction* getDirection() const { return m_direction; } // Direction regardee
+    glm::vec3 getDirectionVector() const { return m_direction->getDirectionVector(); } // Direction regardee
 
 protected:
     Renderer* m_renderer;     // Renderer pour dessiner et gerer le rendu

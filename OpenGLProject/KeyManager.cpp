@@ -10,6 +10,8 @@
 #include "Sprint.h"
 #include "Escape.h"
 #include "Mouse.h"
+#include "Flashlight.h"
+
 #include "Window.h"
 
 KeyManager::~KeyManager() { for (auto& pair : m_keys) { delete pair.second; } }
@@ -30,6 +32,7 @@ void KeyManager::loadKeys() {
 	m_keys["Crouch"] = new Crouch(m_player);
 	m_keys["Jump"] = new Jump(m_player);
 	m_keys["Sprint"] = new Sprint(m_player);
+	m_keys["Flashlight"] = new Flashlight(m_player);
 	m_keys["Escape"] = new Escape(m_game);
 
 	m_mouse = new Mouse(m_player);

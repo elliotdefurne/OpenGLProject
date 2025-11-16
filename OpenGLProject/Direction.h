@@ -22,7 +22,7 @@ public:
     // Utile pour calculer des deplacements lateraux
     glm::vec3 rotateRight90KeepY() {
         glm::vec3 v = getDirectionVector();
-        return glm::vec3(-v.z, 0, v.x);
+        return glm::normalize(glm::vec3(-v.z, 0, v.x));
     }
 
 private:

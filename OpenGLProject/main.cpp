@@ -2,7 +2,8 @@
 
 /*
 * TODO:
-
+    Classe Parallelepipede rectangle
+    Collision (Hitbox)
 */
 
 int main() {

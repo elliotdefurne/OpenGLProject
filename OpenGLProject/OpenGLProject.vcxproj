@@ -111,7 +111,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <LanguageStandard>stdcpp17</LanguageStandard>
+      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -127,7 +127,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <LanguageStandard>stdcpp17</LanguageStandard>
+      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -142,6 +142,7 @@
     <ClCompile Include="Cube.cpp" />
     <ClCompile Include="Direction.cpp" />
     <ClCompile Include="Escape.cpp" />
+    <ClCompile Include="Flashlight.cpp" />
     <ClCompile Include="Forward.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="glad.c" />
@@ -158,6 +159,7 @@
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="Right.cpp" />
     <ClCompile Include="Shader.cpp" />
+    <ClCompile Include="Spotlight.cpp" />
     <ClCompile Include="Sprint.cpp" />
     <ClCompile Include="TextureManager.cpp" />
     <ClCompile Include="Transformation.h" />
@@ -174,6 +176,7 @@
     <ClInclude Include="Cube.h" />
     <ClInclude Include="Direction.h" />
     <ClInclude Include="Escape.h" />
+    <ClInclude Include="Flashlight.h" />
     <ClInclude Include="Forward.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Jump.h" />
@@ -190,6 +193,7 @@
     <ClInclude Include="Right.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="ShaderManager.h" />
+    <ClInclude Include="Spotlight.h" />
     <ClInclude Include="Sprint.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="TextureManager.h" />
@@ -202,18 +206,10 @@
   <ItemGroup>
     <None Include="res\shaders\cube\cube.frag" />
     <None Include="res\shaders\cube\cube.vert" />
-    <None Include="res\shaders\cube\flashlight\flashlight.frag" />
-    <None Include="res\shaders\cube\flashlight\flashlight.vert" />
-    <None Include="res\shaders\cube\lightpoint\lightpoint.frag" />
-    <None Include="res\shaders\cube\lightpoint\lightpoint.vert" />
     <None Include="res\shaders\cube\lightsource\lightsource.frag" />
     <None Include="res\shaders\cube\lightsource\lightsource.vert" />
     <None Include="res\shaders\cube\severallights\severallights.frag" />
     <None Include="res\shaders\cube\severallights\severallights.vert" />
-    <None Include="res\shaders\cube\specularMap\specularMap.frag" />
-    <None Include="res\shaders\cube\specularMap\specularMap.vert" />
-    <None Include="res\shaders\directionallight\directionallight.frag" />
-    <None Include="res\shaders\directionallight\directionallight.vert" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
