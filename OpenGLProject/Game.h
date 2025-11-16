@@ -17,6 +17,7 @@ class Camera;
 class Cube;
 class LightSource;
 class LightManager;
+class Socket;
 
 class Game {
 public:
@@ -39,6 +40,7 @@ private:
     std::unique_ptr<Player> m_player;
     std::unique_ptr<Camera> m_camera;
     std::unique_ptr<LightManager> m_lightManager;
+    std::unique_ptr<Socket> m_socket;
 
     bool m_isRunning = true;
 

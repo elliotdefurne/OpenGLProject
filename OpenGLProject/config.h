@@ -21,5 +21,6 @@
 #include "Cube.h"
 #include "LightSource.h"
 #include "LightManager.h"
+#include "Socket.h"
 
 #include "constants.h"
