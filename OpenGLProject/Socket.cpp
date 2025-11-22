@@ -22,10 +22,8 @@ bool Socket::connectToServer(const char* ip, int port) {
     addr.sin_port = htons(port);
     InetPtonA(AF_INET, ip, &addr.sin_addr);
 
-    // C'EST ICI QUE ÇA BLOQUE PROBABLEMENT
     if (connect(m_socket, (sockaddr*)&addr, sizeof(addr)) == SOCKET_ERROR) {
         int error = WSAGetLastError();
-        // Messages d'erreur plus clairs
         switch (error) {
         case WSAETIMEDOUT:
             printf("  -> Le serveur n'a pas repondu (timeout)\n");
