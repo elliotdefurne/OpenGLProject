@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include <vector>
 #include <stdexcept>
 #include <string>
@@ -6,12 +6,23 @@
 #include <filesystem>
 #include <sstream>
 #include <unordered_map>
+#include <nlohmann/json.hpp>
 
 #include "constants.h"
 
-class Texture; // Déclaration anticipée pour éviter les include circulaires
+using json = nlohmann::json;
 
-// Structure représentant un noeud de l'arborescence des textures
+class Texture; // DÃ©claration anticipÃ©e pour Ã©viter les include circulaires
+
+// Structure pour stocker les informations d'une texture
+struct  TextureInfo {
+    std::string texturePath;
+    std::string specularPath;
+    float shininess;
+    bool hasSpecular;
+};
+
+// Structure reprÃ©sentant un noeud de l'arborescence des textures
 struct TextureNode {
     std::unordered_map<std::string, TextureNode*> children; // sous-dossiers
     Texture* texture = nullptr; // pointeur vers la texture si c'est une feuille
@@ -19,16 +30,16 @@ struct TextureNode {
 
 /**
  * @class TextureManager
- * @brief Charge et gère toutes les textures d'un dossier pour OpenGL
+ * @brief Charge et gÃ¨re toutes les textures d'un dossier pour OpenGL
  *
  * Cette classe fait 3 choses principales :
- * 1. Parcourt un dossier donné et charge automatiquement toutes les images .png en tant que textures OpenGL.
+ * 1. Parcourt un dossier donnÃ© et charge automatiquement toutes les images .png en tant que textures OpenGL.
  * 2. Organise les textures dans une arborescence (comme un explorateur de fichiers).
- * 3. Permet d'accéder à une texture facilement via son chemin relatif.
+ * 3. Permet d'accÃ©der Ã  une texture facilement via son chemin relatif.
  *
  * Notes importantes :
- * - Les textures sont stockées en pointeurs bruts (Texture*). Le destructeur supprime
- *   ces pointeurs pour éviter les fuites mémoire.
+ * - Les textures sont stockÃ©es en pointeurs bruts (Texture*). Le destructeur supprime
+ *   ces pointeurs pour Ã©viter les fuites mÃ©moire.
  * - L'utilisation de std::filesystem (C++17) facilite le parcours des dossiers.
  */
 class TextureManager {
@@ -37,19 +48,19 @@ public:
     /**
      * @brief Constructeur
      *
-     * Charge automatiquement toutes les textures du dossier par défaut (Constants::TEXTURES_FOLDER_PATH)
+     * Charge automatiquement toutes les textures du dossier par dÃ©faut (Constants::TEXTURES_FOLDER_PATH)
      */
     TextureManager();
 
     /**
      * @brief Destructeur
      *
-     * Libère toutes les textures et tous les noeuds de l'arborescence.
+     * LibÃ¨re toutes les textures et tous les noeuds de l'arborescence.
      */
     ~TextureManager();
 
     /**
-     * @brief Récupère une texture via son chemin relatif
+     * @brief RÃ©cupÃ¨re une texture via son chemin relatif
      * @param path Chemin relatif (ex: "herbe.png" ou "dossier/sousdossier/texture.png")
      * @return Texture* Pointeur vers la texture
      * @throws std::out_of_range si le chemin est invalide ou la texture n'existe pas
@@ -62,23 +73,54 @@ public:
      */
     Texture* getTexture(const std::string& path);
 
+    /**
+     * @brief Affiche l'arborescence complÃ¨te des textures dans la console
+     *
+     * Format d'affichage :
+     * â””â”€â”€ dossier1/
+     *     â”œâ”€â”€ texture1.png [ID: 0, shininess: 32.0]
+     *     â””â”€â”€ sous-dossier/
+     *         â””â”€â”€ texture2.png [ID: 2, shininess: 64.0, specular]
+     */
+    void printTextureTree() const;
 private:
     TextureNode m_root; ///< Racine de l'arborescence des textures
+    unsigned int m_defaultSpecularID = 0;  // Texture par dÃ©faut
 
     /**
-     * @brief Charge toutes les textures depuis un dossier donné
-     * @param texturesFolderPath Chemin du dossier (par défaut : Constants::TEXTURES_FOLDER_PATH)
+     * @brief Charge toutes les textures depuis un dossier donnÃ©
+     * @param texturesFolderPath Chemin du dossier (par dÃ©faut : Constants::TEXTURES_FOLDER_PATH)
      *
-     * Étapes du chargement :
-     * 1. Vérifie que le dossier existe
-     * 2. Parcourt tous les fichiers récursivement
-     * 3. Pour chaque fichier .png, crée un objet Texture et l'ajoute à l'arborescence
+     * Ã‰tapes du chargement :
+     * 1. VÃ©rifie que le dossier existe
+     * 2. Parcourt tous les fichiers rÃ©cursivement
+     * 3. Pour chaque fichier .png, crÃ©e un objet Texture et l'ajoute Ã  l'arborescence
      */
     void loadTextures(std::string texturesFolderPath = Constants::TEXTURES_FOLDER_PATH);
 
+    void createDefaultTextures();
+
     /**
-     * @brief Supprime récursivement tous les noeuds et textures de l'arborescence
-     * @param node Pointeur vers le noeud à supprimer
+     * @brief Supprime rÃ©cursivement tous les noeuds et textures de l'arborescence
+     * @param node Pointeur vers le noeud Ã  supprimer
      */
     void deleteNode(TextureNode* node);
+
+    /**
+     * @brief Fonction rÃ©cursive pour afficher l'arborescence
+     * @param node Noeud actuel Ã  afficher
+     * @param prefix PrÃ©fixe pour l'indentation
+     * @param isLast Indique si c'est le dernier enfant
+     */
+    void printNode(const TextureNode* node, const std::string& prefix = "", bool isLast = true) const;
+
+    // Fonctions privÃ©es pour dÃ©composer la logique
+    float loadTextureProperties(const std::filesystem::path& jsonPath);
+
+    TextureInfo getTextureInfoFromFolder(const std::filesystem::path& folderPath);
+
+    void createTextureNode(const std::string& relativePath, const TextureInfo& info, int& textureIDCounter);
+
+    bool loadTextureFromFolder(const std::filesystem::path& folderPath, const std::string& texturesFolderPath, int& textureIDCounter);
+
 };

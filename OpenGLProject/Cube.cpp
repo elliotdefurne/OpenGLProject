@@ -12,7 +12,7 @@
 #include "Renderer.h"
 
 Cube::Cube(glm::vec3 center, float edge, Shader* shader, Player* player)
-    : m_center(center), m_edge(edge), m_shader(shader), m_player(player), m_specularMap(nullptr), m_lightManager(nullptr), m_lightSource(nullptr) {
+    : m_center(center), m_edge(edge), m_shader(shader), m_player(player), m_lightManager(nullptr), m_lightSource(nullptr), m_renderer(nullptr) {
     // Coordonnées du centre du cube
     float x = center[0];
     float y = center[1];
@@ -76,7 +76,7 @@ Cube::Cube(glm::vec3 center, float edge, Shader* shader, Player* player)
         17, 16, 19, 19, 18, 17, // Face du bas (Y-)
         20, 21, 22, 22, 23, 20  // Face du haut (Y+)
     };
-    m_mesh->load(m_vertices, m_indices, m_texture);
+    m_mesh->load(m_vertices, m_indices, m_textures);
 }
 
 // Constructeur du cube
@@ -86,18 +86,10 @@ Cube::Cube(glm::vec3 center, float edge, Shader* shader, LightSource* lightSourc
 }
 
 // Constructeur du cube
-Cube::Cube(glm::vec3 center, float edge, Shader* shader, Texture* texture, Renderer* renderer, LightManager* lightManager, Player* player)
+Cube::Cube(glm::vec3 center, float edge, Shader* shader, std::vector<Texture*> textures, Renderer* renderer, LightManager* lightManager, Player* player)
 	: Cube(center, edge, shader, player) {
-    m_texture = texture;
+    m_textures = textures;
     m_lightManager = lightManager;
-    m_renderer = renderer;
-}
-
-Cube::Cube(glm::vec3 center, float edge, Shader* shader, Texture* texture, Renderer* renderer, LightManager* lightManager, Player* player, Texture* specularMap)
-    : Cube(center, edge, shader, player) {
-    m_texture = texture;
-    m_lightManager = lightManager;
-    m_specularMap = specularMap;
     m_renderer = renderer;
 }
 
@@ -110,8 +102,8 @@ Cube::~Cube() {
     delete m_transformation;  // Détruit la transformation
 }
 
-inline Texture* Cube::getTexture() const {
-    return m_mesh->getTexture();
+inline std::vector<Texture*> Cube::getTextures() const {
+    return m_mesh->getTextures();
 }
 
 // Prépare le cube pour être affiché (envoie les données au GPU)
@@ -152,14 +144,18 @@ void Cube::drawSeveralLightShader() {
         throw std::invalid_argument("Error: No camera set for Flashlight shader.");
         return;
     }
-    if (!m_specularMap) {
-        throw std::invalid_argument("Error: No specular map texture set for specularMap shader.");
-        return;
-    }
 
     m_shader->setVec3("viewPos", m_shader->getCamera()->getPosition());
 
-    m_texture->applyToShader(m_shader, m_specularMap);
+	printf("Number of textures in Cube drawSeveralLightShader: %zu\n", m_textures.size());
+
+	for (Texture * texture : m_textures){
+        if (!texture->hasSpecular()) {
+            throw std::invalid_argument("Error: No specular map texture set for specularMap shader.");
+            return;
+        }
+        texture->applyToShader(m_shader);
+    }
 
     m_lightManager->applyToShader(m_shader);
 }

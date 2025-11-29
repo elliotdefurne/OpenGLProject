@@ -16,9 +16,6 @@
     <Filter Include="Fichiers de ressources\shaders">
       <UniqueIdentifier>{06246eb9-f98d-41e2-a4b4-bcb04624eb44}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Fichiers de ressources\textures">
-      <UniqueIdentifier>{23fa01f9-80e5-449d-93f0-d483ff0b318b}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Fichiers de ressources\shaders\cube">
       <UniqueIdentifier>{03a278c3-1e69-4af9-ac28-2f9b76ae465c}</UniqueIdentifier>
     </Filter>
@@ -33,6 +30,18 @@
     </Filter>
     <Filter Include="Fichiers de ressources\shaders\cube\severallights">
       <UniqueIdentifier>{5f46799b-20b1-4970-baa8-64c6d3ba6b71}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers de ressources\textures">
+      <UniqueIdentifier>{c79f5ec9-e8ac-4fe7-91e8-b595c7979a28}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers de ressources\textures\glass">
+      <UniqueIdentifier>{0221ccd3-6c88-4983-b8bf-157e1e8df580}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers de ressources\textures\crate">
+      <UniqueIdentifier>{56411d74-e890-4b23-adda-cae4ff46d278}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers de ressources\textures\glass\blue">
+      <UniqueIdentifier>{20650e79-e3a1-42d1-83c9-9ca40a88db89}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -235,11 +244,6 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="res\textures\rocks.png">
-      <Filter>Fichiers de ressources\textures</Filter>
-    </Image>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="res\shaders\cube\cube.frag">
       <Filter>Fichiers de ressources\shaders\cube</Filter>
     </None>
@@ -258,5 +262,19 @@
     <None Include="res\shaders\cube\severallights\severallights.vert">
       <Filter>Fichiers de ressources\shaders\cube\severallights</Filter>
     </None>
+    <None Include="res\textures\crate\details.json">
+      <Filter>Fichiers de ressources\textures\crate</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="res\textures\crate\container.png">
+      <Filter>Fichiers de ressources\textures\crate</Filter>
+    </Image>
+    <Image Include="res\textures\crate\container_specular.png">
+      <Filter>Fichiers de ressources\textures\crate</Filter>
+    </Image>
+    <Image Include="res\textures\glass\blue\blue.png">
+      <Filter>Fichiers de ressources\textures\glass\blue</Filter>
+    </Image>
   </ItemGroup>
 </Project>

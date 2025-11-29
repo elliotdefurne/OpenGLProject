@@ -1,4 +1,6 @@
 #pragma once
+#pragma warning(push)
+#pragma warning(disable: 4005)
 #include <winsock2.h>
 #include <ws2tcpip.h>
 #include <thread>

@@ -26,19 +26,45 @@ void Game::initialize() {
 
     m_socket->connectToServer(Constants::SERVER_IP, Constants::SERVER_PORT);
 
-    Texture* rocksTexture = m_textureManager->getTexture("test/rocks.png");
-    Texture* containerTexture = m_textureManager->getTexture("crate/container.png");
-    Texture* containerSpecularTexture = m_textureManager->getTexture("crate/container_specular.png");
-    Texture* glassTexture = m_textureManager->getTexture("glass/glass.png");
-    Texture* lightTexture   = m_textureManager->getTexture("light.png");
+    Texture* containerTexture = m_textureManager->getTexture("container");
+
     Shader* cubeShader = m_shaderManager->getShader("cube/severallights");
     Shader* lightShader    = m_shaderManager->getShader("cube/lightsource");
 
-    m_lightManager->addPointLight(new LightSource(glm::vec3(1, 0.5, 2), lightShader, m_player.get(), glm::vec3(2.0f, 0.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(1.0f, 1.0f, 1.0f), 1.0f, 1.0f, 1.0f, glm::vec3(2.0f, 0.0f, 0.0f)));
-    m_lightManager->addPointLight(new LightSource(glm::vec3(3, 0.5, -2), lightShader, m_player.get(), glm::vec3(0.0f, 2.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(1.0f, 1.0f, 1.0f), 1.0f, 1.0f, 1.0f, glm::vec3(0.0f, 2.0f, 0.0f)));
-    m_cubes.push_back(std::make_unique<Cube>(glm::vec3(1, 0, 0), 1.0, cubeShader, containerTexture, m_renderer.get(), m_lightManager.get(), m_player.get(), containerSpecularTexture));
-    m_cubes.push_back(std::make_unique<Cube>(glm::vec3(0, 0, -2), 1.0, cubeShader, containerTexture, m_renderer.get(), m_lightManager.get(), m_player.get(), containerSpecularTexture));
-    m_cubes.push_back(std::make_unique<Cube>(glm::vec3(1, 0.5, 2), 1.0, cubeShader, containerTexture, m_renderer.get(), m_lightManager.get(), m_player.get(), containerSpecularTexture));
+	std::vector<Texture*> crateTextures = { containerTexture };
+
+    // Dans Game::initialize()
+
+// Lumière 1 - Rouge forte
+    m_lightManager->addPointLight(new LightSource(
+        glm::vec3(1, 0.5, 2),            // position
+        lightShader,
+        m_player.get(),
+        glm::vec3(0.2f, 0.0f, 0.0f),     // ambient rouge
+        glm::vec3(5.0f, 0.0f, 0.0f),     // diffuse ROUGE INTENSE
+        glm::vec3(1.0f, 1.0f, 1.0f),     // specular
+        1.0f,                             // constant
+        0.09f,                            // linear (portée ~50 unités)
+        0.032f,                           // quadratic
+        glm::vec3(5.0f, 0.0f, 0.0f)      // lightColor
+    ));
+
+    // Lumière 2 - Verte forte
+    m_lightManager->addPointLight(new LightSource(
+        glm::vec3(3, 0.5, -2),           // position
+        lightShader,
+        m_player.get(),
+        glm::vec3(0.0f, 0.2f, 0.0f),     // ambient vert
+        glm::vec3(0.0f, 5.0f, 0.0f),     // diffuse VERT INTENSE
+        glm::vec3(1.0f, 1.0f, 1.0f),     // specular
+        1.0f,                             // constant
+        0.09f,                            // linear
+        0.032f,                           // quadratic
+        glm::vec3(0.0f, 5.0f, 0.0f)      // lightColor
+    ));
+    m_cubes.push_back(std::make_unique<Cube>(glm::vec3(1, 0, 0), 1.0, cubeShader, crateTextures, m_renderer.get(), m_lightManager.get(), m_player.get()));
+    m_cubes.push_back(std::make_unique<Cube>(glm::vec3(0, 0, -2), 1.0, cubeShader, crateTextures, m_renderer.get(), m_lightManager.get(), m_player.get()));
+    m_cubes.push_back(std::make_unique<Cube>(glm::vec3(1, 0.5, 2), 1.0, cubeShader, crateTextures, m_renderer.get(), m_lightManager.get(), m_player.get()));
 
     glGetString(GL_VERSION) ? std::cout << "OpenGL version: " << glGetString(GL_VERSION) << std::endl
         : throw std::runtime_error("Impossible de récupérer la version OpenGL");

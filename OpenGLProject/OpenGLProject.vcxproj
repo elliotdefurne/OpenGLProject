@@ -205,15 +205,18 @@
     <ClInclude Include="Window.h" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="res\textures\rocks.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="res\shaders\cube\cube.frag" />
     <None Include="res\shaders\cube\cube.vert" />
     <None Include="res\shaders\cube\lightsource\lightsource.frag" />
     <None Include="res\shaders\cube\lightsource\lightsource.vert" />
     <None Include="res\shaders\cube\severallights\severallights.frag" />
     <None Include="res\shaders\cube\severallights\severallights.vert" />
+    <None Include="res\textures\crate\details.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="res\textures\crate\container.png" />
+    <Image Include="res\textures\crate\container_specular.png" />
+    <Image Include="res\textures\glass\blue\blue.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

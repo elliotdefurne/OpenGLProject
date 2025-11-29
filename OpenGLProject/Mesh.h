@@ -42,7 +42,7 @@ public:
      * @param indices Vecteur d'indices pour former les triangles
      * @param texture Pointeur vers la texture associée
      */
-    void load(const std::vector<Vertex>& vertices, const std::vector<unsigned int>& indices, Texture* texture);
+    void load(const std::vector<Vertex>& vertices, const std::vector<unsigned int>& indices, std::vector<Texture*> textures);
 
     /**
      * @brief Dessine le maillage à l'écran
@@ -54,15 +54,15 @@ public:
     /**
      * @brief Retourne la texture associée
      */
-    inline Texture* getTexture() const { return m_texture; };
+    inline std::vector<Texture*> getTextures() const { return m_textures; };
 
 private:
     unsigned int m_vao = 0;      // Vertex Array Object
     unsigned int m_vbo = 0;      // Vertex Buffer Object
     unsigned int m_ebo = 0;      // Element Buffer Object
-    int m_indexCount = 0;         // Nombre d'indices
-    Texture* m_texture;           // Pointeur vers la texture
-
+    int m_indexCount = 0;        // Nombre d'indices
+    std::vector<Texture*> m_textures;           // Pointeur vers les textures
+    
     /**
      * @brief Libère manuellement les ressources GPU (VAO, VBO, EBO)
      */

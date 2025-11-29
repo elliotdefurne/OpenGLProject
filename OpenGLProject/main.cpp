@@ -2,9 +2,11 @@
 
 /*
 * TODO:
-    Classe Parallelepipede rectangle
-    Collision (Hitbox)
-    Multi
+*   Changement classe texture (pour contenir specularMap) et donc textureManager
+*   Classe Mesh
+*   Enlever les couleurs des Vertex (uniquement position, normal, UV)
+*   Collision (Hitbox)
+*   Multi
 */
 
 int main() {

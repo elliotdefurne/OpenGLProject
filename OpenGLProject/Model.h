@@ -11,8 +11,7 @@ class Shader;
 class Mesh;
 class Texture;
 
-class Model
-{
+class Model {
 public:
     Model(char* path) { loadModel(path); }
     void draw(Shader& shader);

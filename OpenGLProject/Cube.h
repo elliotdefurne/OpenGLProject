@@ -16,8 +16,7 @@ class Player;
 class Renderer;
 
 // Classe Cube : represente un cube 3D dans le jeu
-class Cube
-{
+class Cube {
 public:
     // Constructeur
     // center : position du centre du cube
@@ -26,8 +25,7 @@ public:
     // texture : texture appliquée au cube
     
     Cube(glm::vec3 center, float edge, Shader* shader, LightSource* lightSource, Player* player);
-    Cube(glm::vec3 center, float edge, Shader* shader, Texture* texture, Renderer* renderer, LightManager* lightManager, Player* player);
-    Cube(glm::vec3 center, float edge, Shader* shader, Texture* texture, Renderer* renderer, LightManager* lightManager, Player* player, Texture* specularMap);
+    Cube(glm::vec3 center, float edge, Shader* shader, std::vector<Texture*> textures, Renderer* renderer, LightManager* lightManager, Player* player);
 
     // Destructeur : libere la memoire (mesh, transformation…)
     ~Cube();
@@ -41,7 +39,7 @@ public:
 	inline Transformation* getTransformation() const { return m_transformation; }
 
     // Retourne la texture du cube
-    inline Texture* getTexture() const;
+    inline std::vector<Texture*> getTextures() const;
 
 	inline glm::vec3 getCenter() const { return m_center; }
 
@@ -49,8 +47,7 @@ protected:
     Cube(glm::vec3 center, float edge, Shader* shader, Player* player);
 
     Mesh* m_mesh;                     // Maillage du cube (buffers OpenGL)
-    Texture* m_texture;               // Texture appliquee
-    Texture* m_specularMap;           // Texture speculaire
+    std::vector<Texture*> m_textures; // Texture appliquee
     Shader* m_shader;                 // Shader pour le rendu
     Transformation* m_transformation; // Transformations : position, rotation, scale
 	LightManager* m_lightManager;     // Pointeur vers le LightBlock associé (si applicable)
