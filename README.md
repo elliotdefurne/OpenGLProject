@@ -23,7 +23,7 @@ Avant de faire tourner ce code sur votre machine, il vous faut (normalement tout
 
 ##  Installation
 
-1. Installer Visual Studio 2022
+1. Installer Visual Studio 2026
 2. Lancer le projet "OpenGLProject.sln"
 3. Compiler
 
