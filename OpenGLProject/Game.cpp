@@ -41,7 +41,7 @@ void Game::initialize() {
         lightShader,
         m_player.get(),
         glm::vec3(0.2f, 0.0f, 0.0f),     // ambient rouge
-        glm::vec3(5.0f, 0.0f, 0.0f),     // diffuse ROUGE INTENSE
+        glm::vec3(1.0f, 0.0f, 0.0f),     // diffuse ROUGE INTENSE
         glm::vec3(1.0f, 1.0f, 1.0f),     // specular
         1.0f,                             // constant
         0.09f,                            // linear (portée ~50 unités)
@@ -55,7 +55,7 @@ void Game::initialize() {
         lightShader,
         m_player.get(),
         glm::vec3(0.0f, 0.2f, 0.0f),     // ambient vert
-        glm::vec3(0.0f, 5.0f, 0.0f),     // diffuse VERT INTENSE
+        glm::vec3(0.0f, 1.0f, 0.0f),     // diffuse VERT INTENSE
         glm::vec3(1.0f, 1.0f, 1.0f),     // specular
         1.0f,                             // constant
         0.09f,                            // linear

@@ -24,11 +24,9 @@ Texture::Texture(const std::string& filePath, const int textureID, float shinine
         std::string ancien = ".png";
         std::string nouvelle = "_specular.png";
 
+		// Remplacement de la partie du nom de fichier
         size_t pos = m_fileSpecularPath.find(ancien);
-
-        if (pos != std::string::npos) {
-            m_fileSpecularPath.replace(pos, ancien.length(), nouvelle);
-        }
+        if (pos != std::string::npos) { m_fileSpecularPath.replace(pos, ancien.length(), nouvelle); }
 
         loadTexture(m_fileSpecularPath, m_specularTextureID);
     }
@@ -37,9 +35,10 @@ Texture::Texture(const std::string& filePath, const int textureID, float shinine
 Texture::~Texture() {
     glBindTexture(GL_TEXTURE_2D, 0);
     glDeleteTextures(1, &m_textureID);
+	if (m_hasSpecular) glDeleteTextures(1, &m_specularTextureID);
 }
 
-void Texture::loadTexture(std::string filePath, unsigned int id) {
+void Texture::loadTexture(std::string& filePath, unsigned int& id) {
     glGenTextures(1, &id);
     glBindTexture(GL_TEXTURE_2D, id);
 
@@ -73,13 +72,12 @@ void Texture::loadTexture(std::string filePath, unsigned int id) {
 
     // Libération de la mémoire CPU
     stbi_image_free(data);
-
-    glBindTexture(GL_TEXTURE_2D, id);
 }
 
 
 void Texture::applyToShader(Shader* shader) {
     shader->setTexture("material.diffuse", m_textureID, 0);
+
     if (m_hasSpecular) {
         shader->setTexture("material.specular", m_specularTextureID, 1);
     }

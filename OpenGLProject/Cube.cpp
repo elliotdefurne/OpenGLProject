@@ -147,7 +147,7 @@ void Cube::drawSeveralLightShader() {
 
     m_shader->setVec3("viewPos", m_shader->getCamera()->getPosition());
 
-	printf("Number of textures in Cube drawSeveralLightShader: %zu\n", m_textures.size());
+	//printf("Number of textures in Cube drawSeveralLightShader: %zu\n", m_textures.size());
 
 	for (Texture * texture : m_textures){
         if (!texture->hasSpecular()) {

@@ -35,7 +35,7 @@ private:
     /**
      * @brief Charge la texture depuis le fichier et l'envoie sur le GPU
      */
-    void loadTexture(std::string filePath, unsigned int id);
+    void loadTexture(std::string& filePath, unsigned int& id);
 
     std::string m_filePath;                 // Chemin du fichier source de la texture
     std::string m_fileSpecularPath;         // Chemin du fichier source de la texture
