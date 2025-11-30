@@ -14,7 +14,12 @@
 
 #include "Window.h"
 
-KeyManager::~KeyManager() { for (auto& pair : m_keys) { delete pair.second; } }
+KeyManager::~KeyManager() { 
+	for (auto& pair : m_keys) {
+		delete pair.second;
+	}
+	delete m_mouse;
+}
 
 Key* KeyManager::getKey(const std::string& name) {
 	auto it = m_keys.find(name);

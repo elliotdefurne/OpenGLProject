@@ -3,6 +3,8 @@
 #include <iostream>
 #include <filesystem>
 
+#include "Constants.h"
+
 class Shader;
 
 // Classe Texture : représente une texture chargée sur le GPU OpenGL
@@ -37,11 +39,11 @@ private:
      */
     void loadTexture(std::string& filePath, unsigned int& id);
 
-    std::string m_filePath;                 // Chemin du fichier source de la texture
-    std::string m_fileSpecularPath;         // Chemin du fichier source de la texture
-    unsigned int m_textureID;               // ID OpenGL de la texture
-    unsigned int m_specularTextureID;       // ID OpenGL de la texture
-	unsigned int m_defaultSpecularID = 0;   // ID OpenGL de la texture spéculaire par défaut
+    std::string m_filePath;                                             // Chemin du fichier source de la texture
+    std::string m_fileSpecularPath;                                     // Chemin du fichier source de la texture
+    unsigned int m_textureID;                                           // ID OpenGL de la texture
+    unsigned int m_specularTextureID;                                   // ID OpenGL de la texture
+	unsigned int m_defaultSpecularID = Constants::BLACK_TEXTURE_ID;     // ID OpenGL de la texture spéculaire par défaut
 
     int m_width, m_height;         // Dimensions de la texture
     int m_nrChannels;              // Nombre de canaux (ex: 3 pour RGB, 4 pour RGBA)

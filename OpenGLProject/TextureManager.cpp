@@ -134,7 +134,7 @@ void TextureManager::loadTextures(std::string texturesFolderPath) {
     }
 
 	// Texture 0 reservee pour la texture par défaut
-    int textureIDCounter = 1;
+    int textureIDCounter = Constants::FIRST_TEXTURE_ID;
 
     // Parcourir les dossiers
     for (const auto& entry : std::filesystem::directory_iterator(texturesFolderPath)) {

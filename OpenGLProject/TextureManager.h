@@ -85,7 +85,7 @@ public:
     void printTextureTree() const;
 private:
     TextureNode m_root; ///< Racine de l'arborescence des textures
-    unsigned int m_defaultSpecularID = 0;  // Texture par défaut
+    unsigned int m_defaultSpecularID = Constants::BLACK_TEXTURE_ID;  // Texture par défaut
 
     /**
      * @brief Charge toutes les textures depuis un dossier donné

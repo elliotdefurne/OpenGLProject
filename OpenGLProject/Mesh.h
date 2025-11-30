@@ -4,6 +4,13 @@
 #include "Vertex.h"   // Structure d'un sommet (position, couleur, UV)
 #include "Texture.h"  // Classe pour gerer les textures
 
+enum class VertexAttribute {
+    POSITION = 1 << 0,  // 0001
+    NORMAL = 1 << 1,  // 0010
+    COLOR = 1 << 2,  // 0100
+    TEXCOORD = 1 << 3   // 1000
+};
+
 /**
  * @class Mesh
  * @brief Représente un maillage 3D pour OpenGL
@@ -42,7 +49,7 @@ public:
      * @param indices Vecteur d'indices pour former les triangles
      * @param texture Pointeur vers la texture associée
      */
-    void load(const std::vector<Vertex>& vertices, const std::vector<unsigned int>& indices, std::vector<Texture*> textures);
+    void load(const std::vector<Vertex>& vertices, const std::vector<unsigned int>& indices, std::vector<Texture*> textures, unsigned int attributesMask);
 
     /**
      * @brief Dessine le maillage à l'écran

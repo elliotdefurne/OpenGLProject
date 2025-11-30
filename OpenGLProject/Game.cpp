@@ -35,7 +35,7 @@ void Game::initialize() {
 
     // Dans Game::initialize()
 
-// Lumière 1 - Rouge forte
+    // Lumière 1 - Rouge forte
     m_lightManager->addPointLight(new LightSource(
         glm::vec3(1, 0.5, 2),            // position
         lightShader,

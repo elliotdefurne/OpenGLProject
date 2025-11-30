@@ -8,16 +8,18 @@ namespace Constants {
     constexpr bool IS_WINDOW_FULLSCREEN = false;
 
     // Renderer
-    constexpr int DEFAULT_FPS_CAPPING = 60;
+    constexpr int DEFAULT_FPS_CAPPING = 240;
     constexpr bool DEFAULT_IS_FPS_CAPPING = false;
 
     // Player
 
-	constexpr float PLAYER_SPEED = 2.5f; // pixels per second
+	constexpr float PLAYER_SPEED = 2.5f; // unit : pixels per second
 
     // Texture
 
 	constexpr const char* TEXTURES_FOLDER_PATH = "./res/textures/";
+	constexpr const unsigned int FIRST_TEXTURE_ID = 10;     // Starting ID for user textures
+	constexpr const unsigned int BLACK_TEXTURE_ID = 0;      // ID for default black texture
 
     // Shader
 

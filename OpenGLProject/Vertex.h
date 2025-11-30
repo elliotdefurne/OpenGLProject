@@ -13,30 +13,17 @@ class Vertex
 {
 public:
     /**
-     * @brief Constructeur avec uniquement la position.
-     * Les couleurs par défaut sont blanches et les coordonnées de texture sont à 0.
-     */
-    Vertex(float x, float y, float z)
-        : m_x(x), m_y(y), m_z(z), m_nx(0.0f), m_ny(0.0f), m_nz(0.0f), m_r(1.0f), m_g(1.0f), m_b(1.0f), m_s(0.0f), m_t(0.0f) {
-    }
-
-    /**
-     * @brief Constructeur avec position et couleur.
-     * Les coordonnées de texture sont initialisées à 0.
+     * @brief Constructeur avec position, couleur.
      */
     Vertex(float x, float y, float z, float r, float g, float b)
-        : m_x(x), m_y(y), m_z(z), m_nx(0.0f), m_ny(0.0f), m_nz(0.0f), m_r(r), m_g(g), m_b(b), m_s(0.0f), m_t(0.0f) {
+        : m_x(x), m_y(y), m_z(z), m_nx(NULL), m_ny(NULL), m_nz(NULL), m_r(r), m_g(g), m_b(b), m_s(NULL), m_t(NULL) {
     }
 
     /**
-     * @brief Constructeur complet avec position, couleur et coordonnées de texture.
-     */
-    Vertex(float x, float y, float z, float r, float g, float b, float s, float t)
-        : m_x(x), m_y(y), m_z(z), m_nx(0.0f), m_ny(0.0f), m_nz(0.0f),  m_r(r), m_g(g), m_b(b), m_s(s), m_t(t) {
-    }
-
-    Vertex(float x, float y, float z, float nx, float ny, float nz, float r, float g, float b, float s, float t)
-        : m_x(x), m_y(y), m_z(z), m_nx(nx), m_ny(ny), m_nz(nz), m_r(r), m_g(g), m_b(b), m_s(s), m_t(t) {
+    * @brief Constructeur complet avec texture et normal.
+    */
+    Vertex(float x, float y, float z, float nx, float ny, float nz, float s, float t)
+        : m_x(x), m_y(y), m_z(z), m_nx(nx), m_ny(ny), m_nz(nz), m_r(NULL), m_g(NULL), m_b(NULL), m_s(s), m_t(t) {
     }
 
 
@@ -60,8 +47,8 @@ public:
     float getT() const { return m_t; }
 
 private:
-    float m_x, m_y, m_z;   ///< Coordonnées du sommet
-    float m_nx, m_ny, m_nz;   ///< Normal du sommet (selon la surface à laquelle il appartient)
-    float m_r, m_g, m_b;   ///< Couleur RGB
-    float m_s, m_t;        ///< Coordonnées de texture UV
+    float m_x, m_y, m_z;        ///< Coordonnées du sommet
+    float m_nx, m_ny, m_nz;     ///< Normal du sommet (selon la surface à laquelle il appartient)
+    float m_r, m_g, m_b;        ///< Couleur RGB
+    float m_s, m_t;             ///< Coordonnées de texture UV
 };

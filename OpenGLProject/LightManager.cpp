@@ -22,6 +22,8 @@ LightManager::~LightManager() {
     for (auto& light : m_lightSources) {
         delete light;
     }
+
+	delete m_flashlight;
 }
 void LightManager::addPointLight(LightSource* light) {
     if (m_lightSources.size() < MAX_POINT_LIGHTS) {

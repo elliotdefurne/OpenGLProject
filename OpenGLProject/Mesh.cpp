@@ -11,7 +11,7 @@ Mesh::~Mesh() {
     destroy(); // Libération des ressources GPU
 }
 
-void Mesh::load(const std::vector<Vertex>& vertices, const std::vector<unsigned int>& indices, std::vector<Texture*> textures) {
+void Mesh::load(const std::vector<Vertex>& vertices, const std::vector<unsigned int>& indices, std::vector<Texture*> textures, unsigned int attributesMask) {
     m_textures = textures; // Stocke la texture
     m_indexCount = static_cast<GLsizei>(indices.size()); // Nombre d'indices
 
@@ -32,21 +32,33 @@ void Mesh::load(const std::vector<Vertex>& vertices, const std::vector<unsigned 
 
     // Définition du layout mémoire pour chaque attribut
     // Position (x, y, z)
-// Position (layout = 0) : offset = 0
-    glEnableVertexAttribArray(0);
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)0);
+    // Position (layout = 0) : offset = 0
+    // Position (toujours actif)
+    if (attributesMask & (unsigned int)VertexAttribute::POSITION) {
+        glEnableVertexAttribArray(0);
+        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)0);
+    }
 
-    // Normal (layout = 1) : offset = 3 floats
-    glEnableVertexAttribArray(1);
-    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)(3 * sizeof(float)));
+    // Normal (optionnel)
+    if (attributesMask & (unsigned int)VertexAttribute::NORMAL) {
+        glEnableVertexAttribArray(1);
+        glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex),
+            (void*)(3 * sizeof(float)));
+    }
 
-    // Couleur (layout = 2) : offset = 6 floats
-    glEnableVertexAttribArray(2);
-    glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)(6 * sizeof(float)));
+    // Color (optionnel)
+    if (attributesMask & (unsigned int)VertexAttribute::COLOR) {
+        glEnableVertexAttribArray(2);
+        glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex),
+            (void*)(6 * sizeof(float)));
+    }
 
-    // TexCoord (layout = 3) : offset = 9 floats
-    glEnableVertexAttribArray(3);
-    glVertexAttribPointer(3, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)(9 * sizeof(float)));
+    // TexCoord (optionnel)
+    if (attributesMask & (unsigned int)VertexAttribute::TEXCOORD) {
+        glEnableVertexAttribArray(3);
+        glVertexAttribPointer(3, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex),
+            (void*)(9 * sizeof(float)));
+    }
 
     glBindVertexArray(0); // Débind pour éviter les erreurs plus tard
 }
