@@ -1,104 +1,79 @@
 #pragma once
-#pragma warning(push)
-#pragma warning(disable: 4005)
 #include <winsock2.h>
 #include <ws2tcpip.h>
-#include <thread>
-#include <atomic>
-#include <queue>
 #include <string>
+#include <queue>
+#include <thread>
 #include <mutex>
-
-#include "constants.h"
+#include <atomic>
+#include <vector>
 
 #pragma comment(lib, "ws2_32.lib")
 
+#include "constants.h"
+
+class Packet; // Déclaration anticipée
+
+struct ServerInfo {
+    std::string ip;
+    int port;
+};
+
+enum class EventType {
+    ServerConnected,
+    ServerDisconnected,
+    DataReceived
+};
+
+struct ClientEvent {
+    EventType type;
+    std::string data;
+};
+
+struct OutgoingMessage {
+    std::string data;
+};
+
 class Socket {
 public:
-    Socket() : m_running(false), m_socket(INVALID_SOCKET) {}
+    Socket() = default;
+    ~Socket() { stop(); }
 
-    /**
-     * @brief Établit une connexion TCP au serveur spécifié
-     *
-     * Initialise Winsock, crée un socket TCP, se connecte au serveur,
-     * passe le socket en mode non-bloquant et démarre le thread réseau.
-     *
-     * @param ip Adresse IP du serveur (format string, ex: "127.0.0.1")
-     * @param port Numéro de port du serveur
-     * @return true si la connexion est établie avec succès
-     * @return false en cas d'erreur (échec Winsock, socket, ou connexion)
-     */
-    bool connectToServer(const char* ip, int port);
+	// Se connecte au serveur selon les ServerInfo fournis
+    bool connectToServer(const ServerInfo& serverInfo);
 
-    /**
-     * @brief Arrête proprement la connexion réseau
-     *
-     * Signale au thread réseau de s'arrêter, attend sa terminaison,
-     * ferme le socket et nettoie Winsock. Thread-safe et peut être
-     * appelée plusieurs fois sans effet secondaire.
-     */
+    // Arrête le client et ferme toutes les connexions
     void stop();
 
-    /**
-     * @brief Envoie un paquet de données au serveur de manière asynchrone
-     *
-     * Ajoute les données à la queue d'envoi. L'envoi réel sera effectué
-     * par le thread réseau. Thread-safe grâce au mutex.
-     *
-     * @param data Chaîne de caractères contenant les données à envoyer
-     */
+    // Envoie un paquet au server
     void sendPacket(const std::string& data);
+    // Envoie un paquet au serveur
+    void sendPacket(const Packet& packet);
 
-    /**
-     * @brief Récupère le prochain paquet reçu depuis le serveur
-     *
-     * Vérifie s'il y a des données reçues dans la queue d'entrée.
-     * Si oui, récupère le premier paquet et le retire de la queue.
-     * Thread-safe grâce au mutex.
-     *
-     * @param[out] out Référence où sera stocké le paquet reçu
-     * @return true si un paquet a été récupéré
-     * @return false si la queue d'entrée est vide
-     */
-    bool pollEvent(std::string& out);
+    // Récupère le prochain événement (connexion, déconnexion, données)
+    bool pollEvent(ClientEvent& event);
 
-    // Getters
-
-    inline std::string getServerIP() { return m_serverIP; };
-    inline int getServerPort() { return m_serverPort; };
-    inline std::string getLocalIP() { return m_localIP; };
-    inline int getLocalPort() { return m_localPort; };
-    inline bool getIsConnected() { return m_connected; };
+    // Retourne la liste des clients connectés
+    ServerInfo getServer() const { return m_server; };
+	std::string getLocalIP() const { return m_localIP; }
+	int getLocalPort() const { return m_localPort; }
 
 private:
-    /**
-     * @brief Boucle principale du thread réseau (réception/envoi)
-     *
-     * Tourne en continu tant que running est vrai :
-     * - Reçoit les données du serveur et les ajoute à la queue d'entrée
-     * - Envoie tous les paquets en attente dans la queue de sortie
-     * - Pause de 1ms entre chaque itération pour réduire la charge CPU
-     *
-     * @note Cette fonction s'exécute dans un thread séparé
-     * @note Utilise des mutex pour protéger l'accès aux queues
-     */
     void networkLoop();
 
-    std::atomic<bool> m_running;
-    SOCKET m_socket;
+    SOCKET m_socket = INVALID_SOCKET;
 
-    std::thread m_netThread;
+    ServerInfo m_server;
 
-    std::queue<std::string> m_incoming;
+    std::queue<ClientEvent> m_incoming;
     std::mutex m_inMutex;
 
-    std::queue<std::string> m_outgoing;
+    std::queue<OutgoingMessage> m_outgoing;
     std::mutex m_outMutex;
 
-    // Informations de connexion
-    std::string m_serverIP;
-    int m_serverPort = 0;
-    std::string m_localIP;
-    int m_localPort = 0;
-    bool m_connected = false;
+    std::thread m_netThread;
+    std::atomic<bool> m_running{ false };
+
+	std::string m_localIP = "";
+	int m_localPort = 0;
 };

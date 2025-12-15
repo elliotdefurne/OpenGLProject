@@ -1,6 +1,7 @@
 #include "Socket.h"
+#include "Packet.h"
 
-bool Socket::connectToServer(const char* ip, int port) {
+bool Socket::connectToServer(const ServerInfo& serverInfo) {
     printf("[Socket] Initialisation Winsock...\n");
     WSADATA wsaData;
     if (WSAStartup(MAKEWORD(2, 2), &wsaData) != 0) {
@@ -16,11 +17,11 @@ bool Socket::connectToServer(const char* ip, int port) {
         return false;
     }
 
-    printf("[Socket] Tentative de connexion a %s:%d...\n", ip, port);
+    printf("[Socket] Tentative de connexion a %s:%d...\n", serverInfo.ip, serverInfo.port);
     sockaddr_in addr;
     addr.sin_family = AF_INET;
-    addr.sin_port = htons(port);
-    InetPtonA(AF_INET, ip, &addr.sin_addr);
+    addr.sin_port = htons(serverInfo.port);
+    InetPtonA(AF_INET, serverInfo.ip.c_str(), &addr.sin_addr);
 
     if (connect(m_socket, (sockaddr*)&addr, sizeof(addr)) == SOCKET_ERROR) {
         int error = WSAGetLastError();
@@ -51,10 +52,6 @@ bool Socket::connectToServer(const char* ip, int port) {
     u_long mode = 1;
     ioctlsocket(m_socket, FIONBIO, &mode);
 
-    // Sauvegarder les informations du serveur
-    m_serverIP = ip;
-    m_serverPort = port;
-
     // Récupérer les informations locales (IP et port client)
     sockaddr_in localAddr;
     int addrLen = sizeof(localAddr);
@@ -65,7 +62,6 @@ bool Socket::connectToServer(const char* ip, int port) {
         m_localPort = ntohs(localAddr.sin_port);
     }
 
-    m_connected = true;
     m_running.store(true);
     m_netThread = std::thread(&Socket::networkLoop, this);
     return true;
@@ -82,18 +78,29 @@ void Socket::stop() {
         closesocket(m_socket);
         WSACleanup();
     }
-    m_connected = false; // Mettre à jour le statut
 }
 
 void Socket::sendPacket(const std::string& data) {
     std::lock_guard<std::mutex> lock(m_outMutex);
-    m_outgoing.push(data);
+
+    OutgoingMessage msg;
+    msg.data = data;
+    m_outgoing.push(msg);
 }
 
-bool Socket::pollEvent(std::string& out) {
+void Socket::sendPacket(const Packet& packet) {
+    std::lock_guard<std::mutex> lock(m_outMutex);
+    
+    OutgoingMessage msg;
+    std::vector<char> serialized = packet.serialize();
+    msg.data.assign(serialized.begin(), serialized.end());
+    m_outgoing.push(msg);
+}
+
+bool Socket::pollEvent(ClientEvent& event) {
     std::lock_guard<std::mutex> lock(m_inMutex);
     if (m_incoming.empty()) return false;
-    out = m_incoming.front();
+    event = m_incoming.front();
     m_incoming.pop();
     return true;
 }
@@ -105,17 +112,36 @@ void Socket::networkLoop() {
     char buffer[Constants::MAX_PACKET_SIZE];
 
     while (m_running.load()) {
+        // Recevoir les données du serveur
         int n = recv(m_socket, buffer, sizeof(buffer), 0);
+
         if (n > 0) {
+            // Données reçues
             std::lock_guard<std::mutex> lock(m_inMutex);
-            m_incoming.push(std::string(buffer, n));
+            ClientEvent evt;
+            evt.type = EventType::DataReceived;
+            evt.data = std::string(buffer, n);
+            m_incoming.push(evt);
+        }
+        else if (n == 0 || (n == SOCKET_ERROR && WSAGetLastError() != WSAEWOULDBLOCK)) {
+            // Déconnecté du serveur
+            printf("[Socket] Deconnecte du serveur\n");
+
+            std::lock_guard<std::mutex> lock(m_inMutex);
+            ClientEvent evt;
+            evt.type = EventType::ServerDisconnected;
+            m_incoming.push(evt);
+
+            m_running.store(false);
+            break;
         }
 
+        // Envoyer les données en attente
         {
             std::lock_guard<std::mutex> lock(m_outMutex);
             while (!m_outgoing.empty()) {
-                const std::string& msg = m_outgoing.front();
-                send(m_socket, msg.data(), (int)msg.size(), 0);
+                const auto& msg = m_outgoing.front();
+                send(m_socket, msg.data.c_str(), (int)msg.data.size(), 0);
                 m_outgoing.pop();
             }
         }

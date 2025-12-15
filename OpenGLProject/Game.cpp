@@ -1,6 +1,7 @@
 #include "Game.h"
 #include "config.h"
 
+
 Game::Game() {
     if (!glfwInit()) {
         throw std::runtime_error("Impossible d'initialiser GLFW");
@@ -24,7 +25,7 @@ void Game::initialize() {
     m_lightManager   = std::make_unique<LightManager>(m_renderer.get(), m_player.get());
     m_socket         = std::make_unique<Socket>();
 
-    m_socket->connectToServer(Constants::SERVER_IP, Constants::SERVER_PORT);
+    m_socket->connectToServer(ServerInfo(Constants::SERVER_IP, Constants::SERVER_PORT));
 
     Texture* containerTexture = m_textureManager->getTexture("container");
 
@@ -82,14 +83,13 @@ void Game::run() {
 
 void Game::update() {
     // Printing socket data
-    std::string socketdata;
-    if(m_socket->pollEvent(socketdata)){
-        printf("%s\n", socketdata.c_str());
-    }
+	ClientEvent socketEvent;
     // Sending socket ping
-    std::string pingData;
-    pingData = "Ping from " + m_socket->getLocalIP() + ":" + std::to_string(m_socket->getLocalPort()) + " to " + m_socket->getServerIP() + ":" + std::to_string(m_socket->getServerPort());
-    m_socket->sendPacket(pingData);
+    m_socket->sendPacket(PacketBuilder::createChatMessage("Elliot","Bonjour"));
+
+    if (m_socket->pollEvent(socketEvent)) {
+        printf("%s\n", socketEvent.data.c_str());
+    }
 
     m_keyManager->update();
     m_camera->update(m_player.get());

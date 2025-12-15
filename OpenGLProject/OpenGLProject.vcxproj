@@ -156,6 +156,8 @@
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="Model.cpp" />
     <ClCompile Include="Mouse.cpp" />
+    <ClCompile Include="Packet.cpp" />
+    <ClCompile Include="ReceiveBuffer.cpp" />
     <ClCompile Include="Socket.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Renderer.cpp" />
@@ -191,6 +193,9 @@
     <ClInclude Include="Entity.h" />
     <ClInclude Include="Model.h" />
     <ClInclude Include="Mouse.h" />
+    <ClInclude Include="Packet.h" />
+    <ClInclude Include="PacketBuilder.h" />
+    <ClInclude Include="ReceiveBuffer.h" />
     <ClInclude Include="Socket.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Renderer.h" />

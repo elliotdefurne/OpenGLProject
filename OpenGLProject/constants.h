@@ -1,4 +1,5 @@
 #pragma once
+#include <cstdint>
 
 namespace Constants {
     // Window
@@ -38,6 +39,8 @@ namespace Constants {
     constexpr const int MAX_PACKET_SIZE = 1024;
     constexpr const char* SERVER_IP = "127.0.0.1";
     constexpr const int SERVER_PORT = 3333;
+
+	constexpr uint16_t PACKET_MAGIC = 0xABCD; // Magic number for packet validation
 }
 
 namespace Materials {

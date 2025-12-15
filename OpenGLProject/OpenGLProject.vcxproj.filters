@@ -43,6 +43,12 @@
     <Filter Include="Fichiers de ressources\textures\glass\blue">
       <UniqueIdentifier>{20650e79-e3a1-42d1-83c9-9ca40a88db89}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Fichiers d%27en-tête\Network">
+      <UniqueIdentifier>{b2b0a559-cde5-435b-ace1-354c20e43e2a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\Network">
+      <UniqueIdentifier>{1104b147-9251-4e11-8946-38d5e403d6d9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -61,9 +67,6 @@
       <Filter>Fichiers sources</Filter>
     </ClCompile>
     <ClCompile Include="Mesh.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="Shader.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
     <ClCompile Include="Texture.cpp">
@@ -132,11 +135,20 @@
     <ClCompile Include="Spotlight.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
-    <ClCompile Include="Socket.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
     <ClCompile Include="Model.cpp">
       <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="Socket.cpp">
+      <Filter>Fichiers sources\Network</Filter>
+    </ClCompile>
+    <ClCompile Include="Shader.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="ReceiveBuffer.cpp">
+      <Filter>Fichiers sources\Network</Filter>
+    </ClCompile>
+    <ClCompile Include="Packet.cpp">
+      <Filter>Fichiers sources\Network</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -236,11 +248,20 @@
     <ClInclude Include="Spotlight.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-    <ClInclude Include="Socket.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
     <ClInclude Include="Model.h">
       <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="Socket.h">
+      <Filter>Fichiers d%27en-tête\Network</Filter>
+    </ClInclude>
+    <ClInclude Include="ReceiveBuffer.h">
+      <Filter>Fichiers d%27en-tête\Network</Filter>
+    </ClInclude>
+    <ClInclude Include="Packet.h">
+      <Filter>Fichiers d%27en-tête\Network</Filter>
+    </ClInclude>
+    <ClInclude Include="PacketBuilder.h">
+      <Filter>Fichiers d%27en-tête\Network</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
