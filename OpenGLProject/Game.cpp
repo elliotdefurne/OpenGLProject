@@ -25,7 +25,7 @@ void Game::initialize() {
     m_lightManager   = std::make_unique<LightManager>(m_renderer.get(), m_player.get());
     m_socket         = std::make_unique<Socket>();
 
-    m_socket->connectToServer(ServerInfo(Constants::SERVER_IP, Constants::SERVER_PORT));
+    m_socket->connectToServerAsync(ServerInfo(Constants::SERVER_IP, Constants::SERVER_PORT));
 
     Texture* containerTexture = m_textureManager->getTexture("container");
 

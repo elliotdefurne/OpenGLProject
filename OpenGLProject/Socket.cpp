@@ -1,6 +1,12 @@
 #include "Socket.h"
 #include "Packet.h"
 
+void Socket::connectToServerAsync(const ServerInfo& serverInfo) {
+    std::thread([this, serverInfo]() {
+        connectToServer(serverInfo);
+    }).detach();
+}
+
 bool Socket::connectToServer(const ServerInfo& serverInfo) {
     printf("[Socket] Initialisation Winsock...\n");
     WSADATA wsaData;
@@ -17,7 +23,7 @@ bool Socket::connectToServer(const ServerInfo& serverInfo) {
         return false;
     }
 
-    printf("[Socket] Tentative de connexion a %s:%d...\n", serverInfo.ip, serverInfo.port);
+    printf("[Socket] Tentative de connexion a %s:%d...\n", serverInfo.ip.c_str(), serverInfo.port);
     sockaddr_in addr;
     addr.sin_family = AF_INET;
     addr.sin_port = htons(serverInfo.port);
@@ -27,19 +33,19 @@ bool Socket::connectToServer(const ServerInfo& serverInfo) {
         int error = WSAGetLastError();
         switch (error) {
         case WSAETIMEDOUT:
-            printf("  -> Le serveur n'a pas repondu (timeout)\n");
-            printf("  -> Verifier que le serveur est demarre\n");
+            printf("[Socket]   -> Le serveur n'a pas repondu (timeout)\n");
+            printf("[Socket]   -> Verifier que le serveur est demarre\n");
             break;
         case WSAECONNREFUSED:
-            printf("  -> Connexion refusee, il y a-t-il déjà une autre connexion en cours ?\n");
-            printf("  -> Le port est peut-etre ferme\n");
+            printf("[Socket]   -> Connexion refusee, il y a-t-il deja une autre connexion en cours ?\n");
+            printf("[Socket]   -> Le port est peut-etre ferme\n");
             break;
         case WSAEHOSTUNREACH:
-            printf("  -> Hote injoignable\n");
-            printf("  -> Vérifier l'adresse IP\n");
+            printf("[Socket]   -> Hote injoignable\n");
+            printf("[Socket]   -> Vérifier l'adresse IP\n");
             break;
         default:
-            printf("  -> Erreur inconnue\n");
+            printf("[Socket]   -> Erreur inconnue\n");
         }
 
         closesocket(m_socket);

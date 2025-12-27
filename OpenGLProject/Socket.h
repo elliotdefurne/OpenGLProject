@@ -39,7 +39,10 @@ public:
     Socket() = default;
     ~Socket() { stop(); }
 
-	// Se connecte au serveur selon les ServerInfo fournis
+	// Se connecte au serveur selon les ServerInfo fournis (Asynchrone)
+    void connectToServerAsync(const ServerInfo& serverInfo);
+
+    // Se connecte au serveur selon les ServerInfo fournis
     bool connectToServer(const ServerInfo& serverInfo);
 
     // Arrête le client et ferme toutes les connexions
