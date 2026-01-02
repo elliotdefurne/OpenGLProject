@@ -21,9 +21,13 @@ void Game::initialize() {
     m_textureManager = std::make_unique<TextureManager>();
     m_shaderManager  = std::make_unique<ShaderManager>(m_camera.get());
     m_player         = std::make_unique<Player>(m_renderer.get());
-    m_keyManager     = std::make_unique<KeyManager>(this, m_window.get(), m_player.get());
+    m_inputManager   = std::make_unique<InputManager>(this, m_window.get(), m_player.get());
     m_lightManager   = std::make_unique<LightManager>(m_renderer.get(), m_player.get());
     m_socket         = std::make_unique<Socket>();
+    m_textRenderer   = std::make_unique<TextRenderer>(m_shaderManager.get());
+    m_menuManager    = std::make_unique<MenuManager>(this, m_textRenderer.get(), m_inputManager.get());
+
+	m_textRenderer->loadFont("res/fonts/Slow Play.ttf", 48.0f);
 
     m_socket->connectToServerAsync(ServerInfo(Constants::SERVER_IP, Constants::SERVER_PORT));
 
@@ -74,24 +78,35 @@ void Game::initialize() {
 void Game::run() {
     while (!m_window->getShouldClose()) {
         m_renderer->handleFrameTiming();
-        update();
-        m_renderer->clear();
-        render();
-        m_window->update();
+        switch (m_menuManager->getCurrentState()) {
+        case STATE_MENU:
+        case STATE_OPTIONS:
+        case STATE_PAUSED:
+            m_inputManager->update();
+            m_renderer->clear();
+            m_menuManager->draw();
+            m_window->update();
+            break;
+        case STATE_PLAYING:
+            update();
+            m_renderer->clear();
+            draw();
+            m_window->update();
+            break;
+        default:
+            throw std::runtime_error("État du jeu inconnu");
+            break;
+        }
     }
 }
 
 void Game::update() {
-    // Printing socket data
 	ClientEvent socketEvent;
-    // Sending socket ping
-    m_socket->sendPacket(PacketBuilder::createChatMessage("Elliot","Bonjour"));
-
     if (m_socket->pollEvent(socketEvent)) {
         printf("%s\n", socketEvent.data.c_str());
     }
 
-    m_keyManager->update();
+    m_inputManager->update();
     m_camera->update(m_player.get());
 
 
@@ -105,7 +120,7 @@ void Game::update() {
     m_lightManager->update();
 }
 
-void Game::render() {
+void Game::draw() {
     // 1. Opaques
     glEnable(GL_DEPTH_TEST);
     glDepthFunc(GL_LESS);

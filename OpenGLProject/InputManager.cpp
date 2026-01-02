@@ -1,5 +1,5 @@
 #pragma once
-#include "KeyManager.h"
+#include "InputManager.h"
 #include "Key.h"
 #include "Forward.h"
 #include "Backward.h"
@@ -14,14 +14,14 @@
 
 #include "Window.h"
 
-KeyManager::~KeyManager() { 
+InputManager::~InputManager() {
 	for (auto& pair : m_keys) {
 		delete pair.second;
 	}
 	delete m_mouse;
 }
 
-Key* KeyManager::getKey(const std::string& name) {
+Key* InputManager::getKey(const std::string& name) {
 	auto it = m_keys.find(name);
 	if (it != m_keys.end()) {
 		return it->second;
@@ -29,7 +29,7 @@ Key* KeyManager::getKey(const std::string& name) {
 	throw std::out_of_range("Key not found: " + name);
 }
 
-void KeyManager::loadKeys() {
+void InputManager::loadKeys() {
 	m_keys["Forward"] = new Forward(m_player);
 	m_keys["Backward"] = new Backward(m_player);
 	m_keys["Left"] = new Left(m_player);
@@ -43,7 +43,7 @@ void KeyManager::loadKeys() {
 	m_mouse = new Mouse(m_player);
 }
 
-void KeyManager::update() {
+void InputManager::update() {
 	double xpos, ypos;
 	glfwGetCursorPos(m_window->getGLFWwindow(), &xpos, &ypos);
 	m_mouse->handleMovement(xpos, ypos); // Appel avec des valeurs factices pour l'instant
@@ -51,12 +51,12 @@ void KeyManager::update() {
 		Key* key = pair.second;
 		int state = glfwGetKey(glfwGetCurrentContext(), key->getKey());
 		bool wasPressed = key->getStatus();
-		key->ifPressed();
+		key->ifPressed(m_context);
 		if (state == GLFW_PRESS) {
-			key->onPress();
+			key->onPress(m_context);
 		}
 		else if (state == GLFW_RELEASE) {
-			key->onRelease();
+			key->onRelease(m_context);
 		}
 	}
 }

@@ -19,13 +19,13 @@ public:
     virtual ~Escape() {}
 
     // Methode appelee lorsque la touche est appuyee
-    void onPress() override;
+    void onPress(InputContext context) override;
 
     // Methode appelee lorsque la touche est relachee
-    void onRelease() override;
+    void onRelease(InputContext context) override;
 
     // Methode appelee chaque frame si la touche est maintenue (utile pour des menus interactifs)
-    void ifPressed() override;
+    void ifPressed(InputContext context) override;
 
 private:
     Game* m_game; // Pointeur vers le jeu pour pouvoir interagir avec son etat (ex : ouvrir menu)

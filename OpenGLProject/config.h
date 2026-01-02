@@ -15,7 +15,7 @@
 #include "Transformation.h"
 #include "TextureManager.h"
 #include "ShaderManager.h"
-#include "KeyManager.h"
+#include "InputManager.h"
 #include "Player.h"
 #include "Camera.h"
 #include "Cube.h"
@@ -23,5 +23,7 @@
 #include "LightManager.h"
 #include "Socket.h"
 #include "PacketBuilder.h"
+#include "MenuManager.h"
+#include "TextRenderer.h"
 
 #include "constants.h"

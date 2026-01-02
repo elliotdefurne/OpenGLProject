@@ -17,11 +17,11 @@ public:
     virtual ~Crouch() {}
 
     // Methode appelee lorsque la touche est appuyee
-    void onPress() override;
+    void onPress(InputContext context) override;
 
     // Methode appelee lorsque la touche est relachee
-    void onRelease() override;
+    void onRelease(InputContext context) override;
 
     // Methode appelee a chaque frame tant que la touche est maintenue
-    void ifPressed() override;
+    void ifPressed(InputContext context) override;
 };

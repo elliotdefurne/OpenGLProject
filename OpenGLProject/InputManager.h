@@ -6,35 +6,32 @@
 #include <iostream>
 #include <filesystem>
 #include <unordered_map>
-#pragma warning(push)
-#pragma warning(disable: 4244)
-#include <memory>
-#pragma warning(pop)
 #include <glad/glad.h>   // Gestion des fonctions OpenGL
 #include <GLFW/glfw3.h>  // Gestion des fenetres et des touches
 
-// Déclarations anticipées pour eviter d'inclure tous les fichiers
+#include "Key.h"
+
+// Declarations anticipees pour eviter d'inclure tous les fichiers
 class Game;
-class Key;
 class Window;
 class Player;
 class Mouse;
 
-// Classe KeyManager : gere toutes les touches du jeu et leur etat
-class KeyManager {
+// Classe InputManager : gere toutes les touches du jeu et leur etat
+class InputManager {
 public:
     // Constructeur
     // game : pointeur vers le jeu
     // window : pointeur vers la fenetre
     // player : pointeur vers le joueur
     // Appelle loadKeys() pour initialiser toutes les touches
-    KeyManager(Game* game, Window* window, Player* player)
+    InputManager(Game* game, Window* window, Player* player)
         : m_game(game), m_window(window), m_player(player) {
         loadKeys();
     }
 
     // Destructeur
-    ~KeyManager();
+    ~InputManager();
 
     // Retourne un pointeur vers une touche a partir de son nom
     Key* getKey(const std::string& name);
@@ -42,8 +39,12 @@ public:
     // Methode appelee chaque frame pour mettre a jour l'etat de toutes les touches
     void update();
 
+    void setContext(InputContext context) { m_context = context; };
+    InputContext getContext() { return m_context; };
+
 private:
     std::unordered_map<std::string, Key*> m_keys; // Contient toutes les touches accessibles par leur nom
+	InputContext m_context = InputContext::MENU;            // Contexte actuel (jeu, menu, inventaire...)
     Mouse* m_mouse;                               // Pointeur vers la souris (pour gerer les actions liees a la souris)
 
     Player* m_player; // Pointeur vers le joueur

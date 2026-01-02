@@ -49,6 +49,9 @@
     <Filter Include="Fichiers sources\Network">
       <UniqueIdentifier>{1104b147-9251-4e11-8946-38d5e403d6d9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Fichiers de ressources\shaders\text">
+      <UniqueIdentifier>{2cfeba1b-9c09-47a9-8936-1f96244ddaf0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -114,9 +117,6 @@
     <ClCompile Include="Backward.cpp">
       <Filter>Fichiers sources\Inputs</Filter>
     </ClCompile>
-    <ClCompile Include="KeyManager.cpp">
-      <Filter>Fichiers sources\Inputs</Filter>
-    </ClCompile>
     <ClCompile Include="Direction.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
@@ -149,6 +149,18 @@
     </ClCompile>
     <ClCompile Include="Packet.cpp">
       <Filter>Fichiers sources\Network</Filter>
+    </ClCompile>
+    <ClCompile Include="Menu.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="MenuManager.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="InputManager.cpp">
+      <Filter>Fichiers sources\Inputs</Filter>
+    </ClCompile>
+    <ClCompile Include="TextRenderer.cpp">
+      <Filter>Fichiers sources</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -195,9 +207,6 @@
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
     <ClInclude Include="Key.h">
-      <Filter>Fichiers d%27en-tête\Inputs</Filter>
-    </ClInclude>
-    <ClInclude Include="KeyManager.h">
       <Filter>Fichiers d%27en-tête\Inputs</Filter>
     </ClInclude>
     <ClInclude Include="Forward.h">
@@ -263,6 +272,18 @@
     <ClInclude Include="PacketBuilder.h">
       <Filter>Fichiers d%27en-tête\Network</Filter>
     </ClInclude>
+    <ClInclude Include="Menu.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="MenuManager.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="InputManager.h">
+      <Filter>Fichiers d%27en-tête\Inputs</Filter>
+    </ClInclude>
+    <ClInclude Include="TextRenderer.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="res\shaders\cube\cube.frag">
@@ -285,6 +306,12 @@
     </None>
     <None Include="res\textures\crate\details.json">
       <Filter>Fichiers de ressources\textures\crate</Filter>
+    </None>
+    <None Include="res\shaders\text\text.frag">
+      <Filter>Fichiers de ressources\shaders\text</Filter>
+    </None>
+    <None Include="res\shaders\text\text.vert">
+      <Filter>Fichiers de ressources\shaders\text</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

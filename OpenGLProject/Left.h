@@ -16,25 +16,11 @@ public:
     virtual ~Left() {}
 
     // Methode appelee lorsque la touche est appuyee
-    void onPress() override {
-        if (!m_isPressed) {
-            m_isPressed = true; // Change l'etat pour indiquer que la touche est appuyee
-        }
-    }
+    void onPress(InputContext context) override;
 
     // Methode appelee lorsque la touche est relachee
-    void onRelease() override {
-        if (m_isPressed) {
-            m_isPressed = false; // Change l'etat pour indiquer que la touche est relachee
-        }
-    }
+    void onRelease(InputContext context) override;
 
     // Methode appelee chaque frame si la touche est maintenue
-    void ifPressed() override {
-        if (m_isPressed) {
-            m_player->processDirectionKey(direction::LEFT);
-            // Demande au joueur de se deplacer a gauche
-            // "processDirectionKey" est la methode du joueur qui gere le deplacement
-        }
-    }
+    void ifPressed(InputContext context) override;
 };

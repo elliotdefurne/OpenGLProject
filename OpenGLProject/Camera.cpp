@@ -1,8 +1,5 @@
 #include "Camera.h"
 
-#include <glad/glad.h>
-#include <GLFW/glfw3.h>
-
 Camera::Camera(glm::vec3 position, Direction* direction) :
     m_position(position),                     // Position de départ de la caméra
     m_direction(direction),                   // Point regardé

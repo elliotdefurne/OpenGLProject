@@ -16,9 +16,9 @@ public:
     virtual ~Sprint() {}
 
     // Methode appelee lorsque la touche est appuyee
-    void onPress() override;
+    void onPress(Context context) override;
     // Methode appelee lorsque la touche est relachee
-    void onRelease() override;
+    void onRelease(Context context) override;
     // Methode appelee chaque frame tant que la touche est maintenue
-    void ifPressed() override;
+    void ifPressed(Context context) override;
 };

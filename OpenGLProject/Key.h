@@ -2,7 +2,17 @@
 
 #include <string>
 #include <iostream>
+#include <map>
+#include <functional>
+
 #include "Player.h" // Classe Player represente le joueur dans le jeu
+
+enum class InputContext {
+    GAME,
+    MENU,
+    INVENTORY,
+    PAUSED
+};
 
 // Classe Key : classe de base abstraite pour toutes les touches du jeu
 // Chaque touche derivee (Forward, Backward, Jump, Crouch...) herite de cette classe
@@ -25,13 +35,37 @@ public:
     bool getStatus() const { return m_isPressed; }          // Retourne si la touche est actuellement appuyee
 
     // Methodes virtuelles pures : doivent etre redefinies dans les classes derives
-    virtual void onPress() = 0;    // Appellee lorsque la touche est appuyee
-    virtual void onRelease() = 0;  // Appellee lorsque la touche est relachee
-    virtual void ifPressed() = 0;  // Appellee chaque frame si la touche est maintenue
+    virtual void onPress(InputContext context) = 0;    // Appellee lorsque la touche est appuyee
+    virtual void onRelease(InputContext context) = 0;  // Appellee lorsque la touche est relachee
+    virtual void ifPressed(InputContext context) = 0;  // Appellee chaque frame si la touche est maintenue
 
+    void onPress(InputContext context) {
+        if (!m_isPressed) {
+            m_isPressed = true; // Change l'etat pour indiquer que la touche est appuyee
+			m_contextOnPress[context]();
+        }
+    }
+
+    // Methode appelee lorsque la touche est relachee
+    void onRelease(InputContext context) {
+        if (m_isPressed) {
+            m_isPressed = false; // Change l'etat pour indiquer que la touche est relachee
+            m_contextOnRelease[context]();
+        }
+    }
+
+    // Methode appelee chaque frame si la touche est maintenue
+    void ifPressed(InputContext context) {
+        if (m_isPressed) {
+            m_contextIfRelease[context]();
+        }
+    }
 protected:
     Player* m_player;       // Pointeur vers le joueur associe a la touche
     const std::string m_name; // Nom de la touche
     const int m_key;          // Code de la touche physique
     bool m_isPressed;         // Etat de la touche (true si appuyee, false sinon)
+	std::map<InputContext, std::function<void>> m_contextOnRelease; // Actions specifiques par contexte
+	std::map<InputContext, std::function<void>> m_contextOnPress; // Actions specifiques par contexte
+	std::map<InputContext, std::function<void>> m_contextIfPress; // Actions specifiques par contexte
 };

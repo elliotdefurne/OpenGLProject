@@ -1,23 +1,22 @@
 #pragma once
 
 #include <vector>
-#pragma warning(push)
-#pragma warning(disable: 4244)
 #include <memory>
-#pragma warning(pop)
 
 // Déclarations anticipées
 class Window;
 class Renderer;
 class TextureManager;
 class ShaderManager;
-class KeyManager;
+class InputManager;
 class Player;
 class Camera;
 class Cube;
 class LightSource;
 class LightManager;
 class Socket;
+class MenuManager;
+class TextRenderer;
 
 class Game {
 public:
@@ -36,15 +35,18 @@ private:
     std::unique_ptr<Renderer> m_renderer;
     std::unique_ptr<TextureManager> m_textureManager;
     std::unique_ptr<ShaderManager> m_shaderManager;
-    std::unique_ptr<KeyManager> m_keyManager;
+    std::unique_ptr<InputManager> m_inputManager;
     std::unique_ptr<Player> m_player;
     std::unique_ptr<Camera> m_camera;
     std::unique_ptr<LightManager> m_lightManager;
     std::unique_ptr<Socket> m_socket;
+    std::unique_ptr<MenuManager> m_menuManager;
+    std::unique_ptr<TextRenderer> m_textRenderer;
 
     bool m_isRunning = true;
 
+
     void initialize();
     void update();
-    void render();
+    void draw();
 };

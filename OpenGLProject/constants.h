@@ -41,6 +41,13 @@ namespace Constants {
     constexpr const int SERVER_PORT = 3333;
 
 	constexpr uint16_t PACKET_MAGIC = 0xABCD; // Magic number for packet validation
+
+    // Menu
+
+    constexpr float MENU_TITLE_X = 150.0f;
+    constexpr float MENU_TITLE_Y = 50.0f;
+    constexpr float MENU_TITLE_W = 300.0f;
+	constexpr float MENU_TITLE_H = 75.0f;
 }
 
 namespace Materials {
