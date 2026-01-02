@@ -153,6 +153,7 @@
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="Jump.cpp" />
     <ClCompile Include="Left.cpp" />
+    <ClCompile Include="LeftClick.cpp" />
     <ClCompile Include="LightManager.cpp" />
     <ClCompile Include="LightSource.cpp" />
     <ClCompile Include="main.cpp" />
@@ -190,10 +191,12 @@
     <ClInclude Include="Flashlight.h" />
     <ClInclude Include="Forward.h" />
     <ClInclude Include="Game.h" />
+    <ClInclude Include="gamestate.h" />
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="Jump.h" />
     <ClInclude Include="Key.h" />
     <ClInclude Include="Left.h" />
+    <ClInclude Include="LeftClick.h" />
     <ClInclude Include="LightManager.h" />
     <ClInclude Include="LightSource.h" />
     <ClInclude Include="Menu.h" />

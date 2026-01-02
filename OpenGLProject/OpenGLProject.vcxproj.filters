@@ -162,6 +162,9 @@
     <ClCompile Include="TextRenderer.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
+    <ClCompile Include="LeftClick.cpp">
+      <Filter>Fichiers sources\Inputs</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="config.h">
@@ -283,6 +286,12 @@
     </ClInclude>
     <ClInclude Include="TextRenderer.h">
       <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="gamestate.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="LeftClick.h">
+      <Filter>Fichiers d%27en-tête\Inputs</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

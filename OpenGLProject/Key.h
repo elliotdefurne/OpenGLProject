@@ -22,9 +22,7 @@ public:
     // player : pointeur vers le joueur associe a cette touche (peut etre nullptr pour des touches globales comme Escape)
     // name : nom de la touche (ex : "Forward", "Jump")
     // key : code de la touche physique (ex : GLFW_KEY_W)
-    Key(Player* player, const std::string& name, int key)
-        : m_name(name), m_key(key), m_player(player), m_isPressed(false) {
-    }
+    Key(Player* player, const std::string& name, int key) : m_name(name), m_key(key), m_player(player), m_isPressed(false) {}
 
     // Destructeur virtuel : necessaire pour l'heritage
     virtual ~Key() {}
@@ -34,15 +32,13 @@ public:
     int getKey() const { return m_key; }                     // Retourne le code de la touche physique
     bool getStatus() const { return m_isPressed; }          // Retourne si la touche est actuellement appuyee
 
-    // Methodes virtuelles pures : doivent etre redefinies dans les classes derives
-    virtual void onPress(InputContext context) = 0;    // Appellee lorsque la touche est appuyee
-    virtual void onRelease(InputContext context) = 0;  // Appellee lorsque la touche est relachee
-    virtual void ifPressed(InputContext context) = 0;  // Appellee chaque frame si la touche est maintenue
-
     void onPress(InputContext context) {
         if (!m_isPressed) {
             m_isPressed = true; // Change l'etat pour indiquer que la touche est appuyee
-			m_contextOnPress[context]();
+            auto it = m_contextOnPress.find(context);
+            if (it != m_contextOnPress.end() && it->second) {
+                it->second(); // Exécuter l'action
+            }
         }
     }
 
@@ -50,22 +46,41 @@ public:
     void onRelease(InputContext context) {
         if (m_isPressed) {
             m_isPressed = false; // Change l'etat pour indiquer que la touche est relachee
-            m_contextOnRelease[context]();
+            auto it = m_contextOnRelease.find(context);
+            if (it != m_contextOnRelease.end() && it->second) {
+                it->second();
+            }
         }
     }
 
     // Methode appelee chaque frame si la touche est maintenue
     void ifPressed(InputContext context) {
         if (m_isPressed) {
-            m_contextIfRelease[context]();
+            auto it = m_contextIfPress.find(context);
+            if (it != m_contextIfPress.end() && it->second) {
+                it->second();
+            }
         }
     }
+
+    // Méthodes pour configurer les actions par contexte
+    void setOnPressAction(InputContext context, std::function<void()> action) {
+        m_contextOnPress[context] = action;
+    }
+
+    void setOnReleaseAction(InputContext context, std::function<void()> action) {
+        m_contextOnRelease[context] = action;
+    }
+
+    void setIfPressedAction(InputContext context, std::function<void()> action) {
+        m_contextIfPress[context] = action;
+    }
 protected:
-    Player* m_player;       // Pointeur vers le joueur associe a la touche
+    Player* m_player;         // Pointeur vers le joueur associe a la touche
     const std::string m_name; // Nom de la touche
     const int m_key;          // Code de la touche physique
     bool m_isPressed;         // Etat de la touche (true si appuyee, false sinon)
-	std::map<InputContext, std::function<void>> m_contextOnRelease; // Actions specifiques par contexte
-	std::map<InputContext, std::function<void>> m_contextOnPress; // Actions specifiques par contexte
-	std::map<InputContext, std::function<void>> m_contextIfPress; // Actions specifiques par contexte
+	std::map<InputContext, std::function<void()>> m_contextOnRelease; // Actions specifiques par contexte
+	std::map<InputContext, std::function<void()>> m_contextOnPress; // Actions specifiques par contexte
+	std::map<InputContext, std::function<void()>> m_contextIfPress; // Actions specifiques par contexte
 };

@@ -11,17 +11,8 @@ public:
     // Constructeur
     // player : pointeur vers le joueur associe a cette touche
     // Appelle le constructeur de Key avec le nom "Forward" et la touche associee
-    Forward(Player* player) : Key(player, "Forward", ConfigKeys::KEY_FORWARD) {}
+    Forward(Player* player);
 
     // Destructeur vide, necessaire pour l'heritage
     virtual ~Forward() {}
-
-    // Methode appelee lorsque la touche est appuyee
-    void onPress(InputContext context) override;
-
-    // Methode appelee lorsque la touche est relachee
-    void onRelease(InputContext context) override;
-
-    // Methode appelee chaque frame si la touche est maintenue
-    void ifPressed(InputContext context) override;
 };

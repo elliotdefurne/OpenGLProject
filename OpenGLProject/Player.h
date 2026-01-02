@@ -34,6 +34,9 @@ public:
     inline void processFlashLightKey() { m_isFlashlightEnabled = !m_isFlashlightEnabled; };
 
     inline bool getFlashlightIsEnabled() { return m_isFlashlightEnabled; };
+
+    inline void setIsSprinting(bool isSprinting) { m_isSprinting = isSprinting; };
 private:
     bool m_isFlashlightEnabled = false;
+    bool m_isSprinting = false;
 };

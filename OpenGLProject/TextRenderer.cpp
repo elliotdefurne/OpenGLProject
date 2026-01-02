@@ -1,5 +1,6 @@
 #include "TextRenderer.h"
 #include "ShaderManager.h"
+
 #define STB_TRUETYPE_IMPLEMENTATION
 #include <stb/stb_truetype.h>
 #include <fstream>
@@ -8,7 +9,7 @@
 
 TextRenderer::TextRenderer(ShaderManager* shaderManager)
     : m_shaderManager(shaderManager), m_fontSize(48.0f), m_VAO(0), m_VBO(0), m_shaderProgram(0),
-    m_screenWidth(600), m_screenHeight(500) {
+    m_screenWidth(Constants::WINDOW_WIDTH), m_screenHeight(Constants::WINDOW_HEIGHT) {
 
     // Créer le shader
 	m_shaderProgram = m_shaderManager->getShader("text")->getID();
@@ -105,6 +106,31 @@ float TextRenderer::getTextWidth(const std::string& text, float scale) {
     }
     return width;
 }
+
+float TextRenderer::getTextHeight(const std::string& text, float scale) {
+    if (text.empty()) return m_fontSize * scale;
+
+    float maxBearingY = 0.0f;  // Point le plus haut
+    float minY = 0.0f;          // Point le plus bas
+
+    for (char c : text) {
+        if (m_characters.find(c) != m_characters.end()) {
+            Character ch = m_characters[c];
+
+            // Point le plus haut du caractère
+            float top = ch.bearingY * scale;
+            maxBearingY = std::max(maxBearingY, top);
+
+            // Point le plus bas du caractère
+            float bottom = (ch.bearingY - ch.sizeY) * scale;
+            minY = std::min(minY, bottom);
+        }
+    }
+
+    // Hauteur totale = distance entre le point le plus haut et le plus bas
+    return maxBearingY - minY;
+}
+
 void TextRenderer::renderText(const std::string& text, float x, float y,
     float scale, float r, float g, float b) {
 
@@ -129,27 +155,31 @@ void TextRenderer::renderText(const std::string& text, float x, float y,
 
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    float baselineOffset = 0.0f;
+    if (m_characters.find('H') != m_characters.end()) {
+        baselineOffset = m_characters['H'].bearingY * scale * 0.5f;
+    }
 
+    float currentX = x;
     for (char c : text) {
         if (m_characters.find(c) == m_characters.end()) continue;
-
         Character ch = m_characters[c];
 
-        float xpos = x + ch.bearingX * scale;
-        float ypos = y - ch.bearingY * scale;
+        float xpos = currentX + ch.bearingX * scale;
+        // Centrage vertical : soustraire la moitié de la hauteur du glyphe
+        // et ajuster avec la baseline
+        float ypos = y - (ch.sizeY * scale * 0.5f) + (ch.bearingY * scale * 0.5f);
+
         float w = ch.sizeX * scale;
         float h = ch.sizeY * scale;
 
-        // CORRECTION : Inverser les coordonnées de texture en Y
-        // Format : { position_x, position_y, tex_u, tex_v }
         float vertices[6][4] = {
-            { xpos,     ypos,     0.0f, 0.0f },  // En haut à gauche
-            { xpos + w, ypos,     1.0f, 0.0f },  // En haut à droite
-            { xpos,     ypos + h, 0.0f, 1.0f },  // En bas à gauche
-
-            { xpos + w, ypos,     1.0f, 0.0f },  // En haut à droite
-            { xpos + w, ypos + h, 1.0f, 1.0f },  // En bas à droite
-            { xpos,     ypos + h, 0.0f, 1.0f }   // En bas à gauche
+            { xpos,     ypos,     0.0f, 0.0f },
+            { xpos + w, ypos,     1.0f, 0.0f },
+            { xpos,     ypos + h, 0.0f, 1.0f },
+            { xpos + w, ypos,     1.0f, 0.0f },
+            { xpos + w, ypos + h, 1.0f, 1.0f },
+            { xpos,     ypos + h, 0.0f, 1.0f }
         };
 
         glBindTexture(GL_TEXTURE_2D, ch.textureID);
@@ -158,10 +188,11 @@ void TextRenderer::renderText(const std::string& text, float x, float y,
         glBindBuffer(GL_ARRAY_BUFFER, 0);
         glDrawArrays(GL_TRIANGLES, 0, 6);
 
-        x += ch.advance * scale;
+        currentX += ch.advance * scale;
     }
 
     glBindVertexArray(0);
     glBindTexture(GL_TEXTURE_2D, 0);
     glUseProgram(0);
+
 }

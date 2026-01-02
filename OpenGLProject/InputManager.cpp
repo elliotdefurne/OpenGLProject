@@ -11,6 +11,7 @@
 #include "Escape.h"
 #include "Mouse.h"
 #include "Flashlight.h"
+#include "LeftClick.h"
 
 #include "Window.h"
 
@@ -39,14 +40,18 @@ void InputManager::loadKeys() {
 	m_keys["Sprint"] = new Sprint(m_player);
 	m_keys["Flashlight"] = new Flashlight(m_player);
 	m_keys["Escape"] = new Escape(m_game);
-
-	m_mouse = new Mouse(m_player);
+	
+	m_mouse = new Mouse(m_player, m_menuManager);
 }
 
 void InputManager::update() {
+
+	// Mouse movement & keys
 	double xpos, ypos;
 	glfwGetCursorPos(m_window->getGLFWwindow(), &xpos, &ypos);
-	m_mouse->handleMovement(xpos, ypos); // Appel avec des valeurs factices pour l'instant
+	m_mouse->update(m_context, xpos, ypos);
+
+	// Key states
 	for (const auto& pair : m_keys) {
 		Key* key = pair.second;
 		int state = glfwGetKey(glfwGetCurrentContext(), key->getKey());

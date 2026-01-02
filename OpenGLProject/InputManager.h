@@ -13,6 +13,7 @@
 
 // Declarations anticipees pour eviter d'inclure tous les fichiers
 class Game;
+class MenuManager;
 class Window;
 class Player;
 class Mouse;
@@ -25,8 +26,7 @@ public:
     // window : pointeur vers la fenetre
     // player : pointeur vers le joueur
     // Appelle loadKeys() pour initialiser toutes les touches
-    InputManager(Game* game, Window* window, Player* player)
-        : m_game(game), m_window(window), m_player(player) {
+    InputManager(Game* game, MenuManager* menuManager, Window* window, Player* player) : m_game(game), m_menuManager(menuManager), m_window(window), m_player(player) {
         loadKeys();
     }
 
@@ -44,12 +44,13 @@ public:
 
 private:
     std::unordered_map<std::string, Key*> m_keys; // Contient toutes les touches accessibles par leur nom
-	InputContext m_context = InputContext::MENU;            // Contexte actuel (jeu, menu, inventaire...)
+	InputContext m_context = InputContext::MENU;  // Contexte actuel (jeu, menu, inventaire...)
     Mouse* m_mouse;                               // Pointeur vers la souris (pour gerer les actions liees a la souris)
 
-    Player* m_player; // Pointeur vers le joueur
-    Game* m_game;     // Pointeur vers le jeu
-    Window* m_window; // Pointeur vers la fenetre
+    Player* m_player;               // Pointeur vers le joueur
+    Game* m_game;                   // Pointeur vers le jeu
+	MenuManager* m_menuManager;     // Pointeur vers le menu manager
+    Window* m_window;               // Pointeur vers la fenetre
 
     // Charge et initialise toutes les touches du jeu
     void loadKeys();

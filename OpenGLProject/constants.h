@@ -14,7 +14,8 @@ namespace Constants {
 
     // Player
 
-	constexpr float PLAYER_SPEED = 2.5f; // unit : pixels per second
+	constexpr float PLAYER_WALKING_SPEED = 2.5f; // unit : pixels per second
+	constexpr float PLAYER_SPRINTING_SPEED = 4.0f; // unit : pixels per second
 
     // Texture
 

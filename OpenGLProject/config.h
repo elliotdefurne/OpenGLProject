@@ -25,5 +25,6 @@
 #include "PacketBuilder.h"
 #include "MenuManager.h"
 #include "TextRenderer.h"
+#include "gamestate.h"
 
 #include "constants.h"

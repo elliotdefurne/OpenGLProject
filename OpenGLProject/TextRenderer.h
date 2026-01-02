@@ -30,4 +30,5 @@ public:
     void renderText(const std::string& text, float x, float y, float scale,
         float r, float g, float b);
     float getTextWidth(const std::string& text, float scale);
+    float getTextHeight(const std::string& text, float scale);
 };

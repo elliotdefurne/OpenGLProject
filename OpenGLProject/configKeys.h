@@ -16,7 +16,10 @@ namespace ConfigKeys {
     inline const int KEY_JUMP = GLFW_KEY_SPACE;          // Sauter
     inline const int KEY_SPRINT = GLFW_KEY_LEFT_SHIFT;   // Courir
     inline const int KEY_ESCAPE = GLFW_KEY_ESCAPE;       // Ouvrir le menu ou quitter
-    inline const int KEY_FLASHLIGHT = GLFW_KEY_T;         // Aller a droite
+    inline const int KEY_FLASHLIGHT = GLFW_KEY_T;
+
+    inline const int MOUSE_LEFT_CLICK = GLFW_MOUSE_BUTTON_LEFT;         // Aller a droite
+    inline const int MOUSE_RIGHT_CLICK = GLFW_MOUSE_BUTTON_RIGHT;       // Aller a droite
 
     // Sensibilite par defaut de la souris (pour rotation de la camera)
     inline const float DEFAULT_MOUSE_SENSITIVITY = 0.05f;

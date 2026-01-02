@@ -11,17 +11,8 @@ public:
     // Constructeur
     // player : pointeur vers le joueur associe a cette touche
     // Appelle le constructeur de Key avec le nom "Jump" et la touche associee
-    Flashlight(Player* player) : Key(player, "Flashlight", ConfigKeys::KEY_FLASHLIGHT) {}
+    Flashlight(Player* player);
 
     // Destructeur vide, necessaire pour l'heritage
     virtual ~Flashlight() {}
-
-    // Methode appelee lorsque la touche est appuyee
-    void onPress(InputContext context) override;
-
-    // Methode appelee lorsque la touche est relachee
-    void onRelease(InputContext context) override;
-
-    // Methode appelee chaque frame tant que la touche est maintenue
-    void ifPressed(InputContext context) override;
 };

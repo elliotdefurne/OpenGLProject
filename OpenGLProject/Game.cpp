@@ -18,16 +18,16 @@ void Game::initialize() {
     m_window         = std::make_unique<Window>(Constants::WINDOW_WIDTH, Constants::WINDOW_HEIGHT, Constants::WINDOW_TITLE);
     m_renderer       = std::make_unique<Renderer>();
     m_camera         = std::make_unique<Camera>();
+    m_socket         = std::make_unique<Socket>();
     m_textureManager = std::make_unique<TextureManager>();
     m_shaderManager  = std::make_unique<ShaderManager>(m_camera.get());
     m_player         = std::make_unique<Player>(m_renderer.get());
-    m_inputManager   = std::make_unique<InputManager>(this, m_window.get(), m_player.get());
     m_lightManager   = std::make_unique<LightManager>(m_renderer.get(), m_player.get());
-    m_socket         = std::make_unique<Socket>();
     m_textRenderer   = std::make_unique<TextRenderer>(m_shaderManager.get());
-    m_menuManager    = std::make_unique<MenuManager>(this, m_textRenderer.get(), m_inputManager.get());
+    m_menuManager    = std::make_unique<MenuManager>(this, m_textRenderer.get());
+    m_inputManager   = std::make_unique<InputManager>(this, m_menuManager.get(), m_window.get(), m_player.get());
 
-	m_textRenderer->loadFont("res/fonts/Slow Play.ttf", 48.0f);
+	m_textRenderer->loadFont("res/fonts/armana/Amarna-Bold.ttf", 48.0f);
 
     m_socket->connectToServerAsync(ServerInfo(Constants::SERVER_IP, Constants::SERVER_PORT));
 
@@ -37,8 +37,6 @@ void Game::initialize() {
     Shader* lightShader    = m_shaderManager->getShader("cube/lightsource");
 
 	std::vector<Texture*> crateTextures = { containerTexture };
-
-    // Dans Game::initialize()
 
     // Lumière 1 - Rouge forte
     m_lightManager->addPointLight(new LightSource(
@@ -62,14 +60,14 @@ void Game::initialize() {
         glm::vec3(0.0f, 0.2f, 0.0f),     // ambient vert
         glm::vec3(0.0f, 1.0f, 0.0f),     // diffuse VERT INTENSE
         glm::vec3(1.0f, 1.0f, 1.0f),     // specular
-        1.0f,                             // constant
-        0.09f,                            // linear
-        0.032f,                           // quadratic
+        1.0f,                            // constant
+        0.09f,                           // linear
+        0.032f,                          // quadratic
         glm::vec3(0.0f, 5.0f, 0.0f)      // lightColor
     ));
-    m_cubes.push_back(std::make_unique<Cube>(glm::vec3(1, 0, 0), 1.0, cubeShader, crateTextures, m_renderer.get(), m_lightManager.get(), m_player.get()));
-    m_cubes.push_back(std::make_unique<Cube>(glm::vec3(0, 0, -2), 1.0, cubeShader, crateTextures, m_renderer.get(), m_lightManager.get(), m_player.get()));
-    m_cubes.push_back(std::make_unique<Cube>(glm::vec3(1, 0.5, 2), 1.0, cubeShader, crateTextures, m_renderer.get(), m_lightManager.get(), m_player.get()));
+    m_cubes.push_back(std::make_unique<Cube>(glm::vec3(1, 0, 0), 1.0f, cubeShader, crateTextures, m_renderer.get(), m_lightManager.get(), m_player.get()));
+    m_cubes.push_back(std::make_unique<Cube>(glm::vec3(0, 0, -2), 1.0f, cubeShader, crateTextures, m_renderer.get(), m_lightManager.get(), m_player.get()));
+    m_cubes.push_back(std::make_unique<Cube>(glm::vec3(1, 0.5, 2), 1.0f, cubeShader, crateTextures, m_renderer.get(), m_lightManager.get(), m_player.get()));
 
     glGetString(GL_VERSION) ? std::cout << "OpenGL version: " << glGetString(GL_VERSION) << std::endl
         : throw std::runtime_error("Impossible de récupérer la version OpenGL");
@@ -152,6 +150,24 @@ void Game::draw() {
     glDisable(GL_BLEND);
 }
 
+void Game::changeState(GameState newState) {
+    m_menuManager->changeState(newState);
+    switch (newState) {
+    case STATE_MENU:
+    case STATE_OPTIONS:
+        m_inputManager->setContext(InputContext::MENU);
+		m_window->setCursorCaptured(false);
+        break;
+    case STATE_PLAYING:
+        m_inputManager->setContext(InputContext::GAME);
+        m_window->setCursorCaptured(true);
+        break;
+    case STATE_PAUSED:
+        m_inputManager->setContext(InputContext::PAUSED);
+        m_window->setCursorCaptured(false);
+        break;
+    }
+}
 
 void Game::stop() {
     glfwSetWindowShouldClose(m_window->getGLFWwindow(), GLFW_TRUE);

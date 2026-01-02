@@ -11,17 +11,8 @@ public:
     // Constructeur
     // player : pointeur vers le joueur associe a cette touche
     // Appelle le constructeur de Key avec le nom "Crouch" et la touche associee
-    Crouch(Player* player) : Key(player, "Crouch", ConfigKeys::KEY_CROUCH) {}
+    Crouch(Player* player);
 
     // Destructeur vide, necessaire pour l'heritage
     virtual ~Crouch() {}
-
-    // Methode appelee lorsque la touche est appuyee
-    void onPress(InputContext context) override;
-
-    // Methode appelee lorsque la touche est relachee
-    void onRelease(InputContext context) override;
-
-    // Methode appelee a chaque frame tant que la touche est maintenue
-    void ifPressed(InputContext context) override;
 };

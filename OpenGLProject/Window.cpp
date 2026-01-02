@@ -50,6 +50,11 @@ int Window::getHeight() const {
     return m_height;
 }
 
+void Window::setCursorCaptured(bool shouldCapture) {
+    //efface le bouton de la souris et permet de capturer la souris
+    glfwSetInputMode(m_window, GLFW_CURSOR, shouldCapture ?  GLFW_CURSOR_DISABLED : GLFW_CURSOR_CAPTURED);
+}
+
 bool Window::init() {
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
@@ -101,7 +106,7 @@ bool Window::init() {
     glViewport(0, 0, m_width, m_height);
 
     //efface le bouton de la souris et permet de capturer la souris
-    glfwSetInputMode(m_window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+    glfwSetInputMode(m_window, GLFW_CURSOR, GLFW_CURSOR_CAPTURED);
 
     return true;
 }

@@ -41,6 +41,7 @@ public:
      * Swap les buffers pour afficher le rendu et récupère les événements
      */
     void update() const;
+    void setCursorCaptured(bool shouldCapture);
 
     // Getters
     GLFWwindow* getGLFWwindow() const; // Retourne le pointeur GLFW

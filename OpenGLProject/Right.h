@@ -10,17 +10,8 @@ class Right : public Key {
 public:
     // Constructeur
     // player : pointeur vers le joueur associe a cette touche
-    Right(Player* player) : Key(player, "Right", ConfigKeys::KEY_RIGHT) {}
+    Right(Player* player);
 
     // Destructeur vide
     virtual ~Right() {}
-
-    // Methode appelee lorsque la touche est appuyee
-    void onPress(Context context) override;
-
-    // Methode appelee lorsque la touche est relachee
-    void onRelease(Context context) override;
-
-    // Methode appelee chaque frame tant que la touche est maintenue
-    void ifPressed(Context context) override;
 };

@@ -11,17 +11,8 @@ public:
     // Constructeur
     // player : pointeur vers le joueur associe a cette touche
     // Appelle le constructeur de Key avec le nom "Jump" et la touche associee
-    Jump(Player* player) : Key(player, "Jump", ConfigKeys::KEY_JUMP) {}
+    Jump(Player* player);
 
     // Destructeur vide, necessaire pour l'heritage
     virtual ~Jump() {}
-
-    // Methode appelee lorsque la touche est appuyee
-    void onPress(InputContext context) override;
-
-    // Methode appelee lorsque la touche est relachee
-    void onRelease(InputContext context) override;
-
-    // Methode appelee chaque frame tant que la touche est maintenue
-    void ifPressed(InputContext context) override;
 };

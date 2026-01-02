@@ -10,15 +10,8 @@ class Sprint : public Key {
 public:
     // Constructeur
     // player : pointeur vers le joueur associe a cette touche
-    Sprint(Player* player) : Key(player, "Sprint", ConfigKeys::KEY_SPRINT) {}
+    Sprint(Player* player);
 
     // Destructeur vide
     virtual ~Sprint() {}
-
-    // Methode appelee lorsque la touche est appuyee
-    void onPress(Context context) override;
-    // Methode appelee lorsque la touche est relachee
-    void onRelease(Context context) override;
-    // Methode appelee chaque frame tant que la touche est maintenue
-    void ifPressed(Context context) override;
 };

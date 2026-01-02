@@ -3,6 +3,8 @@
 #include <vector>
 #include <memory>
 
+#include "gamestate.h"
+
 // Déclarations anticipées
 class Window;
 class Renderer;
@@ -25,7 +27,7 @@ public:
 
     void run();
     void stop();
-
+    void changeState(GameState state);
 private:
     std::vector<std::unique_ptr<Cube>> m_cubes;
     std::vector<std::unique_ptr<Cube>> m_alphacubes;
@@ -44,7 +46,6 @@ private:
     std::unique_ptr<TextRenderer> m_textRenderer;
 
     bool m_isRunning = true;
-
 
     void initialize();
     void update();

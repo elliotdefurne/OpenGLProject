@@ -1,63 +1,50 @@
 #include "MenuManager.h"
 #include "TextRenderer.h"
 #include "Game.h"
-#include "InputManager.h"
 
-MenuManager::MenuManager(Game* game, TextRenderer* textRenderer, InputManager* inputManager) : m_game(game), m_textRenderer(textRenderer), m_inputManager(inputManager),  currentState(STATE_MENU), previousState(STATE_MENU) {
+MenuManager::MenuManager(Game* game, TextRenderer* textRenderer) : m_game(game), m_textRenderer(textRenderer), m_currentState(STATE_MENU), m_previousState(STATE_MENU) {
     initMenus();
 }
 
 void MenuManager::initMenus() {
     // Menu principal
-    mainMenu = Menu(m_textRenderer, "Menu Principal", false);
-    mainMenu.addItem("Jouer", 200, 160, 200, 50, [this]() {
-        changeState(STATE_PLAYING);
+    m_mainMenu = Menu(m_textRenderer, "Menu Principal", false);
+    m_mainMenu.addItem("Jouer", 200, 160, 200, 50, [this]() {
+        m_game->changeState(STATE_PLAYING);
         });
-    mainMenu.addItem("Options", 200, 230, 200, 50, [this]() {
-        changeState(STATE_OPTIONS);
+    m_mainMenu.addItem("Options", 200, 230, 200, 50, [this]() {
+        m_game->changeState(STATE_OPTIONS);
         });
-    mainMenu.addItem("Quitter", 200, 300, 200, 50, [this]() {
+    m_mainMenu.addItem("Quitter", 200, 300, 200, 50, [this]() {
         m_game->stop();
+        puts("test");
         });
 
     // Menu pause (avec overlay)
-    pauseMenu = Menu(m_textRenderer, "Pause", true);
-    pauseMenu.addItem("Reprendre", 200, 300, 200, 50, [this]() {
-        changeState(STATE_PLAYING);
+    m_pauseMenu = Menu(m_textRenderer, "Pause", true);
+    m_pauseMenu.addItem("Reprendre", 200, 300, 200, 50, [this]() {
+        m_game->changeState(STATE_PLAYING);
         });
-    pauseMenu.addItem("Menu Principal", 200, 230, 200, 50, [this]() {
-        changeState(STATE_MENU);
+    m_pauseMenu.addItem("Menu Principal", 200, 230, 200, 50, [this]() {
+        m_game->changeState(STATE_MENU);
         });
-    pauseMenu.addItem("Quitter", 200, 160, 200, 50, [this]() {
+    m_pauseMenu.addItem("Quitter", 200, 160, 200, 50, [this]() {
         m_game->stop();
         });
 
     // Menu options
-    optionsMenu = Menu(m_textRenderer, "Options", false);
-    optionsMenu.addItem("Son: ON", 200, 300, 200, 50, [this]() {
+    m_optionsMenu = Menu(m_textRenderer, "Options", false);
+    m_optionsMenu.addItem("Son: ON", 200, 300, 200, 50, [this]() {
         std::cout << "Toggle son" << std::endl;
         });
-    optionsMenu.addItem("Retour", 200, 230, 200, 50, [this]() {
-        changeState(previousState == STATE_PLAYING ? STATE_PAUSED : STATE_MENU);
+    m_optionsMenu.addItem("Retour", 200, 230, 200, 50, [this]() {
+        m_game->changeState(m_previousState == STATE_PLAYING ? STATE_PAUSED : STATE_MENU);
         });
 }
 
 void MenuManager::changeState(GameState newState) {
-    previousState = currentState;
-    currentState = newState;
-    switch (newState) {
-    case STATE_MENU:
-    case STATE_OPTIONS:
-        m_inputManager->setContext(InputContext::MENU);
-        break;
-    case STATE_PLAYING:
-        m_inputManager->setContext(InputContext::GAME);
-        break;
-    case STATE_PAUSED:
-        m_inputManager->setContext(InputContext::PAUSED);
-        break;
-    }
-    std::cout << "État: " << stateToString(newState) << std::endl;
+    m_previousState = m_currentState;
+    m_currentState = newState;
 }
 
 std::string MenuManager::stateToString(GameState state) {
@@ -73,13 +60,13 @@ std::string MenuManager::stateToString(GameState state) {
 
 
 Menu& MenuManager::getCurrentMenu() {
-    switch (currentState) {
+    switch (m_currentState) {
     case STATE_MENU:
-        return mainMenu;
+        return m_mainMenu;
     case STATE_PAUSED:
-        return pauseMenu;
+        return m_pauseMenu;
     case STATE_OPTIONS:
-        return optionsMenu;
+        return m_optionsMenu;
     default:
         throw std::runtime_error("Aucun menu à afficher");
     }
@@ -94,9 +81,9 @@ void MenuManager::handleClick(float mouseX, float mouseY) {
 }
 
 void MenuManager::draw() {
-    getCurrentMenu().draw();
+    if (m_currentState != STATE_PLAYING) getCurrentMenu().draw();
 }
 
 GameState MenuManager::getCurrentState() const {
-    return currentState;
+    return m_currentState;
 }

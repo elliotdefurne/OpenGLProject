@@ -2,18 +2,11 @@
 
 #include "Crouch.h"
 
-void Crouch::onPress(InputContext context) {
-	if (!m_isPressed) {
-		m_isPressed = true;
-	}
-}
-void Crouch::onRelease(InputContext context) {
-	if (m_isPressed) {
-		m_isPressed = false;
-	}
-}
-void Crouch::ifPressed(InputContext context) {
-	if (m_isPressed) {
-		m_player->processDirectionKey(direction::DOWN);
-	}
+Crouch::Crouch(Player* player) : Key(player, "Crouch", ConfigKeys::KEY_CROUCH) {
+	// Action a effectuer lorsque la touche est appuyee
+	setIfPressedAction(InputContext::GAME, [this]() {
+		if (m_player) {
+			m_player->processDirectionKey(EntityRelativeDirection::DOWN);
+		}
+	});
 }

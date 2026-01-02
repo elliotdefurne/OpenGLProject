@@ -10,17 +10,8 @@ class Left : public Key {
 public:
     // Constructeur
     // player : pointeur vers le joueur associe a cette touche
-    Left(Player* player) : Key(player, "Left", ConfigKeys::KEY_LEFT) {}
+    Left(Player* player);
 
     // Destructeur vide
     virtual ~Left() {}
-
-    // Methode appelee lorsque la touche est appuyee
-    void onPress(InputContext context) override;
-
-    // Methode appelee lorsque la touche est relachee
-    void onRelease(InputContext context) override;
-
-    // Methode appelee chaque frame si la touche est maintenue
-    void ifPressed(InputContext context) override;
 };

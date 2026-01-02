@@ -2,18 +2,8 @@
 
 #include "Jump.h"
 
-void Jump::onPress(InputContext context) {
-	if (!m_isPressed) {
-		m_isPressed = true;
-	}
-}
-void Jump::onRelease(InputContext context) {
-	if (m_isPressed) {
-		m_isPressed = false;
-	}
-}
-void Jump::ifPressed(InputContext context) {
-	if (m_isPressed) {
-		m_player->processDirectionKey(direction::UP);
-	}
+Jump::Jump(Player* player) : Key(player, "Jump", ConfigKeys::KEY_JUMP) {
+	setIfPressedAction(InputContext::GAME, [this]() {
+		m_player->processDirectionKey(EntityRelativeDirection::UP);
+	});
 }

@@ -1,0 +1,13 @@
+#include "LeftClick.h"
+#include "MenuManager.h"
+
+LeftClick::LeftClick(Player* player, MenuManager* menuManager) : Key(player, "LeftClick", ConfigKeys::MOUSE_LEFT_CLICK), m_menuManager(menuManager) {
+	// Action a effectuer lorsque la touche est relachee dans le contexte MENU
+	setOnReleaseAction(InputContext::MENU, [this]() {
+		double mouseX, mouseY;
+		glfwGetCursorPos(glfwGetCurrentContext(), &mouseX, &mouseY);
+		m_menuManager->handleClick(mouseX, mouseY);
+	});
+	setOnReleaseAction(InputContext::GAME, [this]() {
+	});
+}

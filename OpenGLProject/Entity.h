@@ -9,7 +9,7 @@
 #include "constants.h"
 
 // Namespace direction : contient des constantes pour les directions de mouvement
-namespace direction {
+namespace EntityRelativeDirection {
     enum {
         FORWARD,   // Avancer
         BACKWARD,  // Reculer

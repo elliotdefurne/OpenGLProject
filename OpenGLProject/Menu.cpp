@@ -3,6 +3,7 @@
 #include "Menu.h"
 #include "InputManager.h"
 #include "TextRenderer.h"
+#include "constants.h"
 
 void Menu::drawRect(float x, float y, float width, float height, float r, float g, float b) {
     glColor3f(r, g, b);
@@ -28,23 +29,21 @@ void Menu::drawOverlay() {
 }
 
 
-void Menu::drawText(const std::string& text, float x, float y) {
+void Menu::drawTextCentered(const std::string& text, float centerX, float centerY, glm::vec3 color) {
+    float textWidth = m_textRenderer->getTextWidth(text, 1.0f);
+    float textHeight = m_textRenderer->getTextHeight(text, 1.0f); // Ajoutez cette méthode si elle n'existe pas
     
-}
-
-void Menu::drawTextCentered(const std::string& text, float centerX, float centerY) {
-    int textWidth = m_textRenderer->getTextWidth(text, 1.0f);
     float startX = centerX - textWidth / 2.0f;
-    float startY = centerY - 4; // Ajustement vertical pour centrer
-	m_textRenderer->renderText(text, startX, startY, 1.0f, 1.0f, 1.0f, 1.0f);
+    float startY = centerY; // Centrage vertical basé sur la hauteur réelle
+    
+    m_textRenderer->renderText(text, startX, startY, 1.0f, color.r, color.g, color.b);
 }
-
 
 void Menu::draw() {
     if (m_drawBackground) {
         drawOverlay();
     }
-
+    
     // Dessiner le titre si présent
     if (!m_title.empty()) {
         drawRect(m_titleX, m_titleY, m_titleWidth, m_titleHeight, 0.2f, 0.3f, 0.5f);
@@ -52,7 +51,7 @@ void Menu::draw() {
         float titleCenterY = m_titleY + m_titleHeight / 2.0f;
         drawTextCentered(m_title, titleCenterX, titleCenterY);
     }
-
+    
     // Dessiner les items du menu
     for (const auto& item : m_items) {
         // Fond du bouton
@@ -62,7 +61,7 @@ void Menu::draw() {
         else {
             drawRect(item.x, item.y, item.width, item.height, 0.15f, 0.25f, 0.35f);
         }
-
+        
         // Bordure
         glColor3f(0.5f, 0.5f, 0.5f);
         glBegin(GL_LINE_LOOP);
@@ -71,10 +70,17 @@ void Menu::draw() {
         glVertex2f(item.x + item.width, item.y + item.height);
         glVertex2f(item.x, item.y + item.height);
         glEnd();
-
+        
         // Texte centré
         float centerX = item.x + item.width / 2.0f;
         float centerY = item.y + item.height / 2.0f;
-        drawTextCentered(item.text, centerX, centerY);
+
+        if (item.isHovered) {
+            drawTextCentered(item.text, centerX, centerY, glm::vec3(1.0f, 0.0f, 0.0f));
+        }
+        else {
+            drawTextCentered(item.text, centerX, centerY);
+
+        }
     }
 }

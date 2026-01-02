@@ -2,15 +2,14 @@
 
 #include "Backward.h"
 
-void Backward::onPress() {
-    m_isPressed = true;
-}
+Backward::Backward(Player* player) : Key(player, "Backward", ConfigKeys::KEY_BACKWARD) {
+    setIfPressedAction(InputContext::GAME, [this]() {
+        if (m_player) {
+            m_player->processDirectionKey(EntityRelativeDirection::BACKWARD);
+        }
+        });
 
-void Backward::onRelease() {
-    m_isPressed = false;
-}
-
-void Backward::ifPressed() {
-    if (!m_isPressed) return;
-    m_player->processDirectionKey(direction::BACKWARD);
+    setIfPressedAction(InputContext::MENU, [this]() {
+      
+    });
 }

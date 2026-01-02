@@ -3,6 +3,7 @@
 #include <string>
 #include <vector>
 #include <functional>
+#include <glm/glm.hpp>
 
 #include "constants.h"
 
@@ -36,11 +37,10 @@ private:
 
     void drawRect(float x, float y, float width, float height, float r, float g, float b);
     void drawOverlay();
-    void drawText(const std::string& text, float x, float y);
-    void drawTextCentered(const std::string& text, float centerX, float centerY);
+    void drawTextCentered(const std::string& text, float centerX, float centerY, glm::vec3 color = glm::vec3(1.0f, 1.0f, 1.0f));
 
 public:
-    Menu(TextRenderer* textRenderer = nullptr, const std::string& t = "", bool bg = false)
+    Menu(TextRenderer* textRenderer = nullptr, const std::string& t = "", bool bg = true)
         : m_textRenderer(textRenderer), m_title(t), m_titleX(Constants::MENU_TITLE_X), m_titleY(Constants::MENU_TITLE_Y), m_titleWidth(Constants::MENU_TITLE_W), m_titleHeight(Constants::MENU_TITLE_H), m_drawBackground(bg) {
     }
 
@@ -52,13 +52,25 @@ public:
         m_items.clear();
     }
 
+    std::vector<MenuItem> getItems() { return m_items; }
+    void setSelectedItem(int index) { 
+        for (auto& item : m_items) {
+            item.isHovered = false;
+		}
+        m_items[index].isHovered = true;
+    }
+
     void updateHover(float mouseX, float mouseY) {
+        for (auto& item : m_items) {
+            item.isHovered = false;
+        }
         for (auto& item : m_items) {
             item.isHovered = item.contains(mouseX, mouseY);
         }
     }
 
     bool handleClick(float mouseX, float mouseY) {
+        printf("mouseX = %f ; mouseY = %f\n", mouseX, mouseY);
         for (auto& item : m_items) {
             if (item.contains(mouseX, mouseY) && item.callback) {
                 item.callback();
