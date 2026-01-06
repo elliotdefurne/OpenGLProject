@@ -55,10 +55,11 @@ Shader::~Shader() {
 }
 
 void Shader::use() {
-    m_view = m_camera->getViewMatrix();
-
     glUseProgram(m_id);
+}
 
+void Shader::setupMatrices() {
+    m_view = m_camera->getViewMatrix();
     setMat4("model", m_model);
     setMat4("view", m_view);
     setMat4("projection", m_projection);

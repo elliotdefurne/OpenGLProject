@@ -33,6 +33,9 @@ public:
     // Retourne l'identifiant OpenGL du programme shader
     unsigned int getID() const;
 
+	// Envoie les matrices model, view, projection au shader
+    void setupMatrices();
+
     // Méthodes pour envoyer des variables uniformes simples
     void setBool(const std::string& name, bool value);
     void setInt(const std::string& name, int value);
@@ -76,4 +79,6 @@ private:
 
     // Récupère l'emplacement d'un uniform dans le shader (avec cache)
     unsigned int getUniformLocation(const std::string& name);
+
+	
 };

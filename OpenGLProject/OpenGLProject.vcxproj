@@ -165,6 +165,8 @@
     <ClCompile Include="Mouse.cpp" />
     <ClCompile Include="Packet.cpp" />
     <ClCompile Include="ReceiveBuffer.cpp" />
+    <ClCompile Include="Rectangle.cpp" />
+    <ClCompile Include="Shape.cpp" />
     <ClCompile Include="Socket.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Renderer.cpp" />
@@ -208,6 +210,8 @@
     <ClInclude Include="Packet.h" />
     <ClInclude Include="PacketBuilder.h" />
     <ClInclude Include="ReceiveBuffer.h" />
+    <ClInclude Include="Rectangle.h" />
+    <ClInclude Include="Shape.h" />
     <ClInclude Include="Socket.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Renderer.h" />
@@ -229,6 +233,8 @@
     <None Include="res\shaders\cube\lightsource\lightsource.vert" />
     <None Include="res\shaders\cube\severallights\severallights.frag" />
     <None Include="res\shaders\cube\severallights\severallights.vert" />
+    <None Include="res\shaders\rectangle\rectangle.frag" />
+    <None Include="res\shaders\rectangle\rectangle.vert" />
     <None Include="res\shaders\text\text.frag" />
     <None Include="res\shaders\text\text.vert" />
     <None Include="res\textures\crate\details.json" />

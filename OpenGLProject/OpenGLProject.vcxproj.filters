@@ -52,6 +52,9 @@
     <Filter Include="Fichiers de ressources\shaders\text">
       <UniqueIdentifier>{2cfeba1b-9c09-47a9-8936-1f96244ddaf0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Fichiers de ressources\shaders\rectangle">
+      <UniqueIdentifier>{06845dbe-d9a4-4f47-86d2-8e3f34f44b33}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -164,6 +167,12 @@
     </ClCompile>
     <ClCompile Include="LeftClick.cpp">
       <Filter>Fichiers sources\Inputs</Filter>
+    </ClCompile>
+    <ClCompile Include="Rectangle.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="Shape.cpp">
+      <Filter>Fichiers sources</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -293,6 +302,12 @@
     <ClInclude Include="LeftClick.h">
       <Filter>Fichiers d%27en-tête\Inputs</Filter>
     </ClInclude>
+    <ClInclude Include="Rectangle.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="Shape.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="res\shaders\cube\cube.frag">
@@ -321,6 +336,12 @@
     </None>
     <None Include="res\shaders\text\text.vert">
       <Filter>Fichiers de ressources\shaders\text</Filter>
+    </None>
+    <None Include="res\shaders\rectangle\rectangle.frag">
+      <Filter>Fichiers de ressources\shaders\rectangle</Filter>
+    </None>
+    <None Include="res\shaders\rectangle\rectangle.vert">
+      <Filter>Fichiers de ressources\shaders\rectangle</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

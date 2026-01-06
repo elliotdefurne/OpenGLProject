@@ -6,8 +6,6 @@
 #include <iostream>
 #include <filesystem>
 #include <unordered_map>
-#include <glad/glad.h>   // Gestion des fonctions OpenGL
-#include <GLFW/glfw3.h>  // Gestion des fenetres et des touches
 
 #include "Key.h"
 

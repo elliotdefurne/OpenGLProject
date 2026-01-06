@@ -7,8 +7,6 @@
 #include <filesystem>
 #include <unordered_map>
 #include <memory>
-#include <glm/glm.hpp>                // Pour les vecteurs et matrices
-#include <glm/ext/matrix_transform.hpp> // Pour les transformations 3D
 
 #include "configKeys.h" // Contient la sensibilite par defaut de la souris
 #include "LeftClick.h" // Contient la sensibilite par defaut de la souris

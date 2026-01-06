@@ -12,7 +12,6 @@
 #include "Mouse.h"
 #include "Flashlight.h"
 #include "LeftClick.h"
-
 #include "Window.h"
 
 InputManager::~InputManager() {

@@ -1,6 +1,16 @@
+// OpenGL
+#include <glad/glad.h>
+#include <GLFW/glfw3.h>
+
+// GLM
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
+
 #include "Mouse.h"
 #include "Player.h"
 #include "MenuManager.h"
+
 
 Mouse::Mouse(Player* player, MenuManager* menuManager) : m_player(player), m_menuManager(menuManager), m_xpos(0.0), m_ypos(0.0),
     m_sensitivity(ConfigKeys::DEFAULT_MOUSE_SENSITIVITY), m_context(InputContext::MENU) {
@@ -20,7 +30,6 @@ Mouse::Mouse(Player* player, MenuManager* menuManager) : m_player(player), m_men
             // the angle of rotation left or right is also referred to as yaw.
 
             m_player->processMouseMovements(xoffset, yoffset);
-
         }
 	});
 

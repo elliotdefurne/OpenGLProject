@@ -4,11 +4,14 @@
 #include <vector>
 #include <functional>
 #include <glm/glm.hpp>
+#include <map>
 
 #include "constants.h"
+#include "Shape.h"
 
 class InputManager; // Déclaration anticipée
 class TextRenderer; // Déclaration anticipée
+class Shader;
 
 // Structure pour un élément de menu
 struct MenuItem {
@@ -21,7 +24,7 @@ struct MenuItem {
         : text(t), x(px), y(py), width(w), height(h), isHovered(false), callback(cb) {
     }
 
-    bool contains(float px, float py) const {
+    bool contains(double px, double py) const {
         return (px >= x && px <= x + width && py >= y && py <= y + height);
     }
 };
@@ -31,12 +34,11 @@ class Menu {
 private:
     TextRenderer* m_textRenderer;
     std::vector<MenuItem> m_items;
+    std::map<int,Shape*> m_shapes;
     std::string m_title;
     float m_titleX, m_titleY, m_titleWidth, m_titleHeight;
     bool m_drawBackground;
 
-    void drawRect(float x, float y, float width, float height, float r, float g, float b);
-    void drawOverlay();
     void drawTextCentered(const std::string& text, float centerX, float centerY, glm::vec3 color = glm::vec3(1.0f, 1.0f, 1.0f));
 
 public:
@@ -46,6 +48,10 @@ public:
 
     void addItem(const std::string& text, float x, float y, float width, float height, std::function<void()> callback) {
         m_items.emplace_back(text, x, y, width, height, callback);
+    }
+
+    void addShape(int layer, Shape* shape) {
+        m_shapes.emplace(layer, shape);
     }
 
     void clear() {
@@ -60,7 +66,7 @@ public:
         m_items[index].isHovered = true;
     }
 
-    void updateHover(float mouseX, float mouseY) {
+    void updateHover(double mouseX, double mouseY) {
         for (auto& item : m_items) {
             item.isHovered = false;
         }
@@ -69,7 +75,7 @@ public:
         }
     }
 
-    bool handleClick(float mouseX, float mouseY) {
+    bool handleClick(double mouseX, double mouseY) {
         printf("mouseX = %f ; mouseY = %f\n", mouseX, mouseY);
         for (auto& item : m_items) {
             if (item.contains(mouseX, mouseY) && item.callback) {

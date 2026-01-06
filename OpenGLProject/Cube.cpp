@@ -117,6 +117,8 @@ void Cube::draw() {
     m_shader->clearUniformLocations();                          // Nettoie les anciens réglages du shader
     m_shader->setModel(m_transformation->getMatrix());          // Envoie la matrice "modèle" (position/rotation/scale)
     m_shader->use();                                            // Active le shader
+    m_shader->setupMatrices();                                  // Envoie la transformation complète
+
 
     if (m_shader->getName() == "lightsource") {
         drawLightSourceShader();

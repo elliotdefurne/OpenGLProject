@@ -24,7 +24,7 @@ void Game::initialize() {
     m_player         = std::make_unique<Player>(m_renderer.get());
     m_lightManager   = std::make_unique<LightManager>(m_renderer.get(), m_player.get());
     m_textRenderer   = std::make_unique<TextRenderer>(m_shaderManager.get());
-    m_menuManager    = std::make_unique<MenuManager>(this, m_textRenderer.get());
+    m_menuManager    = std::make_unique<MenuManager>(this, m_textRenderer.get(), m_shaderManager.get());
     m_inputManager   = std::make_unique<InputManager>(this, m_menuManager.get(), m_window.get(), m_player.get());
 
 	m_textRenderer->loadFont("res/fonts/armana/Amarna-Bold.ttf", 48.0f);
