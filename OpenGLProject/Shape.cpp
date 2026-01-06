@@ -1,6 +1,13 @@
 #include "Shape.h"
+#include "Mesh.h"
 
-Shape::Shape(Shader* shader, float x, float y, float width, float height) : m_shader(shader), m_position(x,y,0) {
+Shape::Shape(Shader* shader, float x, float y, float width, float height)
+    : m_mesh(nullptr),
+      m_shader(shader),
+      m_position(x, y, 0.0f),
+      m_color(1.0f, 1.0f, 1.0f),
+      m_size(width, height),
+      m_rotation(0.0f) {
 }
 
 Shape::~Shape() {

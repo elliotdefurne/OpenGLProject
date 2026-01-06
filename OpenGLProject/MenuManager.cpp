@@ -21,9 +21,17 @@ void MenuManager::initMenus() {
         m_game->stop();
         });
 
-    Rectangle* rec1 = new Rectangle(m_shaderManager->getShader("rectangle"), 0, 0, Constants::WINDOW_WIDTH, Constants::WINDOW_HEIGHT);
-	rec1->setColor(1.0f, 1.0f, 1.0f);
+    Rectangle* rec1 = new Rectangle(m_shaderManager->getShader("rectangle"), 0, 0, Constants::WINDOW_WIDTH, Constants::WINDOW_HEIGHT, glm::vec3(1.0f, 0.5f, 0.5f));
+    Rectangle* rec2 = new Rectangle(m_shaderManager->getShader("rectangle"), 0, 0, 20.0f, 20.0f, glm::vec3(1.0f, 1.0f, 1.0f));
+    Rectangle* rec3 = new Rectangle(m_shaderManager->getShader("rectangle"), 0, 0, 20.0f, 20.0f);
+    Rectangle* rec4 = new Rectangle(m_shaderManager->getShader("rectangle"), 0, 0, 20.0f, 20.0f);
+	rec2->setRotation(45);
+	//rec3->setRotation(45);
+    //rec4->setRotation(45);
 	m_mainMenu.addShape(0, rec1);
+	m_mainMenu.addShape(1, rec2);
+	//m_mainMenu.addShape(2, rec3);
+	//m_mainMenu.addShape(3, rec4);
 
     // Menu pause (avec overlay)
     m_pauseMenu = Menu(m_textRenderer, "Pause", true);

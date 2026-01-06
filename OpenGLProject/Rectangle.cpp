@@ -16,27 +16,28 @@ Rectangle::~Rectangle() {
 void Rectangle::draw() {
     m_shader->use();
 
-    // Créer la matrice de transformation
-    glm::mat4 transform = glm::mat4(1.0f);
-    transform = glm::translate(transform, m_position);
-    transform = glm::rotate(transform, glm::radians(m_rotation), glm::vec3(0.0f, 0.0f, 1.0f));
-    transform = glm::scale(transform, glm::vec3(m_size.x, m_size.y, 1.0f));
+    // Creer la transformation complète avec votre classe
+    Transformation trans;
+    trans.translate(m_position)                                  // 1. Position
+        .rotate(glm::vec3(0.0f, 0.0f, 1.0f), m_rotation)         // 2. Rotation
+        .scale(glm::vec3(m_size.x, m_size.y, 1.0f));             // 3. Taille
 
-    // Envoyer les uniforms
-	m_shader->setMat4("transform", transform);
+    // Envoyer au shader
+    m_shader->setTransformation("transform", &trans);
+    m_shader->setupMatrices2D();
+    m_shader->setVec3("color", m_color);
 
-	m_shader->setVec3("color", m_color);
-
-	m_mesh->draw();
+    m_mesh->draw();
 }
+
 
 void Rectangle::setupBuffers() {
     auto vertices = {
         // Positions
-        Vertex(-m_size.x/2, -m_size.y/2, 0.0f, m_color.r, m_color.g, m_color.b),
-        Vertex(m_size.x/2, -m_size.y/2, 0.0f , m_color.r, m_color.g, m_color.b),
-        Vertex(m_size.x / 2,  m_size.y / 2, 0.0f , m_color.r, m_color.g, m_color.b),
-        Vertex(-m_size.x / 2,  m_size.y / 2, 0.0f , m_color.r, m_color.g, m_color.b)
+        Vertex(-0.5f, -0.5f, 0.0f, m_color.r, m_color.g, m_color.b),
+        Vertex(0.5f, -0.5f, 0.0f, m_color.r, m_color.g, m_color.b),
+        Vertex(0.5f,  0.5f, 0.0f, m_color.r, m_color.g, m_color.b),
+        Vertex(-0.5f,  0.5f, 0.0f, m_color.r, m_color.g, m_color.b)
     };
 
     std::vector<unsigned int> indices = {
@@ -46,5 +47,5 @@ void Rectangle::setupBuffers() {
 
 	m_mesh = new Mesh();
 
-    m_mesh->load(vertices, indices, std::vector<Texture*>(), 0b0010);
+    m_mesh->load(vertices, indices, std::vector<Texture*>(), 0b0101);
 }

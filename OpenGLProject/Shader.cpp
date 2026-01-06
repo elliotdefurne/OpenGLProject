@@ -27,6 +27,15 @@ Shader::Shader(const std::string& vertexSource, const std::string& fragmentSourc
         0.1f, 100.0f
     );
 
+    m_projection2D = glm::ortho(
+        0.0f,
+        (float)Constants::WINDOW_WIDTH,
+        (float)Constants::WINDOW_HEIGHT,
+        0.0f,
+        -1.0f,
+        1.0f
+    );
+
     // Chargement du code source
     std::string vertexCode = isFile ? loadFromFile(vertexSource) : vertexSource;
     std::string fragmentCode = isFile ? loadFromFile(fragmentSource) : fragmentSource;
@@ -63,6 +72,11 @@ void Shader::setupMatrices() {
     setMat4("model", m_model);
     setMat4("view", m_view);
     setMat4("projection", m_projection);
+}
+
+void Shader::setupMatrices2D() {
+    setMat4("model", m_model);
+    setMat4("projection", m_projection2D);
 }
 
 GLuint Shader::getID() const {

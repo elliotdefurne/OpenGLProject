@@ -92,7 +92,7 @@ bool TextRenderer::loadFont(const std::string& fontPath, float fontSize) {
 
     glPixelStorei(GL_UNPACK_ALIGNMENT, 4);
 
-    std::cout << "Police chargée: " << fontPath << std::endl;
+    std::cout << "Police chargee: " << fontPath << std::endl;
     return true;
 }
 
