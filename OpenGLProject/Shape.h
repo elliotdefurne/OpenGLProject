@@ -6,6 +6,7 @@
 #include <glm/glm.hpp>              
 
 class Shader;
+class Mesh;
 
 class Shape {
 public:
@@ -20,7 +21,7 @@ public:
     void setRotation(float angle);
 
 protected:
-    GLuint m_VAO, m_VBO, m_EBO;
+    Mesh* m_mesh;
     Shader* m_shader;
     glm::vec3 m_position;
     glm::vec3 m_color;

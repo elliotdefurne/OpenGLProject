@@ -1,12 +1,10 @@
 #include "Shape.h"
 
-Shape::Shape(Shader* shader, float x, float y, float width, float height) : m_shader(shader), m_position(x,y,0),m_VAO(NULL), m_VBO(NULL), m_EBO(NULL) {
+Shape::Shape(Shader* shader, float x, float y, float width, float height) : m_shader(shader), m_position(x,y,0) {
 }
 
 Shape::~Shape() {
-    glDeleteVertexArrays(1, &m_VAO);
-    glDeleteBuffers(1, &m_VBO);
-    glDeleteBuffers(1, &m_EBO);
+    delete m_mesh;
 }
 
 

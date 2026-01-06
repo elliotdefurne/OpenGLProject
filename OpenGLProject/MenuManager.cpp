@@ -22,7 +22,7 @@ void MenuManager::initMenus() {
         });
 
     Rectangle* rec1 = new Rectangle(m_shaderManager->getShader("rectangle"), 0, 0, Constants::WINDOW_WIDTH, Constants::WINDOW_HEIGHT);
-	rec1->setColor(0.1f, 0.1f, 0.1f);
+	rec1->setColor(1.0f, 1.0f, 1.0f);
 	m_mainMenu.addShape(0, rec1);
 
     // Menu pause (avec overlay)

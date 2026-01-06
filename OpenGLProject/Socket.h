@@ -15,8 +15,8 @@
 class Packet; // Déclaration anticipée
 
 struct ServerInfo {
-    std::string ip;
-    int port;
+    std::string ip = "127.0.0.1";
+    int port = 3333;
 };
 
 enum class EventType {

@@ -1,7 +1,7 @@
-#include "Mesh.h"
-
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
+
+#include "Mesh.h"
 
 Mesh::Mesh() : m_textures(NULL) {
     // Rien à faire ici : les IDs seront initialisés dans load()
@@ -11,7 +11,7 @@ Mesh::~Mesh() {
     destroy(); // Libération des ressources GPU
 }
 
-void Mesh::load(const std::vector<Vertex>& vertices, const std::vector<unsigned int>& indices, std::vector<Texture*> textures, unsigned int attributesMask) {
+void Mesh::load(const std::vector<Vertex>& vertices, const std::vector<unsigned int>& indices, std::vector<Texture*> textures = std::vector<Texture*>(), unsigned int attributesMask = 0b0101) {
     m_textures = textures; // Stocke la texture
     m_indexCount = static_cast<GLsizei>(indices.size()); // Nombre d'indices
 
