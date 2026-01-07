@@ -130,7 +130,6 @@ float TextRenderer::getTextHeight(const std::string& text, float scale) {
     // Hauteur totale = distance entre le point le plus haut et le plus bas
     return maxBearingY - minY;
 }
-
 void TextRenderer::renderText(const std::string& text, float x, float y,
     float scale, float r, float g, float b) {
 
@@ -155,20 +154,15 @@ void TextRenderer::renderText(const std::string& text, float x, float y,
 
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-    float baselineOffset = 0.0f;
-    if (m_characters.find('H') != m_characters.end()) {
-        baselineOffset = m_characters['H'].bearingY * scale * 0.5f;
-    }
 
     float currentX = x;
     for (char c : text) {
         if (m_characters.find(c) == m_characters.end()) continue;
         Character ch = m_characters[c];
 
+        // Position correcte avec stb_truetype
         float xpos = currentX + ch.bearingX * scale;
-        // Centrage vertical : soustraire la moitié de la hauteur du glyphe
-        // et ajuster avec la baseline
-        float ypos = y - (ch.sizeY * scale * 0.5f) + (ch.bearingY * scale * 0.5f);
+        float ypos = y + ch.bearingY * scale;  // AJOUT, pas soustraction
 
         float w = ch.sizeX * scale;
         float h = ch.sizeY * scale;
@@ -194,5 +188,4 @@ void TextRenderer::renderText(const std::string& text, float x, float y,
     glBindVertexArray(0);
     glBindTexture(GL_TEXTURE_2D, 0);
     glUseProgram(0);
-
 }

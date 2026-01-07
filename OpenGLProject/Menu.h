@@ -21,7 +21,7 @@ struct MenuItem {
     std::function<void()> callback;
 
     MenuItem(const std::string& t, float px, float py, float w, float h, std::function<void()> cb)
-        : text(t), x(px), y(py), width(w), height(h), isHovered(false), callback(cb) {
+        : text(t), x(px-w/2), y(py-h/2), width(w), height(h), isHovered(false), callback(cb) {
     }
 
     bool contains(double px, double py) const {
@@ -46,7 +46,7 @@ public:
         : m_textRenderer(textRenderer), m_title(t), m_titleX(Constants::MENU_TITLE_X), m_titleY(Constants::MENU_TITLE_Y), m_titleWidth(Constants::MENU_TITLE_W), m_titleHeight(Constants::MENU_TITLE_H), m_drawBackground(bg) {
     }
 
-    void addItem(const std::string& text, float x, float y, float width, float height, std::function<void()> callback) {
+    void addItem(const std::string& text, float x = Constants::WINDOW_WIDTH / 2, float y = Constants::WINDOW_HEIGHT / 2, float width = 100, float height = 30, std::function<void()> callback = {}) {
         m_items.emplace_back(text, x, y, width, height, callback);
     }
 
@@ -76,7 +76,12 @@ public:
     }
 
     bool handleClick(double mouseX, double mouseY) {
-        printf("mouseX = %f ; mouseY = %f\n", mouseX, mouseY);
+        //printf("mouseX = %f ; mouseY = %f\n", mouseX, mouseY);
+        if (m_items == std::vector<MenuItem>()) {
+            printf("Aucun item dans le menu");
+            return false;
+        }
+
         for (auto& item : m_items) {
             if (item.contains(mouseX, mouseY) && item.callback) {
                 item.callback();

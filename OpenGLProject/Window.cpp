@@ -6,6 +6,7 @@
 
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
+#include <stb/stb_image.h>
 
 Window::Window(int width, int height, const char* title)
     : m_width(width), m_height(height), m_title(title), m_window(nullptr) {
@@ -108,5 +109,35 @@ bool Window::init() {
     //efface le bouton de la souris et permet de capturer la souris
     glfwSetInputMode(m_window, GLFW_CURSOR, GLFW_CURSOR_CAPTURED);
 
+    setWindowIcon("./res/textures/logo.jpeg");
+
+
     return true;
+}
+
+
+// Fonction pour charger et définir l'icône de la fenêtre
+void Window::setWindowIcon(const char* iconPath) {
+    // Charger l'image avec stb_image
+    int width, height, channels;
+    unsigned char* pixels = stbi_load(iconPath, &width, &height, &channels, 4); // Force RGBA
+
+    if (!pixels) {
+        printf("Erreur: Impossible de charger l'icone %s\n", iconPath);
+        return;
+    }
+
+    // Créer la structure GLFWimage
+    GLFWimage icon;
+    icon.width = width;
+    icon.height = height;
+    icon.pixels = pixels;
+
+    // Définir l'icône de la fenêtre
+    glfwSetWindowIcon(m_window, 1, &icon);
+
+    // Libérer la mémoire de l'image
+    stbi_image_free(pixels);
+
+    printf("Icône définie avec succès (%dx%d)\n", width, height);
 }

@@ -11,17 +11,16 @@ void Menu::drawTextCentered(const std::string& text, float centerX, float center
     m_textRenderer->renderText(text, startX, startY, 1.0f, color.r, color.g, color.b);
 }
 
-void Menu::draw() {
-    
+void Menu::draw() {  
+    for (auto& shape : m_shapes) {
+        shape.second->draw();
+    }
+
     // Dessiner le titre si présent
     if (!m_title.empty()) {
         float titleCenterX = m_titleX + m_titleWidth / 2.0f;
         float titleCenterY = m_titleY + m_titleHeight / 2.0f;
         drawTextCentered(m_title, titleCenterX, titleCenterY);
-    }
-    
-    for (auto& shape : m_shapes) {
-        shape.second->draw();
     }
 
     // Dessiner les items du menu

@@ -42,7 +42,8 @@ public:
      */
     void update() const;
     void setCursorCaptured(bool shouldCapture);
-
+    void setWindowIcon(const char* iconPath);
+    
     // Getters
     GLFWwindow* getGLFWwindow() const; // Retourne le pointeur GLFW
     bool getShouldClose() const;       // Indique si la fenêtre doit se fermer

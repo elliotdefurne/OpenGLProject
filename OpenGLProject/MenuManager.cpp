@@ -11,18 +11,18 @@ MenuManager::MenuManager(Game* game, TextRenderer* textRenderer, ShaderManager* 
 void MenuManager::initMenus() {
     // Menu principal
     m_mainMenu = Menu(m_textRenderer, "Menu Principal", false);
-    m_mainMenu.addItem("Jouer", 200, 160, 200, 50, [this]() {
+    m_mainMenu.addItem("Jouer", Constants::WINDOW_WIDTH / 2, 160, 200, 50, [this]() {
         m_game->changeState(STATE_PLAYING);
         });
-    m_mainMenu.addItem("Options", 200, 230, 200, 50, [this]() {
+    m_mainMenu.addItem("Options", Constants::WINDOW_WIDTH / 2, 230, 200, 50, [this]() {
         m_game->changeState(STATE_OPTIONS);
         });
-    m_mainMenu.addItem("Quitter", 200, 300, 200, 50, [this]() {
+    m_mainMenu.addItem("Quitter", Constants::WINDOW_WIDTH / 2, 300, 200, 50, [this]() {
         m_game->stop();
         });
 
     Rectangle* rec1 = new Rectangle(m_shaderManager->getShader("rectangle"), 0, 0, Constants::WINDOW_WIDTH, Constants::WINDOW_HEIGHT, glm::vec3(1.0f, 0.5f, 0.5f));
-    Rectangle* rec2 = new Rectangle(m_shaderManager->getShader("rectangle"), 0, 0, 20.0f, 20.0f, glm::vec3(1.0f, 1.0f, 1.0f));
+    Rectangle* rec2 = new Rectangle(m_shaderManager->getShader("rectangle"), Constants::WINDOW_WIDTH/2, Constants::WINDOW_HEIGHT/2, 20.0f, 20.0f, glm::vec3(1.0f, 1.0f, 1.0f));
     Rectangle* rec3 = new Rectangle(m_shaderManager->getShader("rectangle"), 0, 0, 20.0f, 20.0f);
     Rectangle* rec4 = new Rectangle(m_shaderManager->getShader("rectangle"), 0, 0, 20.0f, 20.0f);
 	rec2->setRotation(45);
@@ -81,7 +81,8 @@ Menu& MenuManager::getCurrentMenu() {
     case STATE_OPTIONS:
         return m_optionsMenu;
     default:
-        throw std::runtime_error("Aucun menu à afficher");
+        printf("Aucun menu a afficher\n");
+        //throw std::runtime_error("Aucun menu a afficher");
     }
 }
 
