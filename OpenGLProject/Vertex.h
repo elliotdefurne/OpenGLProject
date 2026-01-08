@@ -1,4 +1,5 @@
 #pragma once
+#include <glm/glm.hpp>
 
 /**
  * @class Vertex
@@ -12,6 +13,14 @@
 class Vertex
 {
 public:
+
+    /**
+    * @brief Constructeur complet avec texture et normal.
+    */
+    Vertex(float x, float y, float z)
+        : m_x(x), m_y(y), m_z(z), m_nx(NULL), m_ny(NULL), m_nz(NULL), m_r(NULL), m_g(NULL), m_b(NULL), m_s(NULL), m_t(NULL) {
+    }
+    
     /**
      * @brief Constructeur avec position, couleur.
      */
@@ -25,8 +34,6 @@ public:
     Vertex(float x, float y, float z, float nx, float ny, float nz, float s, float t)
         : m_x(x), m_y(y), m_z(z), m_nx(nx), m_ny(ny), m_nz(nz), m_r(NULL), m_g(NULL), m_b(NULL), m_s(s), m_t(t) {
     }
-
-
 
     /**
      * @brief Destructeur par défaut.
@@ -45,6 +52,11 @@ public:
     float getB() const { return m_b; }
     float getS() const { return m_s; }
     float getT() const { return m_t; }
+
+	glm::vec3 getPositions() const { return glm::vec3(m_x, m_y, m_z); }
+	glm::vec3 getNormals() const { return glm::vec3(m_nx, m_ny, m_nz); }
+	glm::vec3 getColor() const { return glm::vec3(m_r, m_g, m_b); }
+	glm::vec2 getTexCoords() const { return glm::vec2(m_s, m_t); }
 
 private:
     float m_x, m_y, m_z;        ///< Coordonnées du sommet

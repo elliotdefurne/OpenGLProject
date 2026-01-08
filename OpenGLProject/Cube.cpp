@@ -13,6 +13,14 @@
 
 Cube::Cube(glm::vec3 center, float edge, Shader* shader, Player* player)
     : m_center(center), m_edge(edge), m_shader(shader), m_player(player), m_lightManager(nullptr), m_lightSource(nullptr), m_renderer(nullptr) {
+
+}
+
+// Constructeur du cube
+Cube::Cube(glm::vec3 center, float edge, Shader* shader, LightSource* lightSource, Player* player)
+    : Cube(center, edge, shader, player) {
+    m_lightSource = lightSource;
+
     // Coordonnées du centre du cube
     float x = center[0];
     float y = center[1];
@@ -22,13 +30,12 @@ Cube::Cube(glm::vec3 center, float edge, Shader* shader, Player* player)
     float halfEdge = m_edge / 2.0f;
 
     // Création des composants nécessaires
-    m_mesh = new Mesh();                     // Le "maillage" (contient les infos pour OpenGL)
     m_transformation = new Transformation(); // Permet de déplacer/faire tourner/agrandir l’objet
 
     // Définition des sommets du cube
     // Chaque face a 4 sommets, et comme un cube a 6 faces -> 24 sommets en tout
     // Chaque sommet a : position (x,y,z), normale (ici mise à 0 pour l’instant), coordonnées UV
-    m_vertices = {
+    const std::vector<Vertex> vertices = {
         // Face avant (Z+)
         Vertex(x - halfEdge, y - halfEdge, z + halfEdge, 0.0f,  0.0f, 1.0f, 0.0f, 0.0f),
         Vertex(x + halfEdge, y - halfEdge, z + halfEdge, 0.0f,  0.0f, 1.0f, 1.0f, 0.0f),
@@ -68,7 +75,7 @@ Cube::Cube(glm::vec3 center, float edge, Shader* shader, Player* player)
 
     // Indices : disent dans quel ordre relier les sommets pour former les triangles
     // Chaque face du cube = 2 triangles = 6 indices
-    m_indices = {
+    const std::vector<unsigned int> indices = {
         0, 1, 2,   2, 3, 0,     // Face avant (Z+)
         5, 4, 7,   7, 6, 5,     // Face arrière (Z-)
         8, 9, 10,  10, 11, 8,   // Face gauche (X-)
@@ -76,13 +83,8 @@ Cube::Cube(glm::vec3 center, float edge, Shader* shader, Player* player)
         17, 16, 19, 19, 18, 17, // Face du bas (Y-)
         20, 21, 22, 22, 23, 20  // Face du haut (Y+)
     };
-}
 
-// Constructeur du cube
-Cube::Cube(glm::vec3 center, float edge, Shader* shader, LightSource* lightSource, Player* player)
-    : Cube(center, edge, shader, player) {
-    m_lightSource = lightSource;
-    m_mesh->load(m_vertices, m_indices, m_textures, (unsigned int)VertexAttribute::POSITION | (unsigned int)VertexAttribute::COLOR);
+    m_mesh = new Mesh(vertices, indices, (unsigned int)VertexAttribute::POSITION | (unsigned int)VertexAttribute::COLOR);
 }
 
 // Constructeur du cube
@@ -91,20 +93,83 @@ Cube::Cube(glm::vec3 center, float edge, Shader* shader, std::vector<Texture*> t
     m_textures = textures;
     m_lightManager = lightManager;
     m_renderer = renderer;
-    m_mesh->load(m_vertices, m_indices, m_textures, (unsigned int)VertexAttribute::POSITION | (unsigned int)VertexAttribute::NORMAL | (unsigned int)VertexAttribute::TEXCOORD);
+    m_textures = textures;
+
+    // Coordonnées du centre du cube
+    float x = center[0];
+    float y = center[1];
+    float z = center[2];
+
+    // Moitié de la taille du cube (sert à placer les sommets autour du centre)
+    float halfEdge = m_edge / 2.0f;
+
+    // Création des composants nécessaires
+    m_transformation = new Transformation(); // Permet de déplacer/faire tourner/agrandir l’objet
+
+    // Définition des sommets du cube
+    // Chaque face a 4 sommets, et comme un cube a 6 faces -> 24 sommets en tout
+    // Chaque sommet a : position (x,y,z), normale (ici mise à 0 pour l’instant), coordonnées UV
+    const std::vector<Vertex> vertices = {
+        // Face avant (Z+)
+        Vertex(x - halfEdge, y - halfEdge, z + halfEdge, 0.0f,  0.0f, 1.0f, 0.0f, 0.0f),
+        Vertex(x + halfEdge, y - halfEdge, z + halfEdge, 0.0f,  0.0f, 1.0f, 1.0f, 0.0f),
+        Vertex(x + halfEdge, y + halfEdge, z + halfEdge, 0.0f,  0.0f, 1.0f, 1.0f, 1.0f),
+        Vertex(x - halfEdge, y + halfEdge, z + halfEdge, 0.0f,  0.0f, 1.0f, 0.0f, 1.0f),
+
+        // Face arrière (Z-)
+        Vertex(x - halfEdge, y - halfEdge, z - halfEdge, 0.0f,  0.0f, -1.0f, 1.0f, 0.0f),
+        Vertex(x + halfEdge, y - halfEdge, z - halfEdge, 0.0f,  0.0f, -1.0f, 0.0f, 0.0f),
+        Vertex(x + halfEdge, y + halfEdge, z - halfEdge, 0.0f,  0.0f, -1.0f, 0.0f, 1.0f),
+        Vertex(x - halfEdge, y + halfEdge, z - halfEdge, 0.0f,  0.0f, -1.0f, 1.0f, 1.0f),
+
+        // Face gauche (X-)
+        Vertex(x - halfEdge, y - halfEdge, z - halfEdge, -1.0f,  0.0f, 0.0f, 0.0f, 0.0f),
+        Vertex(x - halfEdge, y - halfEdge, z + halfEdge, -1.0f,  0.0f, 0.0f, 1.0f, 0.0f),
+        Vertex(x - halfEdge, y + halfEdge, z + halfEdge, -1.0f,  0.0f, 0.0f, 1.0f, 1.0f),
+        Vertex(x - halfEdge, y + halfEdge, z - halfEdge, -1.0f,  0.0f, 0.0f, 0.0f, 1.0f),
+
+        // Face droite (X+)
+        Vertex(x + halfEdge, y - halfEdge, z - halfEdge, 1.0f,  0.0f, 0.0f, 1.0f, 0.0f),
+        Vertex(x + halfEdge, y - halfEdge, z + halfEdge, 1.0f,  0.0f, 0.0f, 0.0f, 0.0f),
+        Vertex(x + halfEdge, y + halfEdge, z + halfEdge, 1.0f,  0.0f, 0.0f, 0.0f, 1.0f),
+        Vertex(x + halfEdge, y + halfEdge, z - halfEdge, 1.0f,  0.0f, 0.0f, 1.0f, 1.0f),
+
+        // Face du bas (Y-)
+        Vertex(x - halfEdge, y - halfEdge, z - halfEdge, 0.0f,  -1.0f, 0.0f, 1.0f, 0.0f),
+        Vertex(x + halfEdge, y - halfEdge, z - halfEdge, 0.0f,  -1.0f, 0.0f, 1.0f, 1.0f),
+        Vertex(x + halfEdge, y - halfEdge, z + halfEdge, 0.0f,  -1.0f, 0.0f, 0.0f, 1.0f),
+        Vertex(x - halfEdge, y - halfEdge, z + halfEdge, 0.0f,  -1.0f, 0.0f, 0.0f, 0.0f),
+
+        // Face du haut (Y+)
+        Vertex(x - halfEdge, y + halfEdge, z - halfEdge, 0.0f,  1.0f, 0.0f, 0.0f, 0.0f),
+        Vertex(x + halfEdge, y + halfEdge, z - halfEdge, 0.0f,  1.0f, 0.0f, 0.0f, 1.0f),
+        Vertex(x + halfEdge, y + halfEdge, z + halfEdge, 0.0f,  1.0f, 0.0f, 1.0f, 1.0f),
+        Vertex(x - halfEdge, y + halfEdge, z + halfEdge, 0.0f,  1.0f, 0.0f, 1.0f, 0.0f)
+    };
+
+    // Indices : disent dans quel ordre relier les sommets pour former les triangles
+    // Chaque face du cube = 2 triangles = 6 indices
+    const std::vector<unsigned int> indices = {
+        0, 1, 2,   2, 3, 0,     // Face avant (Z+)
+        5, 4, 7,   7, 6, 5,     // Face arrière (Z-)
+        8, 9, 10,  10, 11, 8,   // Face gauche (X-)
+        13, 12, 15, 15, 14, 13, // Face droite (X+)
+        17, 16, 19, 19, 18, 17, // Face du bas (Y-)
+        20, 21, 22, 22, 23, 20  // Face du haut (Y+)
+    };
+
+    m_mesh = new Mesh(vertices, indices, (unsigned int)VertexAttribute::POSITION | (unsigned int)VertexAttribute::NORMAL | (unsigned int)VertexAttribute::TEXCOORD);
 }
 
 // Destructeur -> appelé quand on détruit l’objet Cube
 // Libère la mémoire utilisée
 Cube::~Cube() {
-    m_vertices.clear();       // Vide la liste de sommets
-    m_indices.clear();        // Vide la liste d’indices
     delete m_mesh;            // Détruit le mesh
     delete m_transformation;  // Détruit la transformation
 }
 
 inline std::vector<Texture*> Cube::getTextures() const {
-    return m_mesh->getTextures();
+    return m_textures;
 }
 
 // Prépare le cube pour être affiché (envoie les données au GPU)

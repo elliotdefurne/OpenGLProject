@@ -45,7 +45,5 @@ void Rectangle::setupBuffers() {
         2, 3, 0
     };
 
-	m_mesh = new Mesh();
-
-    m_mesh->load(vertices, indices, std::vector<Texture*>(), 0b0101);
+	m_mesh = new Mesh(vertices, indices, 0b0101);
 }

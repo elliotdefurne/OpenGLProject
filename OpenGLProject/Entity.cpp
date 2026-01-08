@@ -1,5 +1,6 @@
 #include "Entity.h"
 #include "Player.h"
+#include "Shader.h"
 
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
@@ -23,8 +24,4 @@ void Entity::update()
 
 }
 
-void Entity::draw()
-{
-	// Logique de dessin du joueur (si nécessaire)
-
-}
+void Entity::draw(Shader* shader) {}

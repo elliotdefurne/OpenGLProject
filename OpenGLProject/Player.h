@@ -20,7 +20,7 @@ public:
     void update() override;
 
     // Dessine le joueur à l'écran
-    void draw() override;
+    void draw(Shader* shader) override;
 
     // Traite les touches de direction
     // direction : valeur parmi direction::FORWARD, BACKWARD, LEFT, RIGHT, UP, DOWN

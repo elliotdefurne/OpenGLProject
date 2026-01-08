@@ -47,6 +47,7 @@ protected:
     Cube(glm::vec3 center, float edge, Shader* shader, Player* player);
 
     Mesh* m_mesh;                     // Maillage du cube (buffers OpenGL)
+    glm::vec3 m_center;               // Centre du cube dans l'espace
     std::vector<Texture*> m_textures; // Texture appliquee
     Shader* m_shader;                 // Shader pour le rendu
     Transformation* m_transformation; // Transformations : position, rotation, scale
@@ -55,11 +56,7 @@ protected:
     Player* m_player;
     Renderer* m_renderer;
 
-    std::vector<Vertex> m_vertices;       // Liste des sommets du cube
-    std::vector<unsigned int> m_indices;  // Indices pour dessiner les triangles
-    glm::vec3 m_center;                   // Centre du cube dans l'espace
-
-    float m_edge;                         // Taille d'une arête du cube
+    float m_edge;                      // Taille d'une arête du cube
 
 private:
     void drawLightSourceShader();

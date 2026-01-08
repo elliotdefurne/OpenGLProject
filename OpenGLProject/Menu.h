@@ -77,10 +77,11 @@ public:
 
     bool handleClick(double mouseX, double mouseY) {
         //printf("mouseX = %f ; mouseY = %f\n", mouseX, mouseY);
+        /*
         if (m_items == std::vector<MenuItem>()) {
             printf("Aucun item dans le menu");
             return false;
-        }
+        }*/
 
         for (auto& item : m_items) {
             if (item.contains(mouseX, mouseY) && item.callback) {

@@ -20,6 +20,8 @@ namespace EntityRelativeDirection {
     };
 }
 
+class Shader;
+
 // Classe Entity : classe de base pour tous les objets de la scene
 // Exemple : joueur, cube, camera, etc.
 class Entity
@@ -33,15 +35,20 @@ public:
     ~Entity();
 
     // Methode virtuelle : mise a jour de l'entité (mouvement, physique, logique)
-    void virtual update();
+    virtual void update();
 
     // Methode virtuelle : rendu de l'entité (envoie les donnees a OpenGL)
-    void virtual draw();
+    // Correction : la méthode draw doit prendre un Shader* en paramètre pour permettre l'override
+    virtual void draw(Shader* shader);
 
     // Getters
     glm::vec3 getPosition() const { return m_position; }           // Position de l'entité
     Direction* getDirection() const { return m_direction; } // Direction regardee
     glm::vec3 getDirectionVector() const { return m_direction->getDirectionVector(); } // Direction regardee
+
+    void setPosition(const glm::vec3& position) {
+        m_position = position;
+    }
 
 protected:
     Renderer* m_renderer;     // Renderer pour dessiner et gerer le rendu

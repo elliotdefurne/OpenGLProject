@@ -82,6 +82,7 @@ Menu& MenuManager::getCurrentMenu() {
         return m_optionsMenu;
     default:
         printf("Aucun menu a afficher\n");
+		return m_mainMenu;
         //throw std::runtime_error("Aucun menu a afficher");
     }
 }

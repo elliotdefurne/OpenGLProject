@@ -13,14 +13,14 @@ enum class VertexAttribute {
 
 /**
  * @class Mesh
- * @brief Représente un maillage 3D pour OpenGL
+ * @brief Represente un maillage 3D pour OpenGL
  *
  * Un maillage contient :
- * - Des sommets (Vertex) : positions, couleurs, coordonnées de texture
+ * - Des sommets (Vertex) : positions, couleurs, coordonnees de texture
  * - Des indices pour former les triangles
- * - Une texture associée
+ * - Une texture associee
  *
- * La classe gère aussi les objets GPU suivants :
+ * La classe gere aussi les objets GPU suivants :
  * - VAO (Vertex Array Object)
  * - VBO (Vertex Buffer Object)
  * - EBO (Element Buffer Object)
@@ -28,50 +28,46 @@ enum class VertexAttribute {
 class Mesh {
 public:
     /**
-     * @brief Constructeur par défaut
+     * @brief Constructeur par defaut
      *
-     * Initialise le pointeur de texture à nullptr.
-     * Les IDs VAO, VBO, EBO seront générés dans load().
+     * Initialise le pointeur de texture a nullptr.
+     * Les IDs VAO, VBO, EBO seront generes dans load().
      */
-    Mesh();
+    Mesh(const std::vector<Vertex>& vertices, const std::vector<unsigned int>& indices, unsigned int attributesMask = 0b0101);
 
     /**
      * @brief Destructeur
      *
-     * Appelle destroy() pour libérer correctement les ressources GPU.
+     * Appelle destroy() pour liberer correctement les ressources GPU.
      */
     ~Mesh();
 
     /**
-     * @brief Charge les données du maillage dans la mémoire GPU
+     * @brief Charge les donnees du maillage dans la memoire GPU
      *
      * @param vertices Vecteur de sommets (positions, couleurs, UV)
      * @param indices Vecteur d'indices pour former les triangles
-     * @param texture Pointeur vers la texture associée
+     * @param texture Pointeur vers la texture associee
      */
-    void load(const std::vector<Vertex>& vertices, const std::vector<unsigned int>& indices, std::vector<Texture*> textures, unsigned int attributesMask);
 
     /**
-     * @brief Dessine le maillage à l'écran
+     * @brief Dessine le maillage a l'ecran
      *
      * Bind le VAO et la texture, puis appelle glDrawElements.
      */
     void draw() const;
 
-    /**
-     * @brief Retourne la texture associée
-     */
-    inline std::vector<Texture*> getTextures() const { return m_textures; };
+	std::vector<Vertex> getVertices() const { return m_vertices; }
+    std::vector<unsigned int> getIndices() const { return m_indices; }
 
 private:
     unsigned int m_vao = 0;      // Vertex Array Object
     unsigned int m_vbo = 0;      // Vertex Buffer Object
     unsigned int m_ebo = 0;      // Element Buffer Object
     int m_indexCount = 0;        // Nombre d'indices
-    std::vector<Texture*> m_textures;           // Pointeur vers les textures
-    
-    /**
-     * @brief Libère manuellement les ressources GPU (VAO, VBO, EBO)
-     */
-    void destroy();
+
+    std::vector<Vertex> m_vertices;
+    std::vector<unsigned int> m_indices;
+
+    void setupMesh(unsigned int attributesMask);
 };

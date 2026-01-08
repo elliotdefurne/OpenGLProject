@@ -3,17 +3,22 @@
 
 #include "Mesh.h"
 
-Mesh::Mesh() : m_textures(NULL) {
+Mesh::Mesh(const std::vector<Vertex>& vertices, const std::vector<unsigned int>& indices, unsigned int attributesMask) {
     // Rien à faire ici : les IDs seront initialisés dans load()
+    setupMesh(attributesMask);
 }
 
 Mesh::~Mesh() {
-    destroy(); // Libération des ressources GPU
+    if (m_ebo) glDeleteBuffers(1, &m_ebo);
+    if (m_vbo) glDeleteBuffers(1, &m_vbo);
+    if (m_vao) glDeleteVertexArrays(1, &m_vao);
+
+    m_vao = m_vbo = m_ebo = 0; // Réinitialisation des IDs
+    m_indexCount = 0;
 }
 
-void Mesh::load(const std::vector<Vertex>& vertices, const std::vector<unsigned int>& indices, std::vector<Texture*> textures = std::vector<Texture*>(), unsigned int attributesMask = 0b0101) {
-    m_textures = textures; // Stocke la texture
-    m_indexCount = static_cast<GLsizei>(indices.size()); // Nombre d'indices
+void Mesh::setupMesh(unsigned int attributesMask = 0b0101) {
+    m_indexCount = static_cast<GLsizei>(m_indices.size()); // Nombre d'indices
 
     // Création des objets OpenGL
     glGenVertexArrays(1, &m_vao); // VAO
@@ -24,11 +29,11 @@ void Mesh::load(const std::vector<Vertex>& vertices, const std::vector<unsigned 
 
     // Chargement des sommets dans le VBO
     glBindBuffer(GL_ARRAY_BUFFER, m_vbo);
-    glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(Vertex), vertices.data(), GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, m_vertices.size() * sizeof(Vertex), m_vertices.data(), GL_STATIC_DRAW);
 
     // Chargement des indices dans le EBO
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_ebo);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(unsigned int), indices.data(), GL_STATIC_DRAW);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, m_indices.size() * sizeof(unsigned int), m_indices.data(), GL_STATIC_DRAW);
 
     // Définition du layout mémoire pour chaque attribut
     // Position (x, y, z)
@@ -67,14 +72,4 @@ void Mesh::draw() const {
     glBindVertexArray(m_vao);                                             // Bind du VAO
     glDrawElements(GL_TRIANGLES, m_indexCount, GL_UNSIGNED_INT, nullptr); // Dessin
     glBindVertexArray(0);                                                 // Débind
-}
-
-
-void Mesh::destroy() {
-    if (m_ebo) glDeleteBuffers(1, &m_ebo);
-    if (m_vbo) glDeleteBuffers(1, &m_vbo);
-    if (m_vao) glDeleteVertexArrays(1, &m_vao);
-
-    m_vao = m_vbo = m_ebo = 0; // Réinitialisation des IDs
-    m_indexCount = 0;
 }
