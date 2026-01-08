@@ -19,7 +19,8 @@ Avant de faire tourner ce code sur votre machine, il vous faut (normalement tout
 - C++23;
 - GLFW & GLAD pour OpenGL;
 - STB pour le chargement des images et les polices d'écritures;
-- GLM pour les mathématiques.
+- GLM pour les mathématiques;
+- Assimp pour les models 3D.
 
 ##  Installation
 
