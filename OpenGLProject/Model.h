@@ -11,6 +11,8 @@ class Shader;
 class Mesh;
 class TextureManager;
 
+#pragma comment(lib, "assimp-vc143-mtd.lib")
+
 // Structure pour représenter une bounding box
 struct BoundingBox {
     glm::vec3 min;
@@ -49,13 +51,13 @@ struct BoundingSphere {
     // Transforme la sphère avec une matrice
     BoundingSphere transform(const glm::mat4& matrix) const;
 
-    // Vérifie la collision avec une autre sphère
+    // Vérifie la collision avec une autre sphere
     bool intersects(const BoundingSphere& other) const;
 };
 
 class Model {
 public:
-    // Constructeur avec chemin du modèle et texture manager
+    // Constructeur avec chemin du modele et texture manager
     Model(const std::string& path, TextureManager* textureManager = nullptr);
 
     // Dessine le modèle
@@ -82,7 +84,7 @@ public:
 
 private:
     std::vector<Mesh*> m_meshes;
-    std::string m_directory;
+    std::string m_texturesDirectory;
     TextureManager* m_textureManager;
 
     // Hitbox du modèle entier

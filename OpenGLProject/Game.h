@@ -19,6 +19,7 @@ class LightManager;
 class Socket;
 class MenuManager;
 class TextRenderer;
+class ModelEntity;
 
 class Game {
 public:
@@ -44,6 +45,8 @@ private:
     std::unique_ptr<Socket> m_socket;
     std::unique_ptr<MenuManager> m_menuManager;
     std::unique_ptr<TextRenderer> m_textRenderer;
+
+    ModelEntity* m_modelEntity;
 
     bool m_isRunning = true;
 

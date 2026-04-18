@@ -2,7 +2,8 @@
 
 /*
 * TODO:
-*   Enlever les couleurs des Vertex (uniquement position, normal, UV)
+*   Model loading
+*   -> Refonte de la classe texture pour ne plus prendre differencier les usages (cube: avec details.json, normal etc, et model: normal.png, diffuse.jpg, specular.jpg)
 *   Collision (Hitbox)
 *   Multi
 */

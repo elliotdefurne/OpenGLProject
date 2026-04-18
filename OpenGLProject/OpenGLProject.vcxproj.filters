@@ -55,6 +55,9 @@
     <Filter Include="Fichiers de ressources\shaders\rectangle">
       <UniqueIdentifier>{06845dbe-d9a4-4f47-86d2-8e3f34f44b33}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Fichiers de ressources\shaders\model">
+      <UniqueIdentifier>{a7cbd5eb-282c-4309-a818-edc4758ad80c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">

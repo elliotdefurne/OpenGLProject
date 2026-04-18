@@ -149,7 +149,9 @@ void Model::loadModel(const std::string& path) {
         return;
     }
 
-    m_directory = path.substr(0, path.find_last_of('/'));
+    std::filesystem::path p = path;
+    m_texturesDirectory = std::string("models/") + p.parent_path().filename().string();
+    printf("m_texturesDirectory = %s\n", m_texturesDirectory.c_str());
     processNode(scene->mRootNode, scene);
 }
 
@@ -231,7 +233,7 @@ Mesh* Model::processMesh(aiMesh* mesh, const aiScene* scene) {
         textureIDs.insert(textureIDs.end(), specularMaps.begin(), specularMaps.end());
     }
 
-    return new Mesh(vertices, indices);
+    return new Mesh(vertices, indices, 0b1101);
 }
 
 std::vector<unsigned int> Model::loadMaterialTextures(aiMaterial* mat, aiTextureType type) {
@@ -245,14 +247,14 @@ std::vector<unsigned int> Model::loadMaterialTextures(aiMaterial* mat, aiTexture
         aiString str;
         mat->GetTexture(type, i, &str);
 
-        std::string texturePath = m_directory + "/" + std::string(str.C_Str());
+        std::string texturePath = m_texturesDirectory + "/" + std::string(str.C_Str());
 
         try {
             Texture* texture = m_textureManager->getTexture(texturePath);
             textureIDs.push_back(texture->getID());
         }
         catch (const std::exception& e) {
-            std::cerr << "Échec du chargement de texture: " << texturePath << std::endl;
+            std::cerr << "Echec du chargement de texture ("<< e.what() << ") :" << texturePath << std::endl;
         }
     }
 

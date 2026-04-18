@@ -36,10 +36,6 @@ Texture* TextureManager::getTexture(const std::string& path) {
 
 // Fonction pour charger les propriétés depuis le JSON
 float TextureManager::loadTextureProperties(const std::filesystem::path& jsonPath) {
-    if (!std::filesystem::exists(jsonPath)) {
-        return Materials::PLASTIC_GLOSSY; // Valeur par défaut
-    }
-
     try {
         std::ifstream jsonFile(jsonPath);
         json jsonData = json::parse(jsonFile);
@@ -64,8 +60,15 @@ TextureInfo TextureManager::getTextureInfoFromFolder(const std::filesystem::path
     info.specularPath = (folderPath / (folderName + "_specular.png")).string();
     info.hasSpecular = std::filesystem::exists(info.specularPath);
 
-    std::filesystem::path jsonPath = folderPath / (folderName + ".json");
-    info.shininess = loadTextureProperties(jsonPath);
+    info.shininessPath = (folderPath / (folderName + ".json")).string();
+    info.hasShininess = std::filesystem::exists(info.shininessPath);
+    if (info.hasShininess) {
+        info.shininess = loadTextureProperties(info.shininessPath);
+    }
+    else {
+        std::cerr << "Fichier de propriétés manquant pour " << folderName << ": " << info.shininessPath << std::endl;
+        info.shininess = Materials::PLASTIC_GLOSSY;
+	}
 
     return info;
 }
@@ -121,26 +124,34 @@ bool TextureManager::loadTextureFromFolder(const std::filesystem::path& folderPa
     // Log
     std::cout << "Texture chargée: " << folderName
         << " (shininess: " << info.shininess
-        << ", specular: " << (info.hasSpecular ? "oui" : "non") << ")" << std::endl;
+        << ", specular: " << (info.hasSpecular ? "oui" : "non") << ")"
+		<< ", shininess file: " << (info.hasShininess ? info.shininessPath : "non trouvé")
+        << std::endl;
 
     return true;
 }
 
-// Fonction principale simplifiée
-void TextureManager::loadTextures(std::string texturesFolderPath) {
-    if (!std::filesystem::is_directory(texturesFolderPath)) {
-        std::cerr << "Le dossier des textures n'existe pas: " << texturesFolderPath << std::endl;
-        return;
-    }
+void TextureManager::loadTextures(std::span<const char* const> texturesFolderPath) {
+    size_t count = std::size(texturesFolderPath);
 
-	// Texture 0 reservee pour la texture par défaut
     int textureIDCounter = Constants::FIRST_TEXTURE_ID;
+    
+    for (int i = 0; i < count; i++) {
+        const char* path = texturesFolderPath[i];
 
-    // Parcourir les dossiers
-    for (const auto& entry : std::filesystem::directory_iterator(texturesFolderPath)) {
-        if (entry.is_directory()) {
-            loadTextureFromFolder(entry.path(), texturesFolderPath, textureIDCounter);
+        if (!std::filesystem::is_directory(path)) {
+            std::cerr << "Le dossier des textures n'existe pas: " << path << std::endl;
+            return;
         }
+
+        
+
+        for (const auto& entry : std::filesystem::directory_iterator(path)) {
+            if (entry.is_directory()) {
+                loadTextureFromFolder(entry.path(), path, textureIDCounter);
+            }
+        }
+        i++;
     }
 }
 
@@ -153,9 +164,6 @@ void TextureManager::deleteNode(TextureNode* node) {
         delete node->texture;
     }
 }
-
-// Remplacer les littéraux u8"" par des chaînes const char* compatibles avec std::ostream
-// Correction dans printTextureTree() et printNode()
 
 void TextureManager::printTextureTree() const {
     std::cout << "\n=== Arborescence des Textures ===" << std::endl;

@@ -26,5 +26,6 @@
 #include "MenuManager.h"
 #include "TextRenderer.h"
 #include "gamestate.h"
+#include "ModelEntity.h"
 
 #include "constants.h"

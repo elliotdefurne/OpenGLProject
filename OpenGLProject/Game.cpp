@@ -28,7 +28,7 @@ void Game::initialize() {
     m_inputManager   = std::make_unique<InputManager>(this, m_menuManager.get(), m_window.get(), m_player.get());
 
 	m_textRenderer->loadFont("res/fonts/armana/Amarna-Bold.ttf", 48.0f);
-
+    m_textureManager->printTextureTree();
     m_socket->connectToServerAsync(ServerInfo(Constants::SERVER_IP, Constants::SERVER_PORT));
 
     Texture* containerTexture = m_textureManager->getTexture("container");
@@ -68,6 +68,8 @@ void Game::initialize() {
     m_cubes.push_back(std::make_unique<Cube>(glm::vec3(1, 0, 0), 1.0f, cubeShader, crateTextures, m_renderer.get(), m_lightManager.get(), m_player.get()));
     m_cubes.push_back(std::make_unique<Cube>(glm::vec3(0, 0, -2), 1.0f, cubeShader, crateTextures, m_renderer.get(), m_lightManager.get(), m_player.get()));
     m_cubes.push_back(std::make_unique<Cube>(glm::vec3(1, 0.5, 2), 1.0f, cubeShader, crateTextures, m_renderer.get(), m_lightManager.get(), m_player.get()));
+
+	m_modelEntity = new ModelEntity(m_renderer.get(), "./res/models/backpack/backpack.obj", m_textureManager.get());
 
     glGetString(GL_VERSION) ? std::cout << "OpenGL version: " << glGetString(GL_VERSION) << std::endl
         : throw std::runtime_error("Impossible de récupérer la version OpenGL");
@@ -127,6 +129,9 @@ void Game::draw() {
         cube->draw();
     }
     m_lightManager->draw();
+
+    m_modelEntity->draw(m_shaderManager->getShader("model"));
+
 
     // 2. Transparences
     glEnable(GL_BLEND);

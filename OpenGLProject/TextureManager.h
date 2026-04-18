@@ -18,8 +18,10 @@ class Texture; // Déclaration anticipée pour éviter les include circulaires
 struct  TextureInfo {
     std::string texturePath;
     std::string specularPath;
+    std::string shininessPath;
     float shininess;
     bool hasSpecular;
+    bool hasShininess;
 };
 
 // Structure représentant un noeud de l'arborescence des textures
@@ -88,7 +90,7 @@ private:
     unsigned int m_defaultSpecularID = Constants::BLACK_TEXTURE_ID;  // Texture par défaut
 
     /**
-     * @brief Charge toutes les textures depuis un dossier donné
+     * @brief Charge toutes les textures depuis des dossiers donnés
      * @param texturesFolderPath Chemin du dossier (par défaut : Constants::TEXTURES_FOLDER_PATH)
      *
      * Étapes du chargement :
@@ -96,7 +98,7 @@ private:
      * 2. Parcourt tous les fichiers récursivement
      * 3. Pour chaque fichier .png, crée un objet Texture et l'ajoute à l'arborescence
      */
-    void loadTextures(std::string texturesFolderPath = Constants::TEXTURES_FOLDER_PATH);
+    void loadTextures(std::span<const char* const> texturesFolderPath = Constants::TEXTURES_FOLDER_PATHS);
 
     void createDefaultTextures();
 
