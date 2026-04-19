@@ -6,10 +6,13 @@
 #include <glm/glm.hpp>
 #include <vector>
 #include <string>
+#include <unordered_map>
 
 class Shader;
 class Mesh;
 class TextureManager;
+class Camera;
+class LightManager;
 
 #pragma comment(lib, "assimp-vc143-mtd.lib")
 
@@ -58,7 +61,7 @@ struct BoundingSphere {
 class Model {
 public:
     // Constructeur avec chemin du modele et texture manager
-    Model(const std::string& path, TextureManager* textureManager = nullptr);
+    Model(Camera* camera, LightManager* lightManager, const std::string& path, TextureManager* textureManager = nullptr);
 
     // Dessine le modèle
     void draw(Shader& shader);
@@ -83,9 +86,15 @@ public:
         const glm::mat4& modelMatrix, float& distance) const;
 
 private:
-    std::vector<Mesh*> m_meshes;
+    std::string m_directory;
     std::string m_texturesDirectory;
+
     TextureManager* m_textureManager;
+    Camera* m_camera;
+    LightManager* m_lightManager;
+
+    std::unordered_map<std::string, unsigned int> m_loadedTextures;
+    std::vector<Mesh*> m_meshes;
 
     // Hitbox du modèle entier
     BoundingBox m_boundingBox;
@@ -95,6 +104,7 @@ private:
     Mesh* m_debugBoundingBoxMesh;
 
     // Chargement
+    unsigned int loadTextureFromFile(const std::string& path);
     void loadModel(const std::string& path);
     void processNode(aiNode* node, const aiScene* scene);
     Mesh* processMesh(aiMesh* mesh, const aiScene* scene);

@@ -3,10 +3,9 @@
 #include "Shader.h"
 #include <memory>
 
-ModelEntity::ModelEntity(Renderer* renderer, const std::string& modelPath,
-	TextureManager* textureManager)
-	: Entity(renderer) {
-	m_model = std::make_unique<Model>(modelPath, textureManager);
+ModelEntity::ModelEntity(Camera* camera, LightManager* lightManager, Renderer* renderer, const std::string& modelPath, TextureManager* textureManager)
+	: m_camera(camera), m_lightManager(lightManager), Entity(renderer) {
+	m_model = std::make_unique<Model>(m_camera, m_lightManager, modelPath, textureManager);
 }
 
 ModelEntity::~ModelEntity() {

@@ -7,12 +7,14 @@
 class Shader;
 class Model;
 class TextureManager;
+class Camera;
+class LightManager;
 
 struct BoundingBox;
 
 class ModelEntity : public Entity {
 public:
-    ModelEntity(Renderer* renderer, const std::string& modelPath, TextureManager* textureManager);
+    ModelEntity(Camera* camera, LightManager* lightManager, Renderer* renderer, const std::string& modelPath, TextureManager* textureManager);
 
     ~ModelEntity();
 
@@ -35,5 +37,7 @@ public:
 
 
 private:
+    Camera* m_camera;
+	LightManager* m_lightManager;
     std::unique_ptr<Model> m_model;
 };

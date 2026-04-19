@@ -148,6 +148,11 @@ void TextureManager::loadTextures(std::span<const char* const> texturesFolderPat
 
         for (const auto& entry : std::filesystem::directory_iterator(path)) {
             if (entry.is_directory()) {
+                std::string folderName = entry.path().filename().string();
+
+                // Ignorer les dossiers réservés aux modèles 3D
+                if (folderName == "models") continue;
+
                 loadTextureFromFolder(entry.path(), path, textureIDCounter);
             }
         }

@@ -3,7 +3,9 @@
 
 #include "Mesh.h"
 
-Mesh::Mesh(const std::vector<Vertex>& vertices, const std::vector<unsigned int>& indices, unsigned int attributesMask) {
+
+Mesh::Mesh(const std::vector<Vertex>& vertices, const std::vector<unsigned int>& indices, unsigned int attributesMask, const std::vector<unsigned int>& textureIDs) 
+    : m_vertices(vertices), m_indices(indices), m_textureIDs(textureIDs) {
     // Rien à faire ici : les IDs seront initialisés dans load()
     setupMesh(attributesMask);
 }
@@ -69,7 +71,16 @@ void Mesh::setupMesh(unsigned int attributesMask = 0b0101) {
 }
 
 void Mesh::draw() const {
-    glBindVertexArray(m_vao);                                             // Bind du VAO
-    glDrawElements(GL_TRIANGLES, m_indexCount, GL_UNSIGNED_INT, nullptr); // Dessin
-    glBindVertexArray(0);                                                 // Débind
+    if (!m_textureIDs.empty()) {
+        glActiveTexture(GL_TEXTURE0);
+        glBindTexture(GL_TEXTURE_2D, m_textureIDs[0]); // diffuse
+    }
+    if (m_textureIDs.size() > 1) {
+        glActiveTexture(GL_TEXTURE1);
+        glBindTexture(GL_TEXTURE_2D, m_textureIDs[1]); // specular
+    }
+
+    glBindVertexArray(m_vao);
+    glDrawElements(GL_TRIANGLES, m_indexCount, GL_UNSIGNED_INT, 0);
+    glBindVertexArray(0);
 }

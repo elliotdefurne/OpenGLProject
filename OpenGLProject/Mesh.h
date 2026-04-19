@@ -33,7 +33,7 @@ public:
      * Initialise le pointeur de texture a nullptr.
      * Les IDs VAO, VBO, EBO seront generes dans load().
      */
-    Mesh(const std::vector<Vertex>& vertices, const std::vector<unsigned int>& indices, unsigned int attributesMask = 0b0101);
+    Mesh(const std::vector<Vertex>& vertices, const std::vector<unsigned int>& indices, unsigned int attributesMask = 0b0101, const std::vector<unsigned int>& textureIDs = {});
 
     /**
      * @brief Destructeur
@@ -68,6 +68,7 @@ private:
 
     std::vector<Vertex> m_vertices;
     std::vector<unsigned int> m_indices;
+    std::vector<unsigned int> m_textureIDs;
 
     void setupMesh(unsigned int attributesMask);
 };

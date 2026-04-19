@@ -3,8 +3,14 @@
 #include "Shader.h"
 #include "TextureManager.h"
 #include "Vertex.h"
+#include "Camera.h"
+#include "LightManager.h"
+
 #include <iostream>
 #include <exception>
+
+#include <glad/glad.h>
+#include <stb/stb_image.h>
 
 // ===== BoundingBox =====
 BoundingBox BoundingBox::transform(const glm::mat4& matrix) const {
@@ -64,8 +70,8 @@ bool BoundingSphere::intersects(const BoundingSphere& other) const {
 }
 
 // ===== Model =====
-Model::Model(const std::string& path, TextureManager* textureManager)
-    : m_textureManager(textureManager), m_debugBoundingBoxMesh(nullptr) {
+Model::Model(Camera* camera, LightManager* lightManager, const std::string& path, TextureManager* textureManager)
+    : m_camera(camera), m_lightManager(lightManager), m_textureManager(textureManager), m_debugBoundingBoxMesh(nullptr) {
     loadModel(path);
     calculateBoundingBox();
     calculateBoundingSphere();
@@ -73,6 +79,15 @@ Model::Model(const std::string& path, TextureManager* textureManager)
 }
 
 void Model::draw(Shader& shader) {
+    shader.use();
+    shader.setInt("texture_diffuse", 0);
+    shader.setInt("texture_specular", 1);
+    shader.setVec3("viewPos", m_camera->getPosition());
+    m_lightManager->applyToShader(&shader);
+
+    shader.setInt("texture_diffuse", 0);
+    shader.setInt("texture_specular", 1);
+
     for (auto* mesh : m_meshes) {
         mesh->draw();
     }
@@ -139,19 +154,17 @@ bool Model::raycast(const glm::vec3& origin, const glm::vec3& direction,
 void Model::loadModel(const std::string& path) {
     Assimp::Importer importer;
     const aiScene* scene = importer.ReadFile(path,
-        aiProcess_Triangulate |
-        aiProcess_FlipUVs |
-        aiProcess_CalcTangentSpace |
-        aiProcess_GenNormals);
+        aiProcess_Triangulate | aiProcess_FlipUVs | aiProcess_GenNormals);
 
     if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode) {
         std::cerr << "ERREUR::ASSIMP::" << importer.GetErrorString() << std::endl;
         return;
     }
 
+    // Stocker le dossier physique du fichier .obj
     std::filesystem::path p = path;
-    m_texturesDirectory = std::string("models/") + p.parent_path().filename().string();
-    printf("m_texturesDirectory = %s\n", m_texturesDirectory.c_str());
+    m_directory = p.parent_path().string(); // ex: "./res/models/backpack"
+
     processNode(scene->mRootNode, scene);
 }
 
@@ -221,41 +234,30 @@ Mesh* Model::processMesh(aiMesh* mesh, const aiScene* scene) {
     // Textures
     if (mesh->mMaterialIndex >= 0) {
         aiMaterial* material = scene->mMaterials[mesh->mMaterialIndex];
-
-        // Diffuse
-        std::vector<unsigned int> diffuseMaps = loadMaterialTextures(
-            material, aiTextureType_DIFFUSE);
-        textureIDs.insert(textureIDs.end(), diffuseMaps.begin(), diffuseMaps.end());
-
-        // Specular
-        std::vector<unsigned int> specularMaps = loadMaterialTextures(
-            material, aiTextureType_SPECULAR);
-        textureIDs.insert(textureIDs.end(), specularMaps.begin(), specularMaps.end());
+        auto diffuse = loadMaterialTextures(material, aiTextureType_DIFFUSE);
+        auto specular = loadMaterialTextures(material, aiTextureType_SPECULAR);
+        textureIDs.insert(textureIDs.end(), diffuse.begin(), diffuse.end());
+        textureIDs.insert(textureIDs.end(), specular.begin(), specular.end());
     }
 
-    return new Mesh(vertices, indices, 0b1101);
+    // Binder la texture diffuse avant de créer le mesh (si ton Mesh::draw() utilise l'unité 0)
+    if (!textureIDs.empty()) {
+        glActiveTexture(GL_TEXTURE0);
+        glBindTexture(GL_TEXTURE_2D, textureIDs[0]);
+    }
+
+    return new Mesh(vertices, indices, 0b1101, textureIDs);
 }
 
 std::vector<unsigned int> Model::loadMaterialTextures(aiMaterial* mat, aiTextureType type) {
     std::vector<unsigned int> textureIDs;
 
-    if (!m_textureManager) {
-        return textureIDs;
-    }
-
     for (unsigned int i = 0; i < mat->GetTextureCount(type); i++) {
         aiString str;
         mat->GetTexture(type, i, &str);
 
-        std::string texturePath = m_texturesDirectory + "/" + std::string(str.C_Str());
-
-        try {
-            Texture* texture = m_textureManager->getTexture(texturePath);
-            textureIDs.push_back(texture->getID());
-        }
-        catch (const std::exception& e) {
-            std::cerr << "Echec du chargement de texture ("<< e.what() << ") :" << texturePath << std::endl;
-        }
+        std::string fullPath = m_directory + "/" + std::string(str.C_Str());
+        textureIDs.push_back(loadTextureFromFile(fullPath));
     }
 
     return textureIDs;
@@ -303,4 +305,46 @@ void Model::createDebugBoundingBoxMesh() {
     };
 
     m_debugBoundingBoxMesh = new Mesh(vertices, indices);
+}
+
+unsigned int Model::loadTextureFromFile(const std::string& path) {
+    // Cache : ne pas recharger la même texture
+    auto it = m_loadedTextures.find(path);
+    if (it != m_loadedTextures.end()) return it->second;
+
+    unsigned int textureID;
+    glGenTextures(1, &textureID);
+
+    int width, height, nrChannels;
+    stbi_set_flip_vertically_on_load(false); // Assimp le fait déjà via aiProcess_FlipUVs
+    unsigned char* data = stbi_load(path.c_str(), &width, &height, &nrChannels, 0);
+
+    if (data) {
+        GLenum format;
+        if (nrChannels == 1) format = GL_RED;
+        else if (nrChannels == 3) format = GL_RGB;
+        else                      format = GL_RGBA;
+
+        glBindTexture(GL_TEXTURE_2D, textureID);
+        glTexImage2D(GL_TEXTURE_2D, 0, format, width, height, 0, format, GL_UNSIGNED_BYTE, data);
+        glGenerateMipmap(GL_TEXTURE_2D);
+
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+        std::cout << "Texture chargée: " << path << std::endl;
+    }
+    else {
+        std::cerr << "Échec chargement: " << path << std::endl;
+        // Texture magenta de debug
+        unsigned char pink[] = { 255, 0, 255, 255 };
+        glBindTexture(GL_TEXTURE_2D, textureID);
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, 1, 1, 0, GL_RGBA, GL_UNSIGNED_BYTE, pink);
+    }
+
+    stbi_image_free(data);
+    m_loadedTextures[path] = textureID;
+    return textureID;
 }

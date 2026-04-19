@@ -355,6 +355,13 @@
     <None Include="res\shaders\rectangle\rectangle.vert">
       <Filter>Fichiers de ressources\shaders\rectangle</Filter>
     </None>
+    <None Include="model.vs" />
+    <None Include="res\shaders\model\model.frag">
+      <Filter>Fichiers de ressources\shaders\model</Filter>
+    </None>
+    <None Include="res\shaders\model\model.vert">
+      <Filter>Fichiers de ressources\shaders\model</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\textures\crate\container.png">
