@@ -45,7 +45,7 @@ namespace Constants {
 
     // Menu
 
-    inline constexpr float MENU_TITLE_X = 150.0f;
+    inline constexpr float MENU_TITLE_X = WINDOW_WIDTH/2.0f;
     inline constexpr float MENU_TITLE_Y = 50.0f;
     inline constexpr float MENU_TITLE_W = 300.0f;
 	inline constexpr float MENU_TITLE_H = 75.0f;

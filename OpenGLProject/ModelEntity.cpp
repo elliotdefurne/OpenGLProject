@@ -1,6 +1,8 @@
 #include "ModelEntity.h"
 #include "Model.h"
 #include "Shader.h"
+#include "Camera.h"
+#include "LightManager.h"
 #include <memory>
 
 ModelEntity::ModelEntity(Camera* camera, LightManager* lightManager, Renderer* renderer, const std::string& modelPath, TextureManager* textureManager)
@@ -15,18 +17,18 @@ ModelEntity::~ModelEntity() {
 void ModelEntity::draw(Shader* shader) {
     shader->use();
 
-    // Matrice de transformation
     glm::mat4 model = glm::mat4(1.0f);
     model = glm::translate(model, m_position);
-
-    // Rotation basée sur la direction
     glm::vec3 dir = m_direction->getDirectionVector();
     float yaw = atan2(dir.x, dir.z);
     model = glm::rotate(model, yaw, glm::vec3(0, 1, 0));
 
-    shader->setMat4("model", model);
+    shader->setModel(model);      // il faut setter le model avant
+    shader->setupMatrices();      // envoie model + view + projection
 
-    // Dessiner le modèle
+    shader->setVec3("viewPos", m_camera->getPosition());
+    m_lightManager->applyToShader(shader);
+
     m_model->draw(*shader);
 }
 

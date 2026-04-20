@@ -10,7 +10,7 @@ MenuManager::MenuManager(Game* game, TextRenderer* textRenderer, ShaderManager* 
 
 void MenuManager::initMenus() {
     // Menu principal
-    m_mainMenu = Menu(m_textRenderer, "Menu Principal", false);
+    m_mainMenu = Menu(m_textRenderer, "Menu Principal", true);
     m_mainMenu.addItem("Jouer", Constants::WINDOW_WIDTH / 2, 160, 200, 50, [this]() {
         m_game->changeState(STATE_PLAYING);
         });
@@ -21,36 +21,39 @@ void MenuManager::initMenus() {
         m_game->stop();
         });
 
-    Rectangle* rec1 = new Rectangle(m_shaderManager->getShader("rectangle"), 0, 0, Constants::WINDOW_WIDTH, Constants::WINDOW_HEIGHT, glm::vec3(1.0f, 0.5f, 0.5f));
-    Rectangle* rec2 = new Rectangle(m_shaderManager->getShader("rectangle"), Constants::WINDOW_WIDTH/2, Constants::WINDOW_HEIGHT/2, 20.0f, 20.0f, glm::vec3(1.0f, 1.0f, 1.0f));
-    Rectangle* rec3 = new Rectangle(m_shaderManager->getShader("rectangle"), 0, 0, 20.0f, 20.0f);
-    Rectangle* rec4 = new Rectangle(m_shaderManager->getShader("rectangle"), 0, 0, 20.0f, 20.0f);
-	rec2->setRotation(45);
+    Rectangle* rec1 = new Rectangle(m_shaderManager->getShader("rectangle"), 0, 0, Constants::WINDOW_WIDTH/2, Constants::WINDOW_HEIGHT/2, glm::vec3(1.0f, 0.5f, 0.5f));
+    Rectangle* rec2 = new Rectangle(m_shaderManager->getShader("rectangle"), Constants::WINDOW_WIDTH / 2, Constants::WINDOW_HEIGHT / 2, Constants::WINDOW_WIDTH / 2, Constants::WINDOW_HEIGHT / 2, glm::vec3(0.5f, 1.0f, 0.5f));
+    Rectangle* rec3 = new Rectangle(m_shaderManager->getShader("rectangle"), Constants::WINDOW_WIDTH / 2, 0, Constants::WINDOW_WIDTH / 2, Constants::WINDOW_HEIGHT / 2, glm::vec3(0.5f, 0.5f, 1.0f));
+    Rectangle* rec4 = new Rectangle(m_shaderManager->getShader("rectangle"), 0, Constants::WINDOW_HEIGHT / 2, Constants::WINDOW_WIDTH / 2, Constants::WINDOW_HEIGHT / 2, glm::vec3(0.90f, 0.90f, 0.5f));
+    Rectangle* rec5 = new Rectangle(m_shaderManager->getShader("rectangle"), Constants::WINDOW_WIDTH / 2, Constants::WINDOW_HEIGHT / 2 - 10.0f, 20.0f, 20.0f, glm::vec3(1.0f, 1.0f, 1.0f));
+
+	rec5->setRotation(45);
 	//rec3->setRotation(45);
     //rec4->setRotation(45);
 	m_mainMenu.addShape(0, rec1);
-	m_mainMenu.addShape(1, rec2);
-	//m_mainMenu.addShape(2, rec3);
-	//m_mainMenu.addShape(3, rec4);
-
+    m_mainMenu.addShape(1, rec2);
+    m_mainMenu.addShape(2, rec3);
+    m_mainMenu.addShape(3, rec4);
+    m_mainMenu.addShape(4, rec5);
+	
     // Menu pause (avec overlay)
-    m_pauseMenu = Menu(m_textRenderer, "Pause", true);
-    m_pauseMenu.addItem("Reprendre", 200, 300, 200, 50, [this]() {
+    m_pauseMenu = Menu(m_textRenderer, "Pause", false);
+    m_pauseMenu.addItem("Reprendre", Constants::WINDOW_WIDTH / 2, 160, 200, 50, [this]() {
         m_game->changeState(STATE_PLAYING);
     });
-    m_pauseMenu.addItem("Menu Principal", 200, 230, 200, 50, [this]() {
+    m_pauseMenu.addItem("Menu Principal", Constants::WINDOW_WIDTH / 2, 230, 200, 50, [this]() {
         m_game->changeState(STATE_MENU);
     });
-    m_pauseMenu.addItem("Quitter", 200, 160, 200, 50, [this]() {
+    m_pauseMenu.addItem("Quitter", Constants::WINDOW_WIDTH / 2, 300, 200, 50, [this]() {
         m_game->stop();
     });
 
     // Menu options
     m_optionsMenu = Menu(m_textRenderer, "Options", false);
-    m_optionsMenu.addItem("Son: ON", 200, 300, 200, 50, [this]() {
+    m_optionsMenu.addItem("Son: ON", Constants::WINDOW_WIDTH / 2, 160, 200, 50, [this]() {
         std::cout << "Toggle son" << std::endl;
     });
-    m_optionsMenu.addItem("Retour", 200, 230, 200, 50, [this]() {
+    m_optionsMenu.addItem("Retour", Constants::WINDOW_WIDTH / 2, 230, 200, 50, [this]() {
         m_game->changeState(m_previousState == STATE_PLAYING ? STATE_PAUSED : STATE_MENU);
     });
 }
@@ -96,7 +99,12 @@ void MenuManager::handleClick(double mouseX, double mouseY) {
 }
 
 void MenuManager::draw() {
-    if (m_currentState != STATE_PLAYING) getCurrentMenu().draw();
+    if (m_currentState != STATE_PLAYING) {
+		// Désactive le depth test pour le rendu 2D du menu
+        glDisable(GL_DEPTH_TEST);
+        getCurrentMenu().draw();
+        glEnable(GL_DEPTH_TEST);
+    }
 }
 
 GameState MenuManager::getCurrentState() const {

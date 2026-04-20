@@ -9,7 +9,7 @@ class InputManager;
 class ShaderManager;
 
 class MenuManager{
-    private:
+private:
 	Game* m_game; // Pointeur vers le jeu principal
     TextRenderer* m_textRenderer;
     ShaderManager* m_shaderManager;

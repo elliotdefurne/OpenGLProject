@@ -75,7 +75,7 @@ void Shader::setupMatrices() {
 }
 
 void Shader::setupMatrices2D() {
-    setMat4("model", m_model);
+    //setMat4("model", m_model);
     setMat4("projection", m_projection2D);
 }
 

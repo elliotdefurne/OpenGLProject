@@ -34,10 +34,10 @@ void Rectangle::draw() {
 void Rectangle::setupBuffers() {
     auto vertices = {
         // Positions
-        Vertex(-0.5f, -0.5f, 0.0f, m_color.r, m_color.g, m_color.b),
-        Vertex(0.5f, -0.5f, 0.0f, m_color.r, m_color.g, m_color.b),
-        Vertex(0.5f,  0.5f, 0.0f, m_color.r, m_color.g, m_color.b),
-        Vertex(-0.5f,  0.5f, 0.0f, m_color.r, m_color.g, m_color.b)
+        Vertex(0.0f, 0.0f, 0.0f, m_color.r, m_color.g, m_color.b),
+        Vertex(1.0f, 0.0f, 0.0f, m_color.r, m_color.g, m_color.b),
+        Vertex(1.0f, 1.0f, 0.0f, m_color.r, m_color.g, m_color.b),
+        Vertex(0.0f, 1.0f, 0.0f, m_color.r, m_color.g, m_color.b)
     };
 
     std::vector<unsigned int> indices = {
