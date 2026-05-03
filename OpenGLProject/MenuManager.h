@@ -11,7 +11,7 @@ class ShaderManager;
 class MenuManager{
 private:
 	Game* m_game; // Pointeur vers le jeu principal
-    TextRenderer* m_textRenderer;
+    std::vector<std::unique_ptr<TextRenderer>>* m_textRenderers;
     ShaderManager* m_shaderManager;
     Menu m_mainMenu;
     Menu m_pauseMenu;
@@ -23,7 +23,7 @@ private:
 
     std::string stateToString(GameState state);
 public:
-    MenuManager(Game* game, TextRenderer* textManager, ShaderManager* shaderManager);
+    MenuManager(Game* game, std::vector<std::unique_ptr<TextRenderer>>* textManagers, ShaderManager* shaderManager);
 
     Menu& getCurrentMenu();
 

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -180,6 +180,7 @@
     <ClCompile Include="TextureManager.cpp" />
     <ClCompile Include="Transformation.h" />
     <ClCompile Include="Texture.cpp" />
+    <ClCompile Include="Triangle.cpp" />
     <ClCompile Include="Window.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -226,6 +227,7 @@
     <ClInclude Include="TextRenderer.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="TextureManager.h" />
+    <ClInclude Include="Triangle.h" />
     <ClInclude Include="Vertex.h" />
     <ClInclude Include="Window.h" />
   </ItemGroup>
@@ -237,10 +239,14 @@
     <None Include="res\shaders\cube\lightsource\lightsource.vert" />
     <None Include="res\shaders\cube\severallights\severallights.frag" />
     <None Include="res\shaders\cube\severallights\severallights.vert" />
+    <None Include="res\shaders\mask\mask.frag" />
+    <None Include="res\shaders\mask\mask.vert" />
     <None Include="res\shaders\model\model.frag" />
     <None Include="res\shaders\model\model.vert" />
-    <None Include="res\shaders\rectangle\rectangle.frag" />
-    <None Include="res\shaders\rectangle\rectangle.vert" />
+    <None Include="res\shaders\shape\roundedTriangle\roundedTriangle.frag" />
+    <None Include="res\shaders\shape\roundedTriangle\roundedTriangle.vert" />
+    <None Include="res\shaders\shape\shape.frag" />
+    <None Include="res\shaders\shape\shape.vert" />
     <None Include="res\shaders\text\text.frag" />
     <None Include="res\shaders\text\text.vert" />
     <None Include="res\textures\crate\details.json" />

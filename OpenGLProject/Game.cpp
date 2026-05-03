@@ -1,5 +1,6 @@
 #include "Game.h"
 #include "config.h"
+#include <vector>
 
 
 Game::Game() {
@@ -23,11 +24,16 @@ void Game::initialize() {
     m_shaderManager  = std::make_unique<ShaderManager>(m_camera.get());
     m_player         = std::make_unique<Player>(m_renderer.get());
     m_lightManager   = std::make_unique<LightManager>(m_renderer.get(), m_player.get());
-    m_textRenderer   = std::make_unique<TextRenderer>(m_shaderManager.get());
-    m_menuManager    = std::make_unique<MenuManager>(this, m_textRenderer.get(), m_shaderManager.get());
+    m_textRenderers  = std::make_unique<std::vector<std::unique_ptr<TextRenderer>>>();
+    m_menuManager    = std::make_unique<MenuManager>(this, m_textRenderers.get(), m_shaderManager.get());
     m_inputManager   = std::make_unique<InputManager>(this, m_menuManager.get(), m_window.get(), m_player.get());
 
-	m_textRenderer->loadFont("res/fonts/armana/Amarna-Bold.ttf", 48.0f);
+    m_textRenderers->emplace_back(std::make_unique<TextRenderer>(m_shaderManager.get()));
+    m_textRenderers->emplace_back(std::make_unique<TextRenderer>(m_shaderManager.get()));
+
+	m_textRenderers->at(0)->loadFont("res/fonts/armana/Amarna-Bold.ttf", 96.0f);
+    m_textRenderers->at(1)->loadFont("res/fonts/Gnocchi.ttf", 192.0f);
+
     m_textureManager->printTextureTree();
     m_socket->connectToServerAsync(ServerInfo(Constants::SERVER_IP, Constants::SERVER_PORT));
 

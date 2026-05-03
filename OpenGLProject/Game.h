@@ -44,7 +44,7 @@ private:
     std::unique_ptr<LightManager> m_lightManager;
     std::unique_ptr<Socket> m_socket;
     std::unique_ptr<MenuManager> m_menuManager;
-    std::unique_ptr<TextRenderer> m_textRenderer;
+    std::unique_ptr<std::vector<std::unique_ptr<TextRenderer>>> m_textRenderers;
 
     ModelEntity* m_modelEntity;
 

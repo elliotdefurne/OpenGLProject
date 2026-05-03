@@ -1,11 +1,12 @@
 #pragma once
 #include <cstdint>
+#include <glm/vec3.hpp>
 
 namespace Constants {
     // Window
-    inline constexpr int WINDOW_WIDTH = 1280;
-    inline constexpr int WINDOW_HEIGHT = 720;
-    inline constexpr const char* WINDOW_TITLE = "Mon jeu OpenGL";
+    inline constexpr int WINDOW_WIDTH = 1920;
+    inline constexpr int WINDOW_HEIGHT = 1080;
+    inline constexpr const char* WINDOW_TITLE = "OpenGLProject";
     inline constexpr bool IS_WINDOW_FULLSCREEN = false;
 
     // Renderer
@@ -46,9 +47,9 @@ namespace Constants {
     // Menu
 
     inline constexpr float MENU_TITLE_X = WINDOW_WIDTH/2.0f;
-    inline constexpr float MENU_TITLE_Y = 50.0f;
-    inline constexpr float MENU_TITLE_W = 300.0f;
-	inline constexpr float MENU_TITLE_H = 75.0f;
+    inline constexpr float MENU_TITLE_Y = 100.0f;
+    inline constexpr float MENU_TITLE_W = 600.0f;
+	inline constexpr float MENU_TITLE_H = 150.0f;
 }
 
 namespace Materials {
@@ -91,4 +92,17 @@ namespace Materials {
     inline constexpr const float OBSIDIAN = 38.4f;
     inline constexpr const float EMERALD = 76.8f;
     inline constexpr const float RUBY = 76.8f;
+}
+
+namespace Colors {
+    // Shininess values for different materials in OpenGL
+    // Range: 0.0 (matte) to 128.0 (very shiny)
+
+    // Matte materials
+    inline constexpr const glm::vec3 SHADOW_GREY = glm::vec3(35/255.0f, 31/255.0f, 32/255.0f);       // #231F20
+	inline constexpr const glm::vec3 TOMATO_JAM = glm::vec3(187/255.0f, 68/255.0f, 48/255.0f);       // #BB4430
+	inline constexpr const glm::vec3 TROPICAL_TEAL = glm::vec3(126/255.0f, 189/255.0f, 194/255.0f);  // #7EBDC2
+	inline constexpr const glm::vec3 VANILLA_CUSTARD = glm::vec3(243/255.0f, 223/255.0f, 162/255.0f);// #F3DFA2
+	inline constexpr const glm::vec3 LINEN = glm::vec3(239/255.0f, 230/255.0f, 221/255.0f);          // #EFE6DD
+
 }

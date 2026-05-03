@@ -4,40 +4,25 @@
 #include "Game.h"
 #include "Rectangle.h"
 
-MenuManager::MenuManager(Game* game, TextRenderer* textRenderer, ShaderManager* shaderManager) : m_game(game), m_textRenderer(textRenderer), m_shaderManager(shaderManager), m_currentState(STATE_MENU), m_previousState(STATE_MENU) {
+MenuManager::MenuManager(Game* game, std::vector<std::unique_ptr<TextRenderer>>* textRenderers, ShaderManager* shaderManager) : m_game(game), m_textRenderers(textRenderers), m_shaderManager(shaderManager), m_currentState(STATE_MENU), m_previousState(STATE_MENU) {
     initMenus();
 }
 
 void MenuManager::initMenus() {
     // Menu principal
-    m_mainMenu = Menu(m_textRenderer, "Menu Principal", true);
-    m_mainMenu.addItem("Jouer", Constants::WINDOW_WIDTH / 2, 160, 200, 50, [this]() {
+    m_mainMenu = Menu(m_textRenderers, m_shaderManager, Constants::WINDOW_TITLE, true);
+    m_mainMenu.addItem("Jouer", Constants::WINDOW_WIDTH / 2, 700, 200, 50, [this]() {
         m_game->changeState(STATE_PLAYING);
         });
-    m_mainMenu.addItem("Options", Constants::WINDOW_WIDTH / 2, 230, 200, 50, [this]() {
+    m_mainMenu.addItem("Options", Constants::WINDOW_WIDTH / 2, 800, 200, 50, [this]() {
         m_game->changeState(STATE_OPTIONS);
         });
-    m_mainMenu.addItem("Quitter", Constants::WINDOW_WIDTH / 2, 300, 200, 50, [this]() {
+    m_mainMenu.addItem("Quitter", Constants::WINDOW_WIDTH / 2, 900, 200, 50, [this]() {
         m_game->stop();
         });
-
-    Rectangle* rec1 = new Rectangle(m_shaderManager->getShader("rectangle"), 0, 0, Constants::WINDOW_WIDTH/2, Constants::WINDOW_HEIGHT/2, glm::vec3(1.0f, 0.5f, 0.5f));
-    Rectangle* rec2 = new Rectangle(m_shaderManager->getShader("rectangle"), Constants::WINDOW_WIDTH / 2, Constants::WINDOW_HEIGHT / 2, Constants::WINDOW_WIDTH / 2, Constants::WINDOW_HEIGHT / 2, glm::vec3(0.5f, 1.0f, 0.5f));
-    Rectangle* rec3 = new Rectangle(m_shaderManager->getShader("rectangle"), Constants::WINDOW_WIDTH / 2, 0, Constants::WINDOW_WIDTH / 2, Constants::WINDOW_HEIGHT / 2, glm::vec3(0.5f, 0.5f, 1.0f));
-    Rectangle* rec4 = new Rectangle(m_shaderManager->getShader("rectangle"), 0, Constants::WINDOW_HEIGHT / 2, Constants::WINDOW_WIDTH / 2, Constants::WINDOW_HEIGHT / 2, glm::vec3(0.90f, 0.90f, 0.5f));
-    Rectangle* rec5 = new Rectangle(m_shaderManager->getShader("rectangle"), Constants::WINDOW_WIDTH / 2, Constants::WINDOW_HEIGHT / 2 - 10.0f, 20.0f, 20.0f, glm::vec3(1.0f, 1.0f, 1.0f));
-
-	rec5->setRotation(45);
-	//rec3->setRotation(45);
-    //rec4->setRotation(45);
-	m_mainMenu.addShape(0, rec1);
-    m_mainMenu.addShape(1, rec2);
-    m_mainMenu.addShape(2, rec3);
-    m_mainMenu.addShape(3, rec4);
-    m_mainMenu.addShape(4, rec5);
 	
     // Menu pause (avec overlay)
-    m_pauseMenu = Menu(m_textRenderer, "Pause", false);
+    m_pauseMenu = Menu(m_textRenderers, m_shaderManager, "Pause", false);
     m_pauseMenu.addItem("Reprendre", Constants::WINDOW_WIDTH / 2, 160, 200, 50, [this]() {
         m_game->changeState(STATE_PLAYING);
     });
@@ -49,7 +34,7 @@ void MenuManager::initMenus() {
     });
 
     // Menu options
-    m_optionsMenu = Menu(m_textRenderer, "Options", false);
+    m_optionsMenu = Menu(m_textRenderers, m_shaderManager, "Options", false);
     m_optionsMenu.addItem("Son: ON", Constants::WINDOW_WIDTH / 2, 160, 200, 50, [this]() {
         std::cout << "Toggle son" << std::endl;
     });

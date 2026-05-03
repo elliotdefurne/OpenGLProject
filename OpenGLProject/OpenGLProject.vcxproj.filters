@@ -52,11 +52,26 @@
     <Filter Include="Fichiers de ressources\shaders\text">
       <UniqueIdentifier>{2cfeba1b-9c09-47a9-8936-1f96244ddaf0}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Fichiers de ressources\shaders\rectangle">
-      <UniqueIdentifier>{06845dbe-d9a4-4f47-86d2-8e3f34f44b33}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Fichiers de ressources\shaders\model">
       <UniqueIdentifier>{a7cbd5eb-282c-4309-a818-edc4758ad80c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers d%27en-tête\Shape">
+      <UniqueIdentifier>{3d0cec28-26b6-4ccb-917f-bd6b8483e45a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\Shape">
+      <UniqueIdentifier>{e6bdb93d-a2e9-435b-9b9d-28c95e852f43}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\Menu">
+      <UniqueIdentifier>{e9d881cb-92ad-47ac-bfd4-a00ed68e2fc2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers d%27en-tête\Menu">
+      <UniqueIdentifier>{5cafa939-c760-424e-b51c-c34d5715a0cf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers de ressources\shaders\shape">
+      <UniqueIdentifier>{06845dbe-d9a4-4f47-86d2-8e3f34f44b33}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers de ressources\shaders\shape\roundedTriangle">
+      <UniqueIdentifier>{7034bbe0-100a-4064-9eb6-d484bdd456b5}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -156,32 +171,35 @@
     <ClCompile Include="Packet.cpp">
       <Filter>Fichiers sources\Network</Filter>
     </ClCompile>
-    <ClCompile Include="Menu.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="MenuManager.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
     <ClCompile Include="InputManager.cpp">
       <Filter>Fichiers sources\Inputs</Filter>
     </ClCompile>
-    <ClCompile Include="TextRenderer.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
     <ClCompile Include="LeftClick.cpp">
       <Filter>Fichiers sources\Inputs</Filter>
-    </ClCompile>
-    <ClCompile Include="Rectangle.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="Shape.cpp">
-      <Filter>Fichiers sources</Filter>
     </ClCompile>
     <ClCompile Include="ModelEntity.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClCompile>
     <ClCompile Include="ModelEntity.cpp">
       <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="Rectangle.cpp">
+      <Filter>Fichiers sources\Shape</Filter>
+    </ClCompile>
+    <ClCompile Include="Shape.cpp">
+      <Filter>Fichiers sources\Shape</Filter>
+    </ClCompile>
+    <ClCompile Include="Menu.cpp">
+      <Filter>Fichiers sources\Menu</Filter>
+    </ClCompile>
+    <ClCompile Include="MenuManager.cpp">
+      <Filter>Fichiers sources\Menu</Filter>
+    </ClCompile>
+    <ClCompile Include="TextRenderer.cpp">
+      <Filter>Fichiers sources\Menu</Filter>
+    </ClCompile>
+    <ClCompile Include="Triangle.cpp">
+      <Filter>Fichiers sources\Shape</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -293,17 +311,8 @@
     <ClInclude Include="PacketBuilder.h">
       <Filter>Fichiers d%27en-tête\Network</Filter>
     </ClInclude>
-    <ClInclude Include="Menu.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="MenuManager.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
     <ClInclude Include="InputManager.h">
       <Filter>Fichiers d%27en-tête\Inputs</Filter>
-    </ClInclude>
-    <ClInclude Include="TextRenderer.h">
-      <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
     <ClInclude Include="gamestate.h">
       <Filter>Fichiers d%27en-tête</Filter>
@@ -311,14 +320,26 @@
     <ClInclude Include="LeftClick.h">
       <Filter>Fichiers d%27en-tête\Inputs</Filter>
     </ClInclude>
-    <ClInclude Include="Rectangle.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="Shape.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
     <ClInclude Include="CollisionManager.h">
       <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="Rectangle.h">
+      <Filter>Fichiers d%27en-tête\Shape</Filter>
+    </ClInclude>
+    <ClInclude Include="Shape.h">
+      <Filter>Fichiers d%27en-tête\Shape</Filter>
+    </ClInclude>
+    <ClInclude Include="Menu.h">
+      <Filter>Fichiers d%27en-tête\Menu</Filter>
+    </ClInclude>
+    <ClInclude Include="MenuManager.h">
+      <Filter>Fichiers d%27en-tête\Menu</Filter>
+    </ClInclude>
+    <ClInclude Include="TextRenderer.h">
+      <Filter>Fichiers d%27en-tête\Menu</Filter>
+    </ClInclude>
+    <ClInclude Include="Triangle.h">
+      <Filter>Fichiers d%27en-tête\Shape</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -349,18 +370,26 @@
     <None Include="res\shaders\text\text.vert">
       <Filter>Fichiers de ressources\shaders\text</Filter>
     </None>
-    <None Include="res\shaders\rectangle\rectangle.frag">
-      <Filter>Fichiers de ressources\shaders\rectangle</Filter>
-    </None>
-    <None Include="res\shaders\rectangle\rectangle.vert">
-      <Filter>Fichiers de ressources\shaders\rectangle</Filter>
-    </None>
     <None Include="model.vs" />
     <None Include="res\shaders\model\model.frag">
       <Filter>Fichiers de ressources\shaders\model</Filter>
     </None>
     <None Include="res\shaders\model\model.vert">
       <Filter>Fichiers de ressources\shaders\model</Filter>
+    </None>
+    <None Include="res\shaders\mask\mask.frag" />
+    <None Include="res\shaders\mask\mask.vert" />
+    <None Include="res\shaders\shape\shape.frag">
+      <Filter>Fichiers de ressources\shaders\shape</Filter>
+    </None>
+    <None Include="res\shaders\shape\shape.vert">
+      <Filter>Fichiers de ressources\shaders\shape</Filter>
+    </None>
+    <None Include="res\shaders\shape\roundedTriangle\roundedTriangle.frag">
+      <Filter>Fichiers de ressources\shaders\shape\roundedTriangle</Filter>
+    </None>
+    <None Include="res\shaders\shape\roundedTriangle\roundedTriangle.vert">
+      <Filter>Fichiers de ressources\shaders\shape\roundedTriangle</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
